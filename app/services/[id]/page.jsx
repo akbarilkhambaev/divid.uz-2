@@ -1,20 +1,24 @@
-'use client';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+export async function generateStaticParams() {
+  const snapshot = await getDocs(collection(db, 'services'));
+  const params = snapshot.docs.map((doc) => ({
+    id: doc.id,
+  }));
 
-export default function ServiceDetailPage() {
-  const { id } = useParams();
-  const [service, setService] = useState(null);
+  return params;
+}
 
-  useEffect(() => {
-    fetch(`http://localhost:8000/api/services/${id}/`)
-      .then((res) => res.json())
-      .then((data) => setService(data))
-      .catch((err) => console.error('Ошибка загрузки:', err));
-  }, [id]);
+export default async function ServiceDetailPage({ params }) {
+  const docRef = doc(db, 'services', params.id);
+  const docSnap = await getDoc(docRef);
 
-  if (!service) return <p className="p-6">Загрузка...</p>;
+  if (!docSnap.exists()) {
+    return <div className="p-6 text-red-500">Услуга не найдена</div>;
+  }
+
+  const service = docSnap.data();
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
@@ -28,7 +32,7 @@ export default function ServiceDetailPage() {
         className="mb-4"
       />
       <p className="text-gray-700 mb-6">{service.description}</p>
-      <p className="text-sm text-gray-500">ID услуги: {service.id}</p>
+      <p className="text-sm text-gray-500">ID услуги: {params.id}</p>
     </div>
   );
 }
