@@ -1,13 +1,13 @@
 import { db } from '@/lib/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const snapshot = await getDocs(collection(db, 'services'));
-  const params = snapshot.docs.map((doc) => ({
+  return snapshot.docs.map((doc) => ({
     id: doc.id,
   }));
-
-  return params;
 }
 
 export default async function ServiceDetailPage({ params }) {
