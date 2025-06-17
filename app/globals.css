@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+
+/* :root {
+  --background: #ffffff;
+  --foreground: #171717;
+} */
+
+/* @theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+} */
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+body,
+html {
+  scroll-behavior: smooth;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Oswald, Roboto, sans-serif;
+  position: relative;
+}
+
+@theme {
+  --color-cs-green: #33836e;
+  --color-cs-blue: #0057c1;
+  --color-cs-blue-2: #172554;
+  --color-cs-white: #fefefe;
+}
+
+#home {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  z-index: 1;
+}
+#home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../public/bg-s.jpg');
+  z-index: -1;
+  opacity: 0.4;
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* Ширина скроллбара */
+  height: 8px; /* Высота скроллбара для горизонтальной прокрутки */
+}
+
+::-webkit-scrollbar-track {
+  background: oklch(0.554 0.046 257.417); /* Цвет дорожки скроллбара */
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.278 0.033 256.848);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.21 0.034 264.665); /* Цвет бегунка при наведении */
+}
+
+.swiper-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.3rem; /* gap-2 */
+  margin-top: 1rem; /* mt-4 */
+  margin-bottom: 1rem; /* mb-4 */
+  margin-right: 2rem; /* mr-4 */
+  padding-right: 1rem; /* pr-4 */
+}
+
+.swiper-pagination-bullet {
+  width: 30px !important;
+  height: 12px !important;
+  border-radius: 0 !important;
+  background-color: transparent;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white;
+}
+
+#about_us {
+  scroll-margin-top: 80px;
+}
