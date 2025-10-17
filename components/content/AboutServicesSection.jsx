@@ -17,7 +17,7 @@ export default function AboutServicesSection() {
   ];
 
   return (
-    <section className="min-h-screen w-full bg-gray-900 text-white py-16 px-6">
+    <section className="min-h-full h-full w-full bg-gray-900 text-white py-16 px-6">
       {/* Заголовок */}
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold mb-4">

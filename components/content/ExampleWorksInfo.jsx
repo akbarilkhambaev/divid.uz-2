@@ -11,7 +11,7 @@ export default function ExampleWorksInfo() {
   return (
     <section
       id="about_us"
-      className="bg-gray-50 py-12  h-[700px]"
+      className="h-full min-h-[720px] pt-[120px] bg-gray-50 py-12"
       ref={ref}
     >
       <div className="max-w-screen mx-auto px-4">

@@ -34,13 +34,13 @@ export default function NewsTablePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <h1 className="text-3xl font-bold text-center mb-8">Новости</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">ЯНГИЛИКЛАР</h1>
 
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
           <input
             type="text"
-            placeholder="Поиск новостей..."
+            placeholder="Янгиликларни кидириш..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -51,8 +51,8 @@ export default function NewsTablePage() {
             onChange={(e) => setSortOrder(e.target.value)}
             className="w-1/3 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="asc">Сортировать по возрастанию</option>
-            <option value="desc">Сортировать по убыванию</option>
+            <option value="asc">Усиш тартибида</option>
+            <option value="desc">Камайиш тартибида</option>
           </select>
         </div>
 
@@ -81,6 +81,12 @@ export default function NewsTablePage() {
                   <p className="text-gray-600 mb-4 line-clamp-2 whitespace-pre-line">
                     {item.description || 'Описание недоступно.'}
                   </p>
+                  <a
+                    href={`/media/${item.id}`}
+                    className="inline-block px-4 py-2 mb-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors text-sm font-semibold"
+                  >
+                    Батафсил
+                  </a>
                   <p className="text-sm text-gray-400">
                     Дата публикации:{' '}
                     {item.createdAt

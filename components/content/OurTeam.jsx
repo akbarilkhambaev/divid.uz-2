@@ -32,11 +32,16 @@ const teamMembers = [
     position: 'ПРОЕКТ МЕНЕЖЕР',
     image: '/team/Tashpulatov_Y.png',
   },
+  {
+    name: 'МАННОНОВ САРДОР',
+    position: 'ТАХЛИЛЧИ',
+    image: '/team/Mannonov_S.png',
+  },
 ];
 
 export default function OurTeam() {
   return (
-    <section className="py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white">
+    <section className="min-h-full h-full min-h-[720px] py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white">
       <h2 className="text-5xl uppercase font-bold mb-6 pb-6 text-center">
         <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">
           <span className="relative text-white">БИЗНИНГ</span>
@@ -53,15 +58,15 @@ export default function OurTeam() {
           disableOnInteraction: false, // Автоплей не останавливается при взаимодействии
         }}
         breakpoints={{
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 4 },
+          1372: { slidesPerView: 5 },
         }}
-        className="w-full max-w-screen-xl"
+        className="w-full max-w-screen"
       >
         {teamMembers.map((member, index) => (
           <SwiperSlide key={index}>
-            <div className="bg-gray-800 w-[350px] rounded-lg shadow-lg p-6 text-center">
+            <div className="bg-gray-800 w-[300px] rounded-lg shadow-lg p-6 text-center">
               <img
                 src={member.image}
                 alt={member.name}

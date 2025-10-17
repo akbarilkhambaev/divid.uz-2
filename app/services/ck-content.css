@@ -1,0 +1,72 @@
+.ck-content {
+  box-sizing: border-box;
+  padding: 0;
+  overflow: hidden;
+}
+.ck-content figure.media,
+.ck-content oembed,
+.ck-content iframe {
+  display: block;
+  margin: 1rem auto;
+  max-width: 100%;
+  width: 100%;
+  min-height: 450px;
+}
+/* Стили для контента CKEditor */
+.ck-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+.ck-content th,
+.ck-content td {
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.ck-content thead {
+  background: #f3f4f6;
+}
+.ck-content ol,
+.ck-content ul {
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+.ck-content li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+.ck-content h1,
+.ck-content h2,
+.ck-content h3,
+.ck-content h4 {
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #1d4ed8;
+}
+.ck-content blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+  color: #374151;
+  margin: 1rem 0;
+  background: #f9fafb;
+}
+/* Стили для <video> в CKEditor */
+.ck-content video {
+  display: block;
+  margin: 1rem auto;
+  max-width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 8px;
+}
+.ck-content iframe {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-sizing: border-box;
+}

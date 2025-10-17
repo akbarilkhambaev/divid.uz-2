@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/autoplay';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import StoryModal from './StoryModal';
+import { motion } from 'framer-motion';
 import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import Image from 'next/image';
 
 export default function NewsPageSlider() {
+  const [storyOpen, setStoryOpen] = useState(false);
+  const [storyIndex, setStoryIndex] = useState(0);
   const [news, setNews] = useState([]);
 
   useEffect(() => {
@@ -29,57 +27,83 @@ export default function NewsPageSlider() {
   }, []);
 
   return (
-    <section className="py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white">
-      <h2 className="text-5xl uppercase font-bold mb-8 pb-5 text-center">
-        <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">
-          <span className="relative text-white">ЯНГИЛИКЛАР</span>
-        </span>
-      </h2>
-      <Swiper
-        modules={[Autoplay]}
-        spaceBetween={20}
-        slidesPerView={1}
-        loop={true}
-        autoplay={{ delay: 3500, disableOnInteraction: false }}
-        breakpoints={{
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        className="w-full max-w-screen-xl px-8"
-      >
-        {news.map((item) => (
-          <SwiperSlide key={item.id}>
-            <div className="bg-white w-[350px] min-h-[370px] rounded-lg shadow-lg p-6 text-gray-900 flex flex-col h-full">
-              {item.imageBase64 ? (
-                <Image
-                  src={item.imageBase64}
-                  alt={item.title}
-                  width={350}
-                  height={180}
-                  className="w-full h-40 object-cover rounded mb-4"
-                />
-              ) : (
-                <div className="w-full h-40 bg-gray-200 flex items-center justify-center rounded mb-4">
-                  <span className="text-gray-500">Нет изображения</span>
+    <>
+      <section className="min-h-[720px] h-full py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white">
+        <h2 className="text-5xl uppercase font-bold mb-8 pb-5 text-center">
+          <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">
+            <span className="relative text-white">ЯНГИЛИКЛАР</span>
+          </span>
+        </h2>
+        <div className="w-full overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+          <motion.div
+            className="flex gap-4 px-2"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.12,
+                },
+              },
+            }}
+          >
+            {news.map((item) => (
+              <motion.div
+                key={item.id}
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                whileHover={{ scale: 1.04 }}
+                className="relative w-[220px] md:w-[240px] lg:w-[260px] h-[420px] rounded-2xl overflow-hidden shadow-xl flex items-end justify-center group bg-gray-900 flex-shrink-0 cursor-pointer"
+                style={{
+                  background: item.imageBase64
+                    ? `url(${item.imageBase64}) center/cover no-repeat`
+                    : undefined,
+                }}
+                onClick={() => {
+                  setStoryIndex(news.findIndex((n) => n.id === item.id));
+                  setStoryOpen(true);
+                }}
+              >
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/90 transition duration-300" />
+                {/* Content */}
+                <div className="relative z-10 w-full px-6 pb-8 pt-10 flex flex-col justify-end h-full">
+                  <h3 className="text-white text-xl font-bold mb-2 leading-tight drop-shadow-lg line-clamp-4">
+                    {item.title}
+                  </h3>
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-xs text-gray-200 font-mono tracking-wide">
+                      DIVID.UZ
+                    </span>
+                    <span className="text-xs text-gray-300">
+                      {item.createdAt
+                        ? new Date(
+                            item.createdAt.seconds * 1000
+                          ).toLocaleDateString()
+                        : 'неизвестна'}
+                    </span>
+                  </div>
                 </div>
-              )}
-              <h3 className="text-lg font-bold mb-2 line-clamp-2">
-                {item.title}
-              </h3>
-              <p className="text-gray-700 mb-4 line-clamp-2 whitespace-pre-line flex-1">
-                {item.description || 'Описание недоступно.'}
-              </p>
-              <p className="text-xs text-gray-400 mt-auto">
-                Дата публикации:{' '}
-                {item.createdAt
-                  ? new Date(item.createdAt.seconds * 1000).toLocaleDateString()
-                  : 'неизвестна'}
-              </p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </section>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      <StoryModal
+        open={storyOpen}
+        news={news.map((n) => ({
+          image: n.imageBase64,
+          title: n.title,
+          text: n.text || n.description || '',
+        }))}
+        currentIndex={storyIndex}
+        onClose={() => setStoryOpen(false)}
+        onPrev={() => setStoryIndex((i) => Math.max(0, i - 1))}
+        onNext={() => setStoryIndex((i) => Math.min(news.length - 1, i + 1))}
+      />
+    </>
   );
 }

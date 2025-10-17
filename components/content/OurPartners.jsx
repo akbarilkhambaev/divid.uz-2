@@ -21,7 +21,7 @@ const partners = [
 
 export default function OurPartners() {
   return (
-    <section className="bg-gray-50 py-12">
+    <section className="min-h-full h-full bg-gray-50 py-12">
       <div className="container mx-auto px-4">
         <h2 className="text-5xl uppercase text-center font-bold mb-6 pb-5">
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">

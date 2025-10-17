@@ -14,6 +14,7 @@ import {
   doc,
   serverTimestamp,
 } from 'firebase/firestore';
+import AddNewsModal from '@/components/admin/AddNewsModal';
 
 export default function NewsTablePage() {
   const [newsList, setNewsList] = useState([]);
@@ -22,7 +23,8 @@ export default function NewsTablePage() {
     description: '',
     image: null,
   });
-  const [editId, setEditId] = useState(null);
+  const [editData, setEditData] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const fetchNews = async () => {
     const snapshot = await getDocs(collection(db, 'news'));
@@ -44,7 +46,7 @@ export default function NewsTablePage() {
 
   const resetForm = () => {
     setFormData({ title: '', description: '', image: null });
-    setEditId(null);
+    setEditData(null);
   };
 
   const handleAddOrUpdate = async (e) => {
@@ -54,8 +56,8 @@ export default function NewsTablePage() {
 
     // Helper to save data
     const saveToFirestore = async (imageBase64, imageName) => {
-      if (editId) {
-        const docRef = doc(db, 'news', editId);
+      if (editData) {
+        const docRef = doc(db, 'news', editData.id);
         const updateData = { title, description };
         if (imageBase64) {
           updateData.imageBase64 = imageBase64;
@@ -96,69 +98,31 @@ export default function NewsTablePage() {
   };
 
   const handleEdit = (item) => {
-    setFormData({
-      title: item.title,
-      description: item.description,
-      image: null,
-    });
-    setEditId(item.id);
+    setEditData(item);
+    setModalOpen(true);
   };
 
   return (
-    <div className="relative p-4">
-      {/* Main content: blur when editing */}
-      <div className={editId ? 'blur-sm transition-filter duration-300' : ''}>
-        <h1 className="text-xl font-bold mb-4">
-          {editId ? 'Редактировать новость' : 'Добавить новость'}
-        </h1>
-        <form
-          onSubmit={handleAddOrUpdate}
-          className="space-y-4 max-w-lg mb-10"
+    <div className="min-h-screen bg-gray-50 py-12 px-4">
+      <h1 className="text-3xl font-bold text-center mb-8">ЯНГИЛИКЛАР</h1>
+      <div className="flex justify-end mb-6">
+        <button
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold shadow hover:bg-blue-700 transition-colors"
+          onClick={() => setModalOpen(true)}
         >
-          <input
-            type="text"
-            placeholder="Заголовок"
-            value={formData.title}
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            }
-            className="w-full border p-2 rounded"
-          />
-          <textarea
-            placeholder="Описание"
-            value={formData.description}
-            onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
-            }
-            className="w-full border p-2 rounded"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) =>
-              setFormData({ ...formData, image: e.target.files[0] })
-            }
-            className="w-full"
-          />
-          <div className="flex space-x-2">
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded"
-            >
-              {editId ? 'Сохранить' : 'Добавить'}
-            </button>
-            {editId && (
-              <button
-                type="button"
-                onClick={resetForm}
-                className="bg-gray-400 text-white px-4 py-2 rounded"
-              >
-                Отменить
-              </button>
-            )}
-          </div>
-        </form>
-
+          + Добавить новость
+        </button>
+      </div>
+      <AddNewsModal
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setEditData(null);
+        }}
+        onAdded={fetchNews}
+        editData={editData}
+      />
+      <div className={editData ? 'blur-sm transition-filter duration-300' : ''}>
         <h2 className="text-lg font-semibold mb-2">Список новостей</h2>
         <table className="w-full border bg-white">
           <thead>
@@ -206,70 +170,6 @@ export default function NewsTablePage() {
             ))}
           </tbody>
         </table>
-      </div>
-
-      {/* Edit drawer */}
-      <div
-        className={`fixed inset-0 backdrop-blur-sm z-40 transition-opacity duration-300 ${
-          editId ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={resetForm}
-      />
-      <div
-        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl p-6 z-50 overflow-auto transform transition-transform duration-300 ease-in-out ${
-          editId ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        {editId && (
-          <>
-            <h2 className="text-xl font-bold mb-4">Редактировать новость</h2>
-            <form
-              onSubmit={handleAddOrUpdate}
-              className="space-y-4"
-            >
-              <input
-                type="text"
-                placeholder="Заголовок"
-                value={formData.title}
-                onChange={(e) =>
-                  setFormData({ ...formData, title: e.target.value })
-                }
-                className="w-full border p-2 rounded"
-              />
-              <textarea
-                placeholder="Описание"
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-                className="w-full border p-2 rounded"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) =>
-                  setFormData({ ...formData, image: e.target.files[0] })
-                }
-                className="w-full"
-              />
-              <div className="flex space-x-2">
-                <button
-                  type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded"
-                >
-                  Сохранить
-                </button>
-                <button
-                  type="button"
-                  onClick={resetForm}
-                  className="bg-gray-400 text-white px-4 py-2 rounded"
-                >
-                  Отменить
-                </button>
-              </div>
-            </form>
-          </>
-        )}
       </div>
     </div>
   );

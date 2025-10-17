@@ -124,22 +124,7 @@ export default function Header() {
                     Контактлар
                   </Link>
                 </li>
-                <li className="hover:border-cs-blue border-b-2 border-transparent transition">
-                  <Link
-                    href="/contacts"
-                    className="hover:text-cs-blue"
-                  >
-                    Хужжатлар
-                  </Link>
-                </li>
-                <li className="hover:border-cs-blue border-b-2 border-transparent transition">
-                  <Link
-                    href="/contacts"
-                    className="hover:text-cs-blue"
-                  >
-                    Вакансиялар
-                  </Link>
-                </li>
+
                 <li className="hover:border-cs-blue border-b-2 border-transparent transition">
                   <Link
                     href="/contacts"

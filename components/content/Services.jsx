@@ -31,34 +31,38 @@ export default function Services() {
   ];
 
   return (
-    <section className="max-w-screen mx-auto min-h-[] px-4 py-8 bg-cs-blue text-white">
-      <h2 className="text-5xl text-center font-bold mb-8">
-        <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white">
-          <span className="relative text-white dark:text-black">БИЗНИНГ</span>
-        </span>
-        <span className="ml-3">ХИЗМАТЛАР</span>
-      </h2>
-      <Link href={`/services/`}>
-        <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((serv) => (
-            <div
-              key={serv.id}
-              className="relative group rounded-2xl p-[2px] bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 transition-all duration-300 hover:scale-105 hover:-translate-y-2"
-            >
-              <div className="h-full w-full bg-white rounded-2xl p-6 text-black transition-all duration-300 group-hover:shadow-xl">
-                <h3 className="text-xl font-bold mb-4 group-hover:text-cs-blue transition-colors duration-300">
-                  {serv.title}
-                </h3>
-                <p className="text-md text-gray-700 mb-6">{serv.text}</p>
+    <>
+      <section className="h-full min-h-[720px] max-w-screen mx-auto px-4 py-10 bg-cs-blue text-white">
+        <h2 className="text-5xl text-center font-bold mb-8">
+          <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white">
+            <span className="relative text-gray-900 dark:text-gray-900  ">
+              БИЗНИНГ
+            </span>
+          </span>
+          <span className="ml-3">ХИЗМАТЛАР</span>
+        </h2>
+        <Link href={`/services/`}>
+          <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((serv) => (
+              <div
+                key={serv.id}
+                className="relative group rounded-2xl p-[2px] bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 transition-all duration-300 hover:scale-105 hover:-translate-y-2"
+              >
+                <div className="h-full w-full bg-white rounded-2xl p-6 text-black transition-all duration-300 group-hover:shadow-xl">
+                  <h3 className="text-xl font-bold mb-4 group-hover:text-cs-blue transition-colors duration-300">
+                    {serv.title}
+                  </h3>
+                  <p className="text-md text-gray-700 mb-6">{serv.text}</p>
 
-                <span className="inline-block text-cs-blue text-3xl transform group-hover:translate-x-2 transition-transform duration-300">
-                  →
-                </span>
+                  <span className="inline-block text-cs-blue text-3xl transform group-hover:translate-x-2 transition-transform duration-300">
+                    →
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </Link>
-    </section>
+            ))}
+          </div>
+        </Link>
+      </section>
+    </>
   );
 }

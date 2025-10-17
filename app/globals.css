@@ -32,6 +32,7 @@ body {
   color: var(--foreground);
   font-family: Oswald, Roboto, sans-serif;
   position: relative;
+  overflow-x: hidden;
 }
 
 @theme {

@@ -15,6 +15,8 @@ import OurPartners from './content/OurPartners';
 import NewsPage from './content/NewsPage';
 
 export default function Layout() {
+  // ...existing code...
+
   const components = [
     <InfoSection key="info" />,
     <ExampleWorksInfo key="example" />,
@@ -31,21 +33,27 @@ export default function Layout() {
 
   return (
     <>
-      <main className="space-y-16 relative">
-        {components.map((Component, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, filter: 'blur(10px)' }} // Начальное состояние
-            whileInView={{ opacity: 1, filter: 'blur(0px)' }} // Анимация при попадании в область видимости
-            viewport={{ once: true, amount: 0.2 }} // Анимация срабатывает один раз, когда 20% компонента видны
-            transition={{
-              duration: 0.8, // Длительность анимации
-              delay: index * 0.1, // Задержка для каждого компонента
-            }}
-          >
-            {Component}
-          </motion.div>
-        ))}
+      <main>
+        {components.map((Component, index) => {
+          // Исключение для SeoOptimizing: без min-h-screen
+          if (Component.type.name === 'SeoOptimizing') {
+            return <section key={index}>{Component}</section>;
+          }
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, filter: 'blur(10px)' }}
+              whileInView={{ opacity: 1, filter: 'blur(0px)' }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.1,
+              }}
+            >
+              <section>{Component}</section>
+            </motion.div>
+          );
+        })}
         <CallBack />
       </main>
     </>

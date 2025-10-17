@@ -1,6 +1,6 @@
 export default function Ads() {
   return (
-    <section className="bg-gradient-to-r from-cs-blue via-gray-950 to-gray-900 py-12 text-white flex justify-between items-center">
+    <section className="min-h-full h-full bg-gradient-to-r from-cs-blue via-gray-950 to-gray-900 py-12 text-white flex justify-between items-center">
       <div className="w-1/2 px-4">
         <h2 className="text-4xl font-bold mb-4">
           БИЗ БИЛАН ХАМКОРЛИК КИЛИШГА ТАЁРМИСИЗ?

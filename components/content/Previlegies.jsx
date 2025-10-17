@@ -30,7 +30,7 @@ export default function FAQAccordion() {
   };
 
   return (
-    <section className="mx-auto px-4 py-16 bg-radial from-gray-600 via-gray-60% to-gray-900 text-white">
+    <section className="min-h-[720px] h-full mx-auto px-4 py-16 bg-radial from-gray-600 via-gray-60% to-gray-900 text-white">
       <h2 className="text-5xl uppercase font-bold mb-6 text-center">
         <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">
           <span className="relative text-white">КОПИНЧА</span>
