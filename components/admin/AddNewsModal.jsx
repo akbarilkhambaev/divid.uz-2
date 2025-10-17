@@ -7,8 +7,7 @@ import {
   doc,
   updateDoc,
 } from 'firebase/firestore';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import RichEditor from '@/components/admin/RichEditor';
 
 export default function AddNewsModal({ open, onClose, onAdded, editData }) {
   const [title, setTitle] = useState(editData?.title || '');
@@ -116,12 +115,9 @@ export default function AddNewsModal({ open, onClose, onAdded, editData }) {
           />
           <label className="font-semibold">Полное описание</label>
           <div className="border rounded-lg p-2 mb-2">
-            <CKEditor
-              editor={ClassicEditor}
+            <RichEditor
               data={fullDescription}
-              onChange={(event, editor) => {
-                setFullDescription(editor.getData());
-              }}
+              onChange={(event, editor) => setFullDescription(editor.getData())}
               config={{
                 toolbar: [
                   'heading',

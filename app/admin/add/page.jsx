@@ -1,10 +1,8 @@
 'use client';
 // DOMPurify must be imported dynamically on the client to avoid "window is not defined" during SSR
 let DOMPurify = null;
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
 import { useEffect, useState } from 'react';
+import RichEditor from '@/components/admin/RichEditor';
 import { db } from '@/lib/firebase';
 import { HiPencilAlt } from 'react-icons/hi';
 import { HiOutlineTrash } from 'react-icons/hi2';
@@ -156,13 +154,21 @@ export default function AddServicePage() {
     name: '',
     description: '',
   });
+  // RichEditor component (loads CKEditor client-side)
+
+  // Simple fallback sanitizer for SSR before DOMPurify is ready
+  function stripScripts(html) {
+    return String(html).replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+  }
 
   useEffect(() => {
     // Dynamic import of DOMPurify only on client
     (async () => {
-      if (typeof window !== 'undefined' && !DOMPurify) {
-        const module = await import('dompurify');
-        DOMPurify = module.default || module;
+      if (typeof window !== 'undefined') {
+        if (!DOMPurify) {
+          const mod = await import('dompurify');
+          DOMPurify = mod.default || mod;
+        }
       }
     })();
 
@@ -314,8 +320,7 @@ export default function AddServicePage() {
                 className="w-full border p-2 rounded"
               />
               <div className="w-full mb-4">
-                <CKEditor
-                  editor={ClassicEditor}
+                <RichEditor
                   data={modalData.description}
                   onChange={(event, editor) => {
                     const data = editor.getData();
@@ -381,7 +386,11 @@ export default function AddServicePage() {
                     <div
                       className="ck-content min-w-[300px]"
                       dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(service.description || ''),
+                        __html: (function () {
+                          const raw = service.description || '';
+                          if (DOMPurify) return DOMPurify.sanitize(raw);
+                          return stripScripts(raw);
+                        })(),
                       }}
                     />
                   </td>
