@@ -38,7 +38,13 @@ function renderDescription(html) {
   });
   return temp.innerHTML;
 }
-import DOMPurify from 'dompurify';
+// DOMPurify is DOM-dependent and must be loaded only on the client.
+let DOMPurify = null;
+
+// Minimal fallback sanitizer for initial render before DOMPurify loads.
+function stripScripts(html) {
+  return String(html).replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+}
 
 import { useEffect, useState } from 'react';
 import './ck-content.css';
@@ -47,12 +53,22 @@ import { db } from '@/lib/firebase';
 
 export default function ServicesPage() {
   const [categories, setCategories] = useState([]);
+  const [domPurifyReady, setDomPurifyReady] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [subcategories, setSubcategories] = useState([]);
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(null);
   const [services, setServices] = useState([]);
 
   useEffect(() => {
+    // Dynamically load DOMPurify on the client to avoid SSR issues
+    (async () => {
+      if (typeof window !== 'undefined' && !DOMPurify) {
+        const mod = await import('dompurify');
+        DOMPurify = mod.default || mod;
+        setDomPurifyReady(true);
+      }
+    })();
+
     // Загружаем данные из Firestore
     const fetchData = async () => {
       try {
@@ -163,23 +179,29 @@ export default function ServicesPage() {
                   className="ck-content text-lg text-gray-700 w-full text-left"
                   style={{ width: '100%', height: 'auto', minHeight: 0 }}
                   dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(
-                      renderDescription(service.description || 'Нет описания.'),
-                      {
-                        ADD_TAGS: ['iframe', 'video'],
-                        ADD_ATTR: [
-                          'allow',
-                          'allowfullscreen',
-                          'frameborder',
-                          'src',
-                          'width',
-                          'height',
-                          'controls',
-                          'poster',
-                          'preload',
-                        ],
+                    __html: (function () {
+                      const raw = renderDescription(
+                        service.description || 'Нет описания.'
+                      );
+                      if (DOMPurify) {
+                        return DOMPurify.sanitize(raw, {
+                          ADD_TAGS: ['iframe', 'video'],
+                          ADD_ATTR: [
+                            'allow',
+                            'allowfullscreen',
+                            'frameborder',
+                            'src',
+                            'width',
+                            'height',
+                            'controls',
+                            'poster',
+                            'preload',
+                          ],
+                        });
                       }
-                    ),
+                      // Fallback: remove script tags until DOMPurify is ready
+                      return stripScripts(raw);
+                    })(),
                   }}
                 />
               </div>
