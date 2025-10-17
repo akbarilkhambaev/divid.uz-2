@@ -1,5 +1,6 @@
 'use client';
-import DOMPurify from 'dompurify';
+// DOMPurify must be imported dynamically on the client to avoid "window is not defined" during SSR
+let DOMPurify = null;
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
@@ -157,6 +158,14 @@ export default function AddServicePage() {
   });
 
   useEffect(() => {
+    // Dynamic import of DOMPurify only on client
+    (async () => {
+      if (typeof window !== 'undefined' && !DOMPurify) {
+        const module = await import('dompurify');
+        DOMPurify = module.default || module;
+      }
+    })();
+
     const fetchCategories = async () => {
       const snapshot = await getDocs(collection(db, 'servicesTree'));
       const data = snapshot.docs.map((doc) => ({
