@@ -1,22 +1,38 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Marquee from 'react-fast-marquee';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 export default function SeoOptimizing() {
-  const sections = [
-    {
-      id: 1,
-      title: 'Аудит ва таҳлил хизматлари',
-    },
-    {
-      id: 2,
-      title: 'Молиявий консалтинг ва бошқарув',
-    },
-    {
-      id: 3,
-      title: 'HR ва кадрлар билан ишлаш',
-    },
-  ];
+  const [sections, setSections] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSections = async () => {
+      try {
+        const q = query(collection(db, 'seoSections'), orderBy('order', 'asc'));
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setSections(data);
+      } catch (error) {
+        console.error('Ошибка загрузки секций SEO:', error);
+        setSections([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSections();
+  }, []);
+
+  if (loading || sections.length === 0) {
+    return null;
+  }
 
   return (
     <section className="w-screen max-w-none h-[110px] bg-gradient-to-r from-gray-100 via-white to-gray-100 relative z-20 my-6 overflow-x-hidden">

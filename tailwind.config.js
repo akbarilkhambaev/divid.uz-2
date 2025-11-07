@@ -12,6 +12,8 @@ module.exports = {
         brandWhite: '#ffffff',
         brandOrange: '#f6ad55',
         brandBlue: '#0000ff',
+        'cs-blue': '#3b82f6',
+        'cs-white': '#ffffff',
       },
       backgroundImage: {
         'radial-at-tl':

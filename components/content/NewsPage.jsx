@@ -28,15 +28,15 @@ export default function NewsPageSlider() {
 
   return (
     <>
-      <section className="min-h-[720px] h-full py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white">
-        <h2 className="text-5xl uppercase font-bold mb-8 pb-5 text-center">
+      <section className="min-h-[500px] md:min-h-[720px] h-full py-8 md:py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl uppercase font-bold mb-6 md:mb-8 pb-4 md:pb-5 text-center px-4">
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">
             <span className="relative text-white">ЯНГИЛИКЛАР</span>
           </span>
         </h2>
         <div className="w-full overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
           <motion.div
-            className="flex gap-4 px-2"
+            className="flex gap-3 md:gap-4 px-2 md:px-4"
             initial="hidden"
             animate="visible"
             variants={{
@@ -56,7 +56,7 @@ export default function NewsPageSlider() {
                   visible: { opacity: 1, y: 0 },
                 }}
                 whileHover={{ scale: 1.04 }}
-                className="relative w-[220px] md:w-[240px] lg:w-[260px] h-[420px] rounded-2xl overflow-hidden shadow-xl flex items-end justify-center group bg-gray-900 flex-shrink-0 cursor-pointer"
+                className="relative w-[200px] sm:w-[220px] md:w-[240px] lg:w-[260px] h-[380px] sm:h-[400px] md:h-[420px] rounded-2xl overflow-hidden shadow-xl flex items-end justify-center group bg-gray-900 flex-shrink-0 cursor-pointer"
                 style={{
                   background: item.imageBase64
                     ? `url(${item.imageBase64}) center/cover no-repeat`
@@ -70,15 +70,15 @@ export default function NewsPageSlider() {
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/90 transition duration-300" />
                 {/* Content */}
-                <div className="relative z-10 w-full px-6 pb-8 pt-10 flex flex-col justify-end h-full">
-                  <h3 className="text-white text-xl font-bold mb-2 leading-tight drop-shadow-lg line-clamp-4">
+                <div className="relative z-10 w-full px-4 md:px-6 pb-6 md:pb-8 pt-8 md:pt-10 flex flex-col justify-end h-full">
+                  <h3 className="text-white text-base sm:text-lg md:text-xl font-bold mb-2 leading-tight drop-shadow-lg line-clamp-4">
                     {item.title}
                   </h3>
                   <div className="flex items-center justify-between w-full">
-                    <span className="text-xs text-gray-200 font-mono tracking-wide">
+                    <span className="text-[10px] sm:text-xs text-gray-200 font-mono tracking-wide">
                       DIVID.UZ
                     </span>
-                    <span className="text-xs text-gray-300">
+                    <span className="text-[10px] sm:text-xs text-gray-300">
                       {item.createdAt
                         ? new Date(
                             item.createdAt.seconds * 1000

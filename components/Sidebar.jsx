@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { RxFileText, RxPencil2 } from 'react-icons/rx';
 import { GiPapers } from 'react-icons/gi';
+import { HiCog } from 'react-icons/hi';
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -36,6 +37,51 @@ export default function Sidebar() {
       label: 'Новости',
       href: '/admin/news',
       icon: <GiPapers className="inline-flex mb-1" />,
+    },
+    {
+      label: 'Слайдер',
+      href: '/admin/slider',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
+      label: 'Команда',
+      href: '/admin/team',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
+      label: 'Отзывы',
+      href: '/admin/reviews',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
+      label: 'Партнеры',
+      href: '/admin/partners',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
+      label: 'FAQ',
+      href: '/admin/faq',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
+      label: 'SEO Секции',
+      href: '/admin/seo-sections',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
+      label: 'Услуги (Главная)',
+      href: '/admin/home-services',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
+      label: 'CRM - Заявки',
+      href: '/admin/crm',
+      icon: <GiPapers className="inline-flex mb-1" />,
+    },
+    {
+      label: 'Настройки',
+      href: '/admin/settings',
+      icon: <HiCog className="inline-flex mb-1" />,
     },
   ];
 

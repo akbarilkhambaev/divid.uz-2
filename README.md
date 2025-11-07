@@ -1,36 +1,287 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🏢 Divid.uz - Корпоративный сайт консалтинговой компании
 
-## Getting Started
+Современный веб-сайт с полноценной CMS системой для управления контентом, построенный на Next.js 15 и Firebase.
 
-First, run the development server:
+## 🚀 Быстрый старт
+
+### Установка зависимостей:
+
+```bash
+npm install
+```
+
+### Запуск development сервера:
 
 ```bash
 npm run dev
-# or
+# или
 yarn dev
-# or
+# или
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 🔐 Первый вход в админ-панель:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Перейдите на `/admin/setup` для создания первого администратора
+2. Заполните форму регистрации
+3. Войдите через `/admin/login`
 
-## Learn More
+📖 **Подробная инструкция**: см. [QUICK_START.md](./QUICK_START.md)
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Технологический стек
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Frontend:
+- **Next.js 15.2.4** - React фреймворк с App Router
+- **React 19** - UI библиотека
+- **Tailwind CSS 4.0** - утилитарный CSS фреймворк
+- **Framer Motion** - библиотека анимаций
+- **Swiper** - современные слайдеры
+- **CKEditor 5** - WYSIWYG редактор
+- **React IMask** - маски для форм
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Backend & Database:
+- **Firebase Firestore** - NoSQL база данных
+- **Firebase Storage** - хранилище файлов
+- **Firebase Auth** - (планируется) аутентификация
 
-## Deploy on Vercel
+### UI & Иконки:
+- **React Icons** - коллекция иконок
+- **Animate.css** - CSS анимации
+- **Lottie** - векторные анимации
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📁 Структура проекта
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+divid.uz_with_django_backend/
+├── app/                          # Next.js App Router
+│   ├── admin/                    # 🔐 Админ-панель
+│   │   ├── login/               # Страница входа
+│   │   ├── setup/               # Первоначальная настройка
+│   │   ├── settings/            # Управление администраторами
+│   │   ├── add/                 # Добавление услуг
+│   │   ├── categories/          # Категории
+│   │   ├── subcategories/       # Подкатегории
+│   │   ├── news/                # Новости
+│   │   ├── slider/              # Главный слайдер
+│   │   ├── team/                # Команда
+│   │   ├── reviews/             # Отзывы
+│   │   ├── partners/            # Партнеры
+│   │   ├── faq/                 # FAQ
+│   │   ├── seo-sections/        # SEO секции
+│   │   ├── home-services/       # Услуги на главной
+│   │   └── crm/                 # CRM - заявки
+│   ├── allservices/             # Страница всех услуг
+│   ├── contacts/                # Контакты
+│   ├── media/                   # Медиа/новости
+│   └── services/                # Отдельные услуги
+├── components/                   # React компоненты
+│   ├── admin/                   # Компоненты админки
+│   │   ├── AdminAuthCheck.jsx  # Middleware авторизации
+│   │   ├── CategoryForm.jsx    # Форма категорий
+│   │   ├── RichEditor.jsx      # CKEditor обертка
+│   │   └── ...
+│   ├── content/                 # Контентные секции
+│   │   ├── AboutServicesSection.jsx
+│   │   ├── Services.jsx
+│   │   ├── Reviews.jsx
+│   │   ├── OurTeam.jsx
+│   │   └── ...
+│   ├── Header.jsx              # Шапка сайта
+│   ├── Footer.jsx              # Подвал сайта
+│   ├── Layout.jsx              # Главный layout
+│   └── Sidebar.jsx             # Сайдбар админки
+├── lib/
+│   └── firebase.js             # Firebase конфигурация
+├── public/                      # Статические файлы
+│   ├── ourpartners/
+│   ├── Reviews/
+│   ├── slider/
+│   └── team/
+└── scripts/                     # Утилиты и скрипты
+
+```
+
+## ✨ Основные функции
+
+### 🌐 Публичная часть:
+- ✅ Главная страница с анимациями
+- ✅ Каталог услуг
+- ✅ Страницы новостей
+- ✅ Информация о команде
+- ✅ Отзывы клиентов
+- ✅ Блок партнеров
+- ✅ Формы обратной связи
+- ✅ SEO оптимизация
+
+### 🔐 Админ-панель:
+- ✅ Система авторизации
+- ✅ Управление администраторами
+- ✅ Роли (Admin / Super Admin)
+- ✅ CRUD операции для всех сущностей
+- ✅ CRM система для заявок
+- ✅ Загрузка изображений
+- ✅ WYSIWYG редактор для контента
+- ✅ Управление FAQ
+- ✅ Настройка SEO секций
+
+## 🔒 Система авторизации
+
+### Роли администраторов:
+
+**Administrator (admin)**
+- Управление контентом
+- Просмотр и обработка заявок
+- Редактирование услуг, новостей, отзывов
+
+**Super Administrator (superadmin)**
+- Все права администратора
+- Управление другими администраторами
+- Доступ к системным настройкам
+
+### Безопасность:
+- Проверка авторизации на всех страницах админки
+- Сессии с ограниченным временем (24 часа)
+- Защита маршрутов через middleware
+- Валидация форм
+
+📖 **Подробнее**: см. [ADMIN_AUTH_README.md](./ADMIN_AUTH_README.md)
+
+## 🗄️ Firebase Collections
+
+### Основные коллекции Firestore:
+
+```javascript
+// Администраторы
+administrators: {
+  username: string,
+  email: string,
+  password: string,
+  role: 'admin' | 'superadmin',
+  isActive: boolean,
+  createdAt: timestamp
+}
+
+// Заявки из форм
+leads: {
+  formType: string,
+  name: string,
+  phone: string,
+  message?: string,
+  topic?: string,
+  status: 'new' | 'processing' | 'completed',
+  createdAt: timestamp
+}
+
+// Дерево услуг
+servicesTree: {
+  name: string,
+  subcategories: [{
+    name: string,
+    services: [{
+      id: string,
+      name: string,
+      description: string
+    }]
+  }]
+}
+
+// ... другие коллекции
+```
+
+## 🛠️ Разработка
+
+### Команды:
+
+```bash
+# Разработка
+npm run dev
+
+# Сборка для production
+npm run build
+
+# Запуск production сервера
+npm start
+
+# Линтинг
+npm run lint
+```
+
+### Переменные окружения:
+
+Создайте файл `.env.local`:
+
+```env
+# Firebase конфигурация (уже настроена в lib/firebase.js)
+# Добавьте другие переменные по необходимости
+```
+
+## 🎨 Кастомизация
+
+### Цвета (tailwind.config.js):
+
+```javascript
+colors: {
+  'cs-blue': '#3b82f6',    // Основной синий
+  'cs-white': '#ffffff',   // Белый
+  // ... другие цвета
+}
+```
+
+### Шрифты:
+Проект использует системные шрифты для оптимальной производительности.
+
+## 📱 Адаптивность
+
+Сайт полностью адаптивен и протестирован на:
+- 📱 Мобильных устройствах (320px+)
+- 📱 Планшетах (768px+)
+- 💻 Десктопах (1024px+)
+- 🖥️ Больших экранах (1920px+)
+
+## 🚀 Деплой
+
+### Vercel (рекомендуется):
+
+```bash
+# Установите Vercel CLI
+npm i -g vercel
+
+# Деплой
+vercel
+```
+
+### Другие платформы:
+Проект совместим с любой платформой, поддерживающей Next.js:
+- Netlify
+- Railway
+- Render
+- AWS Amplify
+
+## 📄 Лицензия
+
+Проект создан для Divid.uz - Консалтинговая компания
+
+---
+
+## 📞 Контакты
+
+- **Website**: [divid.uz](https://divid.uz)
+- **Email**: info@divid.uz
+- **Phone**: +998 90 123 45 67
+
+---
+
+## 🙏 Благодарности
+
+Спасибо всем open-source проектам, которые сделали эту разработку возможной:
+- Next.js Team
+- React Team
+- Firebase Team
+- Tailwind CSS Team
+- И всем остальным!
+
+---
+
+**Сделано с ❤️ в Ташкенте, Узбекистан**
