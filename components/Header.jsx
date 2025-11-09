@@ -158,7 +158,7 @@ export default function Header() {
                 </li>
                 <li className="hover:border-cs-blue border-b-2 border-transparent transition">
                   <Link
-                    href="/contacts"
+                    href="/academy"
                     className="hover:text-cs-blue"
                   >
                     DIVIDEND <span className="text-cs-blue">ACADEMY</span>
@@ -251,7 +251,7 @@ export default function Header() {
                   </li>
                   <li>
                     <Link
-                      href="/contacts"
+                      href="/academy"
                       onClick={() => setMobileMenuOpen(false)}
                       className="block text-gray-800 hover:text-cs-blue text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition uppercase"
                     >

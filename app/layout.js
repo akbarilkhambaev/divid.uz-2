@@ -52,16 +52,18 @@ const inter = Inter({
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith('/admin');
+  const isAcademy = pathname.startsWith('/academy');
+
   return (
     <html
       lang="ru"
       className={`${oswald.className} h-full`}
     >
       <body className="h-full flex flex-col">
-        {!isAdmin && <Header />}
+        {!isAdmin && !isAcademy && <Header />}
 
         <main className="flex-1 max-w-screen">{children}</main>
-        {!isAdmin && <Footer />}
+        {!isAdmin && !isAcademy && <Footer />}
       </body>
     </html>
   );

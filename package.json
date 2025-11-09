@@ -19,6 +19,7 @@
     "dompurify": "^3.2.7",
     "firebase": "^11.7.3",
     "framer-motion": "^12.9.4",
+    "lottie-react": "^2.4.1",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-awesome-reveal": "^4.3.1",

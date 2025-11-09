@@ -1,0 +1,105 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
+export default function FreeLessonSection() {
+  const learningPoints = [
+    'ҳисоботларда рақамлар ортда яширинган вақтинчалик "ўсиш" иллузияларини мавжудлигини',
+    'нега кўпчилик ҳисоботлар real ҳолатни акс еттирмаслигини,',
+    'уларни қандай қилиб бошқарув қарорларига йўналтирган шаклда тузиш мумкинлигини',
+    'ва хатоларни ерта аниқлаш йўлларини муҳокама қиламиз',
+  ];
+
+  return (
+    <section
+      id="free-lesson"
+      className="min-h-screen bg-cs-blue flex items-center justify-center relative px-4 md:px-8 py-16 scroll-mt-18"
+    >
+      <div className="absolute top-8 right-8 text-white/10 text-6xl md:text-8xl font-bold">
+        11
+      </div>
+      <div className="max-w-7xl w-full text-white">
+        <motion.h2
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-5xl lg:text-6xl font-bold mb-16 text-center"
+        >
+          Сизни бепул кириш дарсига таклиф қиламиз
+        </motion.h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left side - Topic */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-2xl font-bold mb-6">Мавзу:</p>
+            <h3 className="text-2xl md:text-3xl font-bold mb-8 leading-tight">
+              "Нега кўпчилик бизнеслар 3 йилда банкрот бўлади — ва нега уларнинг
+              молиявий ҳисоботлари фойда келтирмайди?"
+            </h3>
+
+            <div className="text-8xl mb-8 text-center">↓</div>
+
+            <div className="bg-white/10 backdrop-blur-lg p-6 rounded-xl space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">📅</span>
+                <div>
+                  <p className="font-semibold">Сана:</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">⏰</span>
+                <div>
+                  <p className="font-semibold">Давомийлиги: 2 соат</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">👥</span>
+                <div>
+                  <p className="font-semibold">Жойлар сони чекланган</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">📍</span>
+                <div>
+                  <p className="font-semibold">Рўйхатдан ўтиш учун:</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right side - What you'll learn */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white/10 backdrop-blur-lg p-8 rounded-2xl"
+          >
+            <h3 className="text-3xl font-bold mb-8">Бу дарсда биз:</h3>
+            <ul className="space-y-6">
+              {learningPoints.map((point, idx) => (
+                <li
+                  key={idx}
+                  className="flex gap-4"
+                >
+                  <span className="text-2xl flex-shrink-0">✓</span>
+                  <p className="text-lg">{point}</p>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-8 text-sm text-white/70">
+              Ҳамда академиямиз ва курсларимиз ҳақида тўлиқ малумотлар берамиз.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
