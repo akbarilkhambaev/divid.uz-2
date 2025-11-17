@@ -48,8 +48,8 @@ export default function InfoSection() {
 
   if (loading) {
     return (
-      <section className="min-h-full h-full flex items-center justify-center">
-        <div className="text-white text-xl">Загрузка...</div>
+      <section className="flex h-[420px] min-h-full items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+        <div className="text-lg text-white md:text-xl">Загрузка...</div>
       </section>
     );
   }
@@ -59,7 +59,13 @@ export default function InfoSection() {
   }
 
   return (
-    <section className="min-h-full h-full">
+    <section className="relative h-full min-h-full overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+      <div className="pointer-events-none absolute inset-0 opacity-50">
+        <div className="animate-pulse absolute -top-28 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-cs-blue/25 blur-3xl" />
+        <div className="animate-pulse absolute bottom-10 left-10 h-56 w-56 rounded-full bg-fuchsia-500/20 blur-3xl" />
+        <div className="animate-pulse absolute -bottom-24 right-24 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl" />
+      </div>
+
       <Swiper
         modules={[Autoplay, Pagination]}
         pagination={{ clickable: true }}
@@ -69,66 +75,73 @@ export default function InfoSection() {
           disableOnInteraction: false,
         }}
         onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
-        className="w-full h-[500px] md:h-[600px] lg:h-[700px] m-0 p-0 custom-swiper"
+        className="custom-swiper relative z-10 h-[520px] w-full md:h-[620px] lg:h-[720px]"
       >
         {slides.map((slide, index) => (
           <SwiperSlide
             key={slide.id}
-            className="relative h-[500px] md:h-[600px] lg:h-[700px]"
+            className="relative h-[520px] md:h-[620px] lg:h-[720px]"
           >
-            {/* Фоновое изображение */}
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${
-                  slide.imageBase64 || slide.image || 'slider/audit.png'
-                })`,
-              }}
-            />
+            <div className="absolute inset-0">
+              <div
+                className="absolute inset-0 bg-cover bg-start"
+                style={{
+                  backgroundImage: `url(${
+                    slide.imageBase64 || slide.image || 'slider/audit.png'
+                  })`,
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-950/85 via-slate-950/75 to-slate-900/60" />
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            </div>
 
-            {/* Затемнение поверх фона */}
-            <div className="absolute inset-0 bg-gradient-to-l from-black/100 via-black/90 to-black/50 md:via-black/100 md:to-transparent opacity-100" />
-
-            {/* Контент поверх */}
-            <div className="relative z-10 w-full h-full flex flex-col md:flex-row items-center justify-between text-white px-4 md:px-10 py-8 md:py-10">
-              {/* Левый блок */}
-              <div className="w-full md:w-1/2 mb-6 md:mb-0">
-                <h2
-                  className={`text-3xl md:text-4xl lg:text-6xl font-bold text-shadow-lg/30 w-full md:w-[80%] mb-4 ${
+            <div className="relative z-10 mx-auto flex h-full w-full max-w-full flex-col justify-start px-4 py-10 md:flex-row md:items-center md:gap-12 md:px-6">
+              <div className="w-full md:w-[40%] lg:w-[40%]">
+                <div
+                  className={`relative overflow-hidden  rounded-3xl border border-white/10 bg-white/10 p-8 text-white shadow-xl backdrop-blur-xl transition-all duration-500 md:p-12 ${
                     activeSlide === index
                       ? 'animate__animated animate__fadeInLeft'
                       : ''
                   }`}
                 >
-                  {slide.title}
-                </h2>
-                <Link
-                  href="/services"
-                  className={`inline-flex items-center gap-2 text-white bg-cs-blue hover:bg-cs-blue/80 px-4 py-2 rounded-lg shadow-lg transition duration-300 ease-in-out ${
-                    activeSlide === index
-                      ? 'animate__animated animate__fadeInUpBig'
-                      : ''
-                  }`}
-                >
-                  <span className="text-base md:text-lg font-semibold">
+                  <div className="absolute inset-px rounded-[inherit] border border-white/10 opacity-60" />
+                  <h2 className="relative text-left text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+                    {slide.title}
+                  </h2>
+                  <p className="relative mt-6 max-w-3xl text-left text-base text-slate-200 md:text-lg">
+                    {slide.text}
+                  </p>
+
+                  <Link
+                    href="/services"
+                    className={`relative mt-10 inline-flex items-center gap-3 rounded-full border border-cs-blue/70 bg-cs-blue/20 px-7 py-3 text-sm font-semibold uppercase tracking-[0.4em] text-cs-blue transition duration-300 hover:border-white/60 hover:bg-white/20 hover:text-white ${
+                      activeSlide === index
+                        ? 'animate__animated animate__fadeInUpBig'
+                        : ''
+                    }`}
+                  >
                     Копрок маълумот олиш
-                  </span>
-                  <FaLongArrowAltRight className="text-xl translate-y-[3px]" />
-                </Link>
+                    <FaLongArrowAltRight className="text-lg" />
+                  </Link>
+                </div>
               </div>
 
-              {/* Правый блок */}
-              <div className="w-full md:w-1/2 leading-relaxed">
-                <h2
-                  className={`text-2xl md:text-3xl lg:text-4xl text-shadow-2xs text-shadow-sky-300 ${
+              {/* <div className="mt-10 w-full md:mt-0 md:w-[40%]">
+                <div
+                  className={`rounded-3xl border border-white/10 bg-white/5 p-6 text-left text-slate-100 backdrop-blur-lg transition-all duration-500 ${
                     activeSlide === index
                       ? 'animate__animated animate__fadeInRight'
                       : ''
                   }`}
                 >
-                  {slide.text}
-                </h2>
-              </div>
+                  <p className="text-lg font-semibold uppercase tracking-[0.25em] text-slate-200">
+                    янги слайд {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <p className="mt-4 text-sm text-slate-300 md:text-base">
+                    {slide.description || slide.text || 'Таъриф янгиланмоқда'}
+                  </p>
+                </div>
+              </div> */}
             </div>
           </SwiperSlide>
         ))}

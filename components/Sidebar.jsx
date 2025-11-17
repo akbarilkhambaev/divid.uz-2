@@ -59,6 +59,11 @@ export default function Sidebar() {
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
+      label: 'Таймлайн опыта',
+      href: '/admin/experience-timeline',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
       label: 'FAQ',
       href: '/admin/faq',
       icon: <RxPencil2 className="inline-flex mb-1" />,

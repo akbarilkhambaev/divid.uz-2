@@ -1,0 +1,33 @@
+.ckeditorExcerpt {
+  font-size: 0.95rem;
+  color: #e5e7eb;
+  line-height: 1.5;
+  min-height: 2.5em;
+  margin-bottom: 1rem;
+  /* display и line-clamp убраны, чтобы контент не обрезался */
+}
+.ckeditorExcerpt blockquote p {
+  border-left: 3px solid #60a5fa;
+  margin: 0.5em 0;
+  padding-left: 0.75em;
+  color: #cbd5e1;
+  font-style: italic;
+}
+.ckeditorExcerpt ul,
+.ckeditorExcerpt ol {
+  margin: 0.5em 0 0.5em 1.25em;
+  padding: 0;
+}
+.ckeditorExcerpt li {
+  margin: 0.2em 0;
+}
+.ckeditorExcerpt strong,
+.ckeditorExcerpt b {
+  color: #fff;
+  font-weight: bold;
+}
+.ckeditorExcerpt em,
+.ckeditorExcerpt i {
+  color: #fbbf24;
+  font-style: italic;
+}

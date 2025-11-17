@@ -20,14 +20,15 @@ export default function FullSupportWidget() {
     <>
       {/* Кнопка запуска */}
       <motion.button
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg"
+        className="fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-cs-blue/60 bg-cs-blue/90 text-white shadow-[0_25px_50px_-20px_rgba(59,130,246,0.65)] backdrop-blur-lg"
       >
-        <span className="absolute inline-flex w-full h-full rounded-full bg-blue-400 opacity-75 animate-ping"></span>
+        <span className="absolute inset-0 -z-10 rounded-full bg-cs-blue/40 blur-xl" />
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cs-blue/50 opacity-60" />
         <HiOutlineChatBubbleLeftRight
-          size={28}
+          size={26}
           className="relative z-10"
         />
       </motion.button>
@@ -39,25 +40,26 @@ export default function FullSupportWidget() {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 260, damping: 25 }}
-            className="fixed top-0 right-0 h-full w-[360px] bg-white shadow-2xl z-50 flex flex-col"
+            transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+            className="fixed top-0 right-0 z-50 flex h-full w-full max-w-[380px] flex-col overflow-hidden bg-gradient-to-b from-white via-white/95 to-cs-blue/5 shadow-[0_40px_70px_-45px_rgba(15,23,42,0.45)] backdrop-blur-xl md:max-w-md"
           >
-            {/* Header */}
-            <div className="bg-blue-600 text-white px-4 py-3 flex justify-between items-center">
-              <h3 className="font-semibold text-lg">
-                Қўллаб-қувватлаш хизмати
-              </h3>
+            <div className="relative flex items-center justify-between px-5 py-4">
+              <div className="relative">
+                <span className="absolute -inset-1 -skew-y-2 rounded-lg bg-white/60 blur-sm" />
+                <h3 className="relative text-lg font-semibold uppercase tracking-wide text-slate-900">
+                  Қўллаб-қувватлаш
+                </h3>
+              </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="hover:text-gray-200"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-cs-blue/40 hover:text-cs-blue"
               >
-                <HiXMark size={22} />
+                <HiXMark size={20} />
               </button>
             </div>
 
-            {/* Контент / форма */}
-            <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4 text-sm">
-              <p className="text-gray-700">
+            <div className="flex-1 space-y-6 overflow-y-auto px-5 py-8 text-sm">
+              <p className="text-slate-600">
                 Салом! Сизга қандай ёрдам беришимиз мумкин?
               </p>
               <form
@@ -84,50 +86,64 @@ export default function FullSupportWidget() {
                     setLoading(false);
                   }
                 }}
-                className="space-y-3"
+                className="space-y-4"
               >
-                <input
-                  type="text"
-                  placeholder="Исмингиз"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                  required
-                />
-                <textarea
-                  placeholder="Хабарингиз..."
-                  rows={4}
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  className="w-full border rounded-md px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-200"
-                  required
-                ></textarea>
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-[0.25em] text-slate-500">
+                    Исмингиз
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Исмингиз"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    className="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-2.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-[0.25em] text-slate-500">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-2.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-[0.25em] text-slate-500">
+                    Хабарингиз
+                  </label>
+                  <textarea
+                    placeholder="Хабарингиз..."
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                    className="w-full resize-none rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
+                    required
+                  />
+                </div>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-full border border-cs-blue/60 bg-cs-blue/90 px-6 py-3 text-sm font-semibold uppercase tracking-[0.4em] text-white shadow-lg transition hover:shadow-[0_20px_40px_-30px_rgba(59,130,246,0.7)] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {loading ? 'Юборилмоқда...' : 'Юбориш'}
                 </button>
               </form>
             </div>
 
-            {/* Footer */}
-            <div className="text-xs text-gray-400 text-center py-2 border-t">
+            <div className="border-t border-slate-200 py-3 text-center text-xs text-slate-500">
               Қўллаб-қувватлаш © {new Date().getFullYear()}
             </div>
           </motion.div>
@@ -138,7 +154,6 @@ export default function FullSupportWidget() {
       <AnimatePresence>
         {submitted && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -147,49 +162,34 @@ export default function FullSupportWidget() {
                 setSubmitted(false);
                 setIsOpen(false);
               }}
-              className="fixed inset-0 bg-black/50 z-[60]"
+              className="fixed inset-0 z-[60] bg-slate-900/30 backdrop-blur"
             />
-            {/* Modal */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 50 }}
+              initial={{ opacity: 0, scale: 0.85, y: 40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: 50 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+              exit={{ opacity: 0, scale: 0.85, y: 40 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+              className="fixed inset-0 z-[70] flex items-center justify-center p-4"
             >
-              <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 text-center relative">
-                {/* Кнопка закрытия */}
+              <div className="relative w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-b from-white via-white/90 to-cs-blue/5 p-10 text-center text-slate-900 shadow-[0_45px_90px_-40px_rgba(15,23,42,0.5)]">
                 <button
                   onClick={() => {
                     setSubmitted(false);
                     setIsOpen(false);
                   }}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-cs-blue/40 hover:text-cs-blue"
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <HiXMark size={20} />
                 </button>
 
-                {/* Иконка успеха */}
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                  className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                  transition={{ delay: 0.2, type: 'spring', stiffness: 220 }}
+                  className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-emerald-300 bg-emerald-50 text-emerald-500"
                 >
                   <svg
-                    className="w-12 h-12 text-green-500"
+                    className="h-12 w-12"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -203,22 +203,18 @@ export default function FullSupportWidget() {
                   </svg>
                 </motion.div>
 
-                {/* Текст */}
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Хабар юборилди!
-                </h3>
-                <p className="text-gray-600 mb-6">
+                <h3 className="text-2xl font-semibold">Хабар юборилди!</h3>
+                <p className="mt-3 text-sm text-slate-600 md:text-base">
                   Сизнинг заявкангиз қабул қилинди. Тез орада сиз билан
                   боғланамиз.
                 </p>
 
-                {/* Кнопка */}
                 <button
                   onClick={() => {
                     setSubmitted(false);
                     setIsOpen(false);
                   }}
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                  className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-cs-blue/60 bg-cs-blue/90 px-6 py-3 text-sm font-semibold uppercase tracking-[0.4em] text-white shadow-lg transition hover:shadow-[0_20px_40px_-30px_rgba(59,130,246,0.7)]"
                 >
                   Яхши
                 </button>

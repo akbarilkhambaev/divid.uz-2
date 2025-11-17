@@ -20,26 +20,10 @@ export default function HomeServicesManagementPage() {
   const [formData, setFormData] = useState({
     title: '',
     text: '',
-    icon: null,
-    iconName: '',
     order: 0,
+    imageFile: null,
+    imagePreview: '',
   });
-
-  // Популярные иконки для выбора
-  const popularIcons = [
-    { name: '💼', label: 'Портфель' },
-    { name: '📊', label: 'График' },
-    { name: '👥', label: 'Люди' },
-    { name: '🏆', label: 'Награда' },
-    { name: '💡', label: 'Идея' },
-    { name: '🔧', label: 'Инструменты' },
-    { name: '📈', label: 'Рост' },
-    { name: '💻', label: 'Компьютер' },
-    { name: '📱', label: 'Телефон' },
-    { name: '🎯', label: 'Цель' },
-    { name: '⚡', label: 'Энергия' },
-    { name: '🔒', label: 'Безопасность' },
-  ];
   const [editData, setEditData] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -61,16 +45,25 @@ export default function HomeServicesManagementPage() {
   }, []);
 
   const resetForm = () => {
-    setFormData({ title: '', text: '', icon: null, iconName: '', order: 0 });
+    setFormData({
+      title: '',
+      text: '',
+      order: 0,
+      imageFile: null,
+      imagePreview: '',
+    });
     setEditData(null);
   };
 
   const handleAddOrUpdate = async (e) => {
     e.preventDefault();
-    const { title, text, icon, iconName, order } = formData;
-    if (!title || !text) return alert('Заполните все обязательные поля');
+    const { title, text, order, imageFile, imagePreview } = formData;
+    if (!title || !text) {
+      alert('Заполните все обязательные поля');
+      return;
+    }
 
-    const saveToFirestore = async (iconBase64, iconFileName) => {
+    const saveToFirestore = async (imageBase64) => {
       if (editData) {
         const docRef = doc(db, 'homeServices', editData.id);
         const updateData = {
@@ -78,11 +71,8 @@ export default function HomeServicesManagementPage() {
           text,
           order: Number(order) || 0,
         };
-        if (iconBase64) {
-          updateData.iconBase64 = iconBase64;
-        }
-        if (iconName) {
-          updateData.iconName = iconName;
+        if (typeof imageBase64 === 'string') {
+          updateData.imageBase64 = imageBase64;
         }
         await updateDoc(docRef, updateData);
         alert('Услуга обновлена');
@@ -90,9 +80,8 @@ export default function HomeServicesManagementPage() {
         await addDoc(collection(db, 'homeServices'), {
           title,
           text,
-          iconBase64: iconBase64 || '',
-          iconName: iconName || '',
           order: Number(order) || 0,
+          imageBase64: imageBase64 || '',
         });
         alert('Услуга добавлена');
       }
@@ -101,21 +90,16 @@ export default function HomeServicesManagementPage() {
       setModalOpen(false);
     };
 
-    if (icon) {
+    if (imageFile) {
       const reader = new FileReader();
       reader.onloadend = async () => {
-        await saveToFirestore(reader.result, icon.name);
+        await saveToFirestore(reader.result);
       };
-      reader.readAsDataURL(icon);
-    } else if (iconName) {
-      await saveToFirestore('', iconName);
-    } else if (editData && (editData.iconBase64 || editData.iconName)) {
-      await saveToFirestore(
-        editData.iconBase64 || '',
-        editData.iconName || ''
-      );
+      reader.readAsDataURL(imageFile);
+    } else if (imagePreview) {
+      await saveToFirestore(imagePreview);
     } else {
-      await saveToFirestore('', '');
+      await saveToFirestore('');
     }
   };
 
@@ -131,9 +115,9 @@ export default function HomeServicesManagementPage() {
     setFormData({
       title: item.title || '',
       text: item.text || '',
-      icon: null,
-      iconName: item.iconName || '',
       order: item.order || 0,
+      imageFile: null,
+      imagePreview: item.imageBase64 || item.image || '',
     });
     setModalOpen(true);
   };
@@ -162,7 +146,10 @@ export default function HomeServicesManagementPage() {
             <h2 className="text-2xl font-bold mb-4">
               {editData ? 'Редактировать услугу' : 'Добавить услугу'}
             </h2>
-            <form onSubmit={handleAddOrUpdate} className="space-y-4">
+            <form
+              onSubmit={handleAddOrUpdate}
+              className="space-y-4"
+            >
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Заголовок *
@@ -207,106 +194,30 @@ export default function HomeServicesManagementPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Иконка (опционально)
+                  Обложка услуги (JPEG/PNG)
                 </label>
-                
-                {/* Выбор эмодзи иконки */}
-                <div className="mb-4">
-                  <p className="text-sm text-gray-600 mb-2">
-                    Выберите эмодзи иконку:
-                  </p>
-                  <div className="grid grid-cols-6 gap-2 p-3 border rounded bg-gray-50 max-h-40 overflow-y-auto">
-                    {popularIcons.map((icon) => (
-                      <button
-                        key={icon.name}
-                        type="button"
-                        onClick={() =>
-                          setFormData({
-                            ...formData,
-                            iconName: icon.name,
-                            icon: null,
-                          })
-                        }
-                        className={`p-2 text-2xl rounded hover:bg-blue-100 transition-colors ${
-                          formData.iconName === icon.name
-                            ? 'bg-blue-200 ring-2 ring-blue-500'
-                            : ''
-                        }`}
-                        title={icon.label}
-                      >
-                        {icon.name}
-                      </button>
-                    ))}
-                  </div>
-                  {formData.iconName && (
-                    <p className="text-sm text-gray-600 mt-2">
-                      Выбрано: {formData.iconName}
-                    </p>
-                  )}
-                </div>
-
-                {/* Или загрузить свою иконку */}
-                <div>
-                  <p className="text-sm text-gray-600 mb-2">
-                    Или загрузите свою иконку (SVG, PNG):
-                  </p>
-                  <input
-                    type="file"
-                    accept="image/svg+xml,image/png,image/jpeg"
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        icon: e.target.files[0] || null,
-                        iconName: '', // Сбрасываем эмодзи при загрузке файла
-                      })
-                    }
-                    className="w-full border p-2 rounded"
-                  />
-                </div>
-
-                {/* Превью текущей иконки */}
-                {(editData?.iconBase64 || editData?.iconName) &&
-                  !formData.icon &&
-                  !formData.iconName && (
-                    <div className="mt-4">
-                      <p className="text-sm text-gray-600 mb-2">
-                        Текущая иконка:
-                      </p>
-                      <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-cyan-400 to-indigo-600 rounded-xl">
-                        {editData.iconBase64 ? (
-                          <img
-                            src={editData.iconBase64}
-                            alt="Icon Preview"
-                            className="w-10 h-10 object-contain filter brightness-0 invert"
-                          />
-                        ) : (
-                          <span className="text-3xl text-white">
-                            {editData.iconName}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                {/* Превью выбранной иконки */}
-                {(formData.iconName || formData.icon) && (
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp,image/avif"
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      imageFile: e.target.files?.[0] || null,
+                      imagePreview: e.target.files?.[0]
+                        ? URL.createObjectURL(e.target.files[0])
+                        : formData.imagePreview,
+                    })
+                  }
+                  className="w-full border p-2 rounded"
+                />
+                {formData.imagePreview && (
                   <div className="mt-4">
-                    <p className="text-sm text-gray-600 mb-2">
-                      Превью новой иконки:
-                    </p>
-                    <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-cyan-400 to-indigo-600 rounded-xl">
-                      {formData.icon ? (
-                        <img
-                          src={URL.createObjectURL(formData.icon)}
-                          alt="Icon Preview"
-                          className="w-10 h-10 object-contain filter brightness-0 invert"
-                        />
-                      ) : (
-                        <span className="text-3xl text-white">
-                          {formData.iconName}
-                        </span>
-                      )}
-                    </div>
+                    <p className="text-sm text-gray-600 mb-2">Превью:</p>
+                    <img
+                      src={formData.imagePreview}
+                      alt="Превью услуги"
+                      className="w-full max-h-48 object-cover rounded"
+                    />
                   </div>
                 )}
               </div>
@@ -333,7 +244,9 @@ export default function HomeServicesManagementPage() {
         </div>
       )}
 
-      <div className={modalOpen ? 'blur-sm transition-filter duration-300' : ''}>
+      <div
+        className={modalOpen ? 'blur-sm transition-filter duration-300' : ''}
+      >
         <h2 className="text-lg font-semibold mb-2">Список услуг</h2>
         <table className="w-full border bg-white">
           <thead>
@@ -341,35 +254,30 @@ export default function HomeServicesManagementPage() {
               <th className="p-2 border">Порядок</th>
               <th className="p-2 border">Заголовок</th>
               <th className="p-2 border">Описание</th>
-              <th className="p-2 border">Иконка</th>
+              <th className="p-2 border">Обложка</th>
               <th className="p-2 border">Действия</th>
             </tr>
           </thead>
           <tbody>
             {services.map((item) => (
-              <tr key={item.id} className="border-t align-top text-sm">
+              <tr
+                key={item.id}
+                className="border-t align-top text-sm"
+              >
                 <td className="p-2 border">{item.order || 0}</td>
                 <td className="p-2 border max-w-[200px]">{item.title}</td>
                 <td className="p-2 border max-w-[300px]">
                   {item.text?.substring(0, 100)}...
                 </td>
                 <td className="p-2 border">
-                  {item.iconBase64 || item.iconName ? (
-                    <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-cyan-400 to-indigo-600 rounded-lg">
-                      {item.iconBase64 ? (
-                        <img
-                          src={item.iconBase64}
-                          alt="Icon"
-                          className="w-8 h-8 object-contain filter brightness-0 invert"
-                        />
-                      ) : (
-                        <span className="text-xl text-white">
-                          {item.iconName}
-                        </span>
-                      )}
-                    </div>
+                  {item.imageBase64 || item.image ? (
+                    <img
+                      src={item.imageBase64 || item.image}
+                      alt={item.title}
+                      className="w-20 h-16 object-cover rounded"
+                    />
                   ) : (
-                    <span className="text-gray-400">Нет иконки</span>
+                    <span className="text-gray-400">Нет изображения</span>
                   )}
                 </td>
                 <td className="p-2 border space-x-2">
@@ -394,4 +302,3 @@ export default function HomeServicesManagementPage() {
     </div>
   );
 }
-

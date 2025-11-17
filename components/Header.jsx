@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FiPhone, FiMenu, FiX } from 'react-icons/fi';
@@ -11,6 +12,8 @@ import 'animate.css';
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const showTopBar = pathname === '/';
 
   useEffect(() => {
     const onScroll = () => {
@@ -45,54 +48,58 @@ export default function Header() {
       {/* Вся шапка фиксированная */}
       <div
         className={`fixed top-0 left-0 w-full bg-white z-50 transition-transform duration-300 ${
-          scrolled ? 'md:-translate-y-[48px] -translate-y-0' : 'translate-y-0'
+          scrolled && showTopBar
+            ? 'md:-translate-y-[48px] -translate-y-0'
+            : 'translate-y-0'
         }`}
       >
         {/* Верхняя часть (48px) - скрывается на мобильных */}
-        <div className="hidden md:flex h-12 px-4 py-2 justify-between bg-cs-blue text-cs-white items-center border-b border-gray-200">
-          <Link
-            href="tel:+998712000000"
-            className="flex items-center"
-          >
-            <FiPhone className="text-cs-white text-xl mx-2" />
-            <span className="text-cs-white text-sm uppercase underline underline-offset-2 decoration-dotted mx-2">
-              биз билан боғланинг
-            </span>
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col">
-              <Link href="">
-                <span className="text-[10px] uppercase underline underline-offset-2 decoration-dotted">
-                  Юнусобод т. Бектемир 87
-                </span>
+        {showTopBar && (
+          <div className="hidden md:flex h-12 px-4 py-2 justify-between bg-cs-blue text-cs-white items-center border-b border-gray-200">
+            <Link
+              href="tel:+998712000000"
+              className="flex items-center"
+            >
+              <FiPhone className="text-cs-white text-xl mx-2" />
+              <span className="text-cs-white text-sm uppercase underline underline-offset-2 decoration-dotted mx-2">
+                биз билан боғланинг
+              </span>
+            </Link>
+            <div className="flex items-center gap-2">
+              <div className="flex flex-col">
+                <Link href="">
+                  <span className="text-[10px] uppercase underline underline-offset-2 decoration-dotted">
+                    Юнусобод т. Бектемир 87
+                  </span>
+                </Link>
+                <Link
+                  href="tel:+998712000000"
+                  className="text-[10px] uppercase"
+                >
+                  +998 71 000 00 00
+                </Link>
+              </div>
+              <Link
+                href="#"
+                className="flex items-center"
+              >
+                <FaInstagram className="text-cs-white text-xl mx-2" />
               </Link>
               <Link
-                href="tel:+998712000000"
-                className="text-[10px] uppercase"
+                href="#"
+                className="flex items-center"
               >
-                +998 71 000 00 00
+                <FaFacebook className="text-cs-white text-xl mx-2" />
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center"
+              >
+                <FaTelegram className="text-cs-white text-xl mx-2" />
               </Link>
             </div>
-            <Link
-              href="#"
-              className="flex items-center"
-            >
-              <FaInstagram className="text-cs-white text-xl mx-2" />
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center"
-            >
-              <FaFacebook className="text-cs-white text-xl mx-2" />
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center"
-            >
-              <FaTelegram className="text-cs-white text-xl mx-2" />
-            </Link>
           </div>
-        </div>
+        )}
 
         {/* Навигация */}
         <div
@@ -306,7 +313,11 @@ export default function Header() {
       {/* Отступ под шапку */}
       <div
         className={`transition-all duration-300 ${
-          scrolled ? 'pt-14 md:pt-16' : 'pt-16 md:pt-[120px]'
+          scrolled
+            ? 'pt-14 md:pt-16'
+            : showTopBar
+            ? 'pt-16 md:pt-[120px]'
+            : 'pt-16 md:pt-20'
         }`}
       />
     </>

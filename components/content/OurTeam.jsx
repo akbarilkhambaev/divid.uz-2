@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { motion } from 'framer-motion';
@@ -26,7 +27,6 @@ export default function OurTeam() {
         setTeamMembers(data);
       } catch (error) {
         console.error('Ошибка загрузки команды:', error);
-        // Fallback на статичные данные
         setTeamMembers([
           {
             name: 'САГДИЕВ КАМОЛИДДИН',
@@ -41,10 +41,11 @@ export default function OurTeam() {
 
     fetchTeam();
   }, []);
+
   if (loading) {
     return (
-      <section className="min-h-full h-full min-h-[720px] py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white flex items-center justify-center">
-        <div className="text-xl">Загрузка...</div>
+      <section className="flex h-[480px] min-h-full items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
+        <div className="text-lg md:text-xl">Загрузка...</div>
       </section>
     );
   }
@@ -54,33 +55,40 @@ export default function OurTeam() {
   }
 
   return (
-    <section className="min-h-[500px] md:min-h-[720px] py-8 md:py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white">
-      <motion.h2
-        className="text-3xl md:text-4xl lg:text-5xl uppercase font-bold mb-6 pb-6 text-center px-4"
-        initial={{ opacity: 0, y: -30 }}
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-16 text-white md:py-20">
+      <div className="pointer-events-none absolute inset-0 opacity-45">
+        <div className="animate-pulse absolute -top-28 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-cs-blue/25 blur-3xl" />
+        <div className="animate-pulse absolute bottom-16 left-12 h-64 w-64 rounded-full bg-fuchsia-500/15 blur-3xl" />
+        <div className="animate-pulse absolute -bottom-24 right-24 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" />
+      </div>
+
+      <motion.div
+        className="relative z-10 mx-auto flex w-full max-w-full flex-col gap-10 px-4 md:px-6"
+        initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">
-          <span className="relative text-white">БИЗНИНГ</span>
-        </span>{' '}
-        <span className="ml-2 text-cs-blue">ЖАМОА</span>
-      </motion.h2>
-      <motion.div
-        className="px-4 md:px-8 relative"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.9, delay: 0.15, ease: [0.33, 1, 0.68, 1] }}
-      >
+        <motion.h2
+          className="text-center text-3xl font-bold uppercase leading-tight tracking-tight md:text-4xl lg:text-5xl"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
+            <span className="relative text-slate-950">БИЗНИНГ</span>
+          </span>
+          <span className="ml-2 text-cs-blue"> ЖАМОА</span>
+        </motion.h2>
+
         <Swiper
           modules={[Navigation, Autoplay]}
-          spaceBetween={20}
+          spaceBetween={24}
           slidesPerView={1}
-          centeredSlides={true}
+          centeredSlides
           loop={teamMembers.length > 1}
-          navigation={true}
+          navigation
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
@@ -89,30 +97,33 @@ export default function OurTeam() {
             640: {
               slidesPerView: 2,
               centeredSlides: false,
-              spaceBetween: 15,
+              spaceBetween: 18,
             },
             768: {
-              slidesPerView: 3,
+              slidesPerView: 2.5,
               centeredSlides: false,
               spaceBetween: 20,
             },
             1024: {
               slidesPerView: 4,
               centeredSlides: false,
-              spaceBetween: 20,
+              spaceBetween: 24,
             },
             1372: {
-              slidesPerView: 5,
+              slidesPerView: 6,
               centeredSlides: false,
-              spaceBetween: 20,
+              spaceBetween: 18,
             },
           }}
-          className="w-full teamSwiper"
+          className="teamSwiper relative w-full"
         >
           {teamMembers.map((member, index) => (
-            <SwiperSlide key={member.id || index}>
-              <motion.div
-                className="bg-gray-800 w-full max-w-[280px] mx-auto rounded-lg shadow-lg p-4 md:p-6 text-center flex flex-col items-center"
+            <SwiperSlide
+              key={member.id || index}
+              className="flex h-full items-stretch justify-center"
+            >
+              <motion.article
+                className="group relative mx-auto flex h-full w-full max-w-[260px] flex-col items-center overflow-hidden rounded-3xl border border-white/10 bg-white/10 p-6 text-center text-white shadow-lg backdrop-blur-xl transition-all duration-300 sm:max-w-[320px]"
                 initial={{ opacity: 0, scale: 0.92, y: 20 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -122,13 +133,18 @@ export default function OurTeam() {
                   ease: [0.43, 0.13, 0.23, 0.96],
                 }}
                 whileHover={{
-                  scale: 1.03,
-                  y: -8,
+                  translateY: -8,
                   transition: { duration: 0.25, ease: [0.34, 1.56, 0.64, 1] },
                 }}
               >
+                <div className="absolute inset-0">
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/65 via-slate-950/45 to-slate-900/35" />
+                  <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-cs-blue/25 via-transparent to-transparent" />
+                  </div>
+                </div>
                 <motion.div
-                  className="w-full flex justify-center items-center mb-4"
+                  className="relative z-10 mb-6 flex w-full justify-center"
                   initial={{ scale: 0.85, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
@@ -143,11 +159,11 @@ export default function OurTeam() {
                       member.imageBase64 || member.image || '/team/default.png'
                     }
                     alt={member.name}
-                    className="w-[200px] h-[300px] md:w-[220px] md:h-[300px] rounded-full object-cover shadow-xl"
+                    className="h-[280px] w-[200px] rounded-[1.75rem] object-cover shadow-[0_25px_60px_-30px_rgba(59,130,246,0.55)] transition-transform duration-[750ms] ease-out group-hover:scale-[1.03] md:h-[300px] md:w-[220px]"
                   />
                 </motion.div>
                 <motion.h3
-                  className="text-base md:text-lg lg:text-xl font-semibold"
+                  className="relative z-10 text-lg font-semibold md:text-xl"
                   initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -160,7 +176,7 @@ export default function OurTeam() {
                   {member.name}
                 </motion.h3>
                 <motion.p
-                  className="text-sm md:text-base text-gray-400 mt-2"
+                  className="relative z-10 mt-2 text-sm text-slate-300 md:text-base"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
@@ -172,7 +188,7 @@ export default function OurTeam() {
                 >
                   {member.position}
                 </motion.p>
-              </motion.div>
+              </motion.article>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -183,26 +199,28 @@ export default function OurTeam() {
       >{`
         .teamSwiper .swiper-button-next,
         .teamSwiper .swiper-button-prev {
-          color: #3b82f6;
-          background: rgba(59, 130, 246, 0.1);
+          color: #0f172a;
+          background: rgba(255, 255, 255, 0.18);
           width: 44px;
           height: 44px;
           border-radius: 50%;
-          backdrop-filter: blur(10px);
+          backdrop-filter: blur(14px);
+          border: 1px solid rgba(255, 255, 255, 0.25);
         }
         .teamSwiper .swiper-button-next:after,
         .teamSwiper .swiper-button-prev:after {
-          font-size: 20px;
-          font-weight: bold;
+          font-size: 19px;
+          font-weight: 700;
         }
         .teamSwiper .swiper-button-next:hover,
         .teamSwiper .swiper-button-prev:hover {
-          background: rgba(59, 130, 246, 0.3);
+          background: rgba(59, 130, 246, 0.35);
+          color: #fff;
         }
         @media (max-width: 768px) {
           .teamSwiper .swiper-button-next,
           .teamSwiper .swiper-button-prev {
-            display: flex !important;
+            display: none !important;
           }
         }
       `}</style>

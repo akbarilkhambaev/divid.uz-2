@@ -28,7 +28,7 @@ export default function NewsPageSlider() {
 
   return (
     <>
-      <section className="min-h-[500px] md:min-h-[720px] h-full py-8 md:py-16 bg-radial from-gray-900 via-gray-700 to-gray-900 text-white">
+      <section className="min-h-[500px] md:min-h-[720px] h-full py-8 md:py-16 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
         <h2 className="text-3xl md:text-4xl lg:text-5xl uppercase font-bold mb-6 md:mb-8 pb-4 md:pb-5 text-center px-4">
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">
             <span className="relative text-white">ЯНГИЛИКЛАР</span>

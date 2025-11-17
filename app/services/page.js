@@ -53,7 +53,6 @@ import { db } from '@/lib/firebase';
 
 export default function ServicesPage() {
   const [categories, setCategories] = useState([]);
-  const [domPurifyReady, setDomPurifyReady] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [subcategories, setSubcategories] = useState([]);
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState(null);
@@ -65,7 +64,6 @@ export default function ServicesPage() {
       if (typeof window !== 'undefined' && !DOMPurify) {
         const mod = await import('dompurify');
         DOMPurify = mod.default || mod;
-        setDomPurifyReady(true);
       }
     })();
 
@@ -114,105 +112,149 @@ export default function ServicesPage() {
     }
   }, [selectedSubcategoryId, subcategories]);
 
+  // Sidebar becomes fixed on wide layouts so navigation stays in view.
   return (
-    <div className="flex h-screen w-full bg-gray-50">
-      {/* Левая панель */}
-      <aside className="w-80 h-full overflow-y-auto border-r bg-white p-6">
-        <h2 className="text-2xl font-bold mb-6">Разделы</h2>
-        <ul>
-          {categories.map((cat) => (
-            <li key={cat.id}>
-              {/* Кнопка выбора категории */}
-              <button
-                className={`w-full py-2 px-3 mb-2 font-semibold text-left rounded ${
-                  selectedCategoryId === cat.id
-                    ? 'bg-blue-200 text-blue-900'
-                    : 'text-gray-800 hover:bg-blue-50'
-                }`}
-                onClick={() => setSelectedCategoryId(cat.id)}
-              >
-                {cat.name}
-              </button>
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 pb-20 pt-24 text-white md:pt-28">
+      <div className="pointer-events-none absolute inset-0 opacity-50">
+        <span className="absolute -top-24 left-[10%] h-72 w-72 rounded-full bg-cs-blue/30 blur-3xl" />
+        <span className="absolute bottom-0 right-[18%] h-60 w-60 rounded-full bg-fuchsia-400/25 blur-3xl" />
+        <span className="absolute top-1/2 right-6 h-56 w-56 -translate-y-1/2 rounded-full bg-emerald-400/20 blur-3xl" />
+      </div>
 
-              {/* Подкатегории */}
-              {selectedCategoryId === cat.id && (
-                <ul className="ml-4 mt-2">
-                  {cat.subcategories.map((sub) => (
-                    <li key={sub.id}>
-                      <button
-                        className={`w-full text-left py-1 px-2 rounded transition ${
-                          selectedSubcategoryId === sub.id
-                            ? 'bg-blue-200 text-blue-900'
-                            : 'text-gray-600 hover:bg-blue-50'
-                        }`}
-                        onClick={() => setSelectedSubcategoryId(sub.id)}
-                      >
-                        {sub.name}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      </aside>
+      <div className="relative z-10 mx-auto flex w-full flex-col gap-12 px-4 xl:gap-0 xl:px-16">
+        <aside className="relative mx-auto flex w-full flex-col gap-6 rounded-[26px] border border-white/10 bg-white/5 p-6 shadow-[0_35px_65px_-40px_rgba(15,23,42,0.9)] backdrop-blur-xl xl:fixed xl:left-16 xl:top-28 xl:mx-0 xl:h-[calc(100vh-7rem)] xl:w-[320px] xl:flex-shrink-0 xl:self-start xl:overflow-y-auto">
+          <div className="">
+            <div className="pb-5">
+              <h2 className="text-lg font-semibold uppercase tracking-[0.35em] text-slate-200">
+                Разделы
+              </h2>
+            </div>
 
-      {/* Правая панель */}
-      <main className="flex-1 w-full h-auto min-h-0 overflow-y-auto overflow-x-hidden p-2 flex flex-col items-center bg-gray-100">
-        {!selectedSubcategoryId ? (
-          <div className="text-gray-400 text-xl">
-            Выберите категорию и пункт слева для просмотра информации
+            <ul className="space-y-3">
+              {categories.map((cat) => (
+                <li
+                  key={cat.id}
+                  className="space-y-2"
+                >
+                  <button
+                    className={`group flex w-full items-center justify-between rounded-2xl border border-transparent px-4 py-3 text-left text-sm font-semibold uppercase tracking-[0.35em] transition-all duration-200 ${
+                      selectedCategoryId === cat.id
+                        ? 'bg-cs-blue/25 text-white'
+                        : 'bg-white/5 text-slate-200 hover:bg-cs-blue/10 hover:text-white'
+                    }`}
+                    onClick={() => setSelectedCategoryId(cat.id)}
+                  >
+                    <span>{cat.name}</span>
+                    <span className="text-xs text-slate-400">
+                      {Array.isArray(cat.subcategories)
+                        ? cat.subcategories.length
+                        : 0}
+                    </span>
+                  </button>
+
+                  {selectedCategoryId === cat.id && (
+                    <ul className="space-y-2 pl-3">
+                      {cat.subcategories.map((sub) => (
+                        <li key={sub.id}>
+                          <button
+                            className={`w-full rounded-xl px-3 py-2 text-left text-xs uppercase tracking-[0.3em] transition-all duration-200 ${
+                              selectedSubcategoryId === sub.id
+                                ? 'bg-white/15 text-white'
+                                : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
+                            }`}
+                            onClick={() => setSelectedSubcategoryId(sub.id)}
+                          >
+                            {sub.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
-        ) : services.length > 0 ? (
-          <div className="w-full h-full flex flex-col items-start justify-start">
-            {services.map((service) => (
-              <div
-                key={service.id}
-                className="w-full flex flex-col justify-start items-start rounded-lg bg-white p-6 mb-6 shadow"
-                style={{ boxSizing: 'border-box' }}
-              >
-                <h1 className="text-4xl font-extrabold mb-6 text-blue-700 w-full text-left">
-                  {service.title || service.name}
-                </h1>
-                <div
-                  className="ck-content text-lg text-gray-700 w-full text-left"
-                  style={{ width: '100%', height: 'auto', minHeight: 0 }}
-                  dangerouslySetInnerHTML={{
-                    __html: (function () {
-                      const raw = renderDescription(
-                        service.description || 'Нет описания.'
-                      );
-                      if (DOMPurify) {
-                        return DOMPurify.sanitize(raw, {
-                          ADD_TAGS: ['iframe', 'video'],
-                          ADD_ATTR: [
-                            'allow',
-                            'allowfullscreen',
-                            'frameborder',
-                            'src',
-                            'width',
-                            'height',
-                            'controls',
-                            'poster',
-                            'preload',
-                          ],
-                        });
-                      }
-                      // Fallback: remove script tags until DOMPurify is ready
-                      return stripScripts(raw);
-                    })(),
-                  }}
-                />
+        </aside>
+
+        <main className="flex-1 xl:fixed xl:top-28 xl:right-16 xl:bottom-8 xl:left-[420px] xl:overflow-y-auto xl:rounded-[28px] xl:border xl:h-[calc(100vh-7rem) xl:border-white/10 xl:bg-white/5 xl:shadow-[0_45px_95px_-60px_rgba(15,23,42,0.9)] xl:backdrop-blur-xl">
+          <div className=" sm:px-4">
+            {!selectedSubcategoryId ? (
+              <div className="flex h-full min-h-[360px] w-full items-center justify-center rounded-[28px] border border-dashed border-white/15 bg-white/5 text-center text-slate-300 backdrop-blur-lg">
+                <div className="max-w-full">
+                  <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
+                    Навигация
+                  </p>
+                  <p className="text-lg font-medium text-slate-200 md:text-xl">
+                    Аввало категория ва подкатегория танланг. Кейин ҳар бир
+                    хизмат ҳақида кенг маълумотлар очилади.
+                  </p>
+                </div>
               </div>
-            ))}
+            ) : services.length > 0 ? (
+              <div className="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(320px,1fr))] xl:gap-8">
+                {services.map((service) => (
+                  <article
+                    key={service.id}
+                    className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/10 p-8 shadow-[0_45px_95px_-60px_rgba(15,23,42,0.9)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1"
+                  >
+                    <span className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-cs-blue/20 opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                    <div className="relative z-10 space-y-6">
+                      <header className="space-y-2">
+                        <p className="text-xs uppercase tracking-[0.4em] text-slate-300">
+                          Хизмат
+                        </p>
+                        <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+                          {service.title || service.name}
+                        </h2>
+                      </header>
+
+                      <div
+                        className="ck-content prose prose-invert max-w-none text-base text-slate-200"
+                        dangerouslySetInnerHTML={{
+                          __html: (function () {
+                            const raw = renderDescription(
+                              service.description || 'Нет описания.'
+                            );
+                            if (DOMPurify) {
+                              return DOMPurify.sanitize(raw, {
+                                ADD_TAGS: ['iframe', 'video'],
+                                ADD_ATTR: [
+                                  'allow',
+                                  'allowfullscreen',
+                                  'frameborder',
+                                  'src',
+                                  'width',
+                                  'height',
+                                  'controls',
+                                  'poster',
+                                  'preload',
+                                ],
+                              });
+                            }
+                            return stripScripts(raw);
+                          })(),
+                        }}
+                      />
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="flex h-full min-h-[360px] w-full items-center justify-center rounded-[28px] border border-white/10 bg-white/5 p-10 text-center text-slate-300 backdrop-blur-lg">
+                <div className="space-y-3">
+                  <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
+                    Мавжуд эмас
+                  </p>
+                  <p className="text-lg font-medium text-slate-200 md:text-xl">
+                    Бу йўналиш бўйича ҳозирча хизматлар қўшилмаган. Илтимос,
+                    бошқа подкатегорияни танлаб кўринг.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="text-gray-400 text-lg">
-            Нет услуг для выбранного пункта.
-          </div>
-        )}
-      </main>
-    </div>
+        </main>
+      </div>
+    </section>
   );
 }

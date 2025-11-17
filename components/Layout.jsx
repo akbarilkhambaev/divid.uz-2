@@ -13,6 +13,8 @@ import OurTeam from './content/OurTeam';
 import FeedbackForm from './content/FeedbackForm';
 import OurPartners from './content/OurPartners';
 import NewsPage from './content/NewsPage';
+import AboutServicesSection from './content/AboutServicesSection';
+import ExperienceTimeline from './content/ExperienceTimeline';
 
 export default function Layout() {
   // ...existing code...
@@ -20,9 +22,11 @@ export default function Layout() {
   const components = [
     <InfoSection key="info" />,
     <ExampleWorksInfo key="example" />,
+    <AboutServicesSection key="about" />,
     <OurTeam key="team" />,
     <SeoOptimizing key="seo" />,
     <Services key="services" />,
+    <ExperienceTimeline key="experience" />,
     <Ads key="ads" />,
     <Reviews key="reviews" />,
     <Previlegies key="previlegies" />,
