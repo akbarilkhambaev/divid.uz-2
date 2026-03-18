@@ -5,6 +5,7 @@ import { IMaskInput } from 'react-imask';
 import { FaInstagram, FaFacebook, FaTelegram } from 'react-icons/fa';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { sendToTelegram } from '@/lib/telegram';
 
 export default function Footer() {
   const [formData, setFormData] = useState({
@@ -25,6 +26,13 @@ export default function Footer() {
         phone: formData.phone,
         createdAt: serverTimestamp(),
         status: 'new',
+      });
+
+      // Отправляем в Telegram
+      await sendToTelegram({
+        name: formData.name,
+        phone: formData.phone,
+        formType: 'footer',
       });
 
       setSubmitted(true);

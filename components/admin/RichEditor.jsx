@@ -17,7 +17,7 @@ const DynamicEditor = dynamic(
       );
     };
   },
-  { ssr: false }
+  { ssr: false },
 );
 
 export default function RichEditor(props) {

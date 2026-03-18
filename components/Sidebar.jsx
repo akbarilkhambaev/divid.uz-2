@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { RxFileText, RxPencil2 } from 'react-icons/rx';
 import { GiPapers } from 'react-icons/gi';
-import { HiCog } from 'react-icons/hi';
+import { HiCog, HiAcademicCap } from 'react-icons/hi';
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -64,6 +64,11 @@ export default function Sidebar() {
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
+      label: 'Академия',
+      href: '/admin/academy',
+      icon: <HiAcademicCap className="inline-flex mb-1" />,
+    },
+    {
       label: 'FAQ',
       href: '/admin/faq',
       icon: <RxPencil2 className="inline-flex mb-1" />,
@@ -107,7 +112,7 @@ export default function Sidebar() {
             href={link.href}
             className={clsx(
               'block px-2 py-1 rounded hover:bg-gray-200',
-              pathname === link.href && 'bg-gray-200 font-semibold'
+              pathname === link.href && 'bg-gray-200 font-semibold',
             )}
           >
             {link.icon && <span className="mr-2">{link.icon}</span>}

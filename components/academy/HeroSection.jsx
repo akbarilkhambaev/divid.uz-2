@@ -1,8 +1,44 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+// Дефолтные значения
+const defaultData = {
+  title:
+    'Билимга килинган инвестициядa —<br /><span class="text-white/90">дивиденд кафолатланган</span>',
+  description:
+    'Дивиденд Академия — молиявий соҳада карьера қуришингиз учун профессионал тайёргарлик маркази',
+  videoUrl: '/academy/hero-bg.webm',
+  posterUrl: '/academy/hero-poster.avif',
+};
 
 export default function HeroSection() {
+  const [data, setData] = useState(defaultData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const docRef = doc(db, 'academySettings', 'hero');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const firebaseData = docSnap.data();
+          setData({
+            title: firebaseData.title || defaultData.title,
+            description: firebaseData.description || defaultData.description,
+            videoUrl: firebaseData.videoUrl || defaultData.videoUrl,
+            posterUrl: firebaseData.posterUrl || defaultData.posterUrl,
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching hero data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <section
       id="hero"
@@ -16,10 +52,10 @@ export default function HeroSection() {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          poster="/academy/hero-poster.avif"
+          poster={data.posterUrl}
         >
           <source
-            src="/academy/hero-bg.webm"
+            src={data.videoUrl}
             type="video/webm"
           />
         </video>
@@ -38,13 +74,12 @@ export default function HeroSection() {
         transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
         className="max-w-6xl text-center relative z-10"
       >
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-lg">
-          Билимга килинган инвестициядa —<br />
-          <span className="text-white/90">дивиденд кафолатланган</span>
-        </h1>
+        <h1
+          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight drop-shadow-lg"
+          dangerouslySetInnerHTML={{ __html: data.title }}
+        />
         <p className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto drop-shadow-md">
-          Дивиденд Академия — молиявий соҳада карьера қуришингиз учун
-          профессионал тайёргарлик маркази
+          {data.description}
         </p>
       </motion.div>
     </section>

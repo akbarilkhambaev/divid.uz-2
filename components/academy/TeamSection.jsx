@@ -1,35 +1,77 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+const defaultTeamMembers = [
+  {
+    name: 'Муҳаммад Бобур Абдураҳимов',
+    role: 'Lecturer',
+    hasPhoto: true,
+    photoPath: '/academy/team/bobur.avif',
+    bio: 'Муҳаммад Бобур Абдураҳимов — 8 йиллик тажрибага эга корпоратив молия експерти. Big 4 консултанти ва йирик компанияларда CFO лавозимларида ишлаган, 30+ бизнесда самарали молиявий бошқарув тизимларини шакллантирган.',
+  },
+  {
+    name: 'Акмал Тураев',
+    role: 'Ментор асистенти',
+    hasPhoto: false,
+    photoPath: '/academy/team/akmal.avif',
+  },
+  {
+    name: 'Мирали Толибов',
+    role: 'Ментор',
+    hasPhoto: false,
+    photoPath: '/academy/team/mirali.avif',
+  },
+  {
+    name: 'Азиз Толибов',
+    role: 'Ментор асистенти',
+    hasPhoto: false,
+    photoPath: '/academy/team/aziz.avif',
+  },
+];
 
 export default function TeamSection() {
-  const teamMembers = [
-    {
-      name: 'Муҳаммад Бобур Абдураҳимов',
-      role: 'Lecturer',
-      hasPhoto: true,
-      photoPath: '/academy/team/bobur.avif',
-      bio: 'Муҳаммад Бобур Абдураҳимов — 8 йиллик тажрибага эга корпоратив молия експерти. Big 4 консултанти ва йирик компанияларда CFO лавозимларида ишлаган, 30+ бизнесда самарали молиявий бошқарув тизимларини шакллантирган.',
-    },
-    {
-      name: 'Акмал Тураев',
-      role: 'Ментор асистенти',
-      hasPhoto: false,
-      photoPath: '/academy/team/akmal.avif',
-    },
-    {
-      name: 'Мирали Толибов',
-      role: 'Ментор',
-      hasPhoto: false,
-      photoPath: '/academy/team/mirali.avif',
-    },
-    {
-      name: 'Азиз Толибов',
-      role: 'Ментор асистенти',
-      hasPhoto: false,
-      photoPath: '/academy/team/aziz.avif',
-    },
-  ];
+  const [teamMembers, setTeamMembers] = useState(defaultTeamMembers);
+  const [settings, setSettings] = useState({
+    sectionTitle: 'Курснинг менторлари ва экспертлари',
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch settings
+        const settingsRef = doc(db, 'academySettings', 'team');
+        const settingsSnap = await getDoc(settingsRef);
+        if (settingsSnap.exists()) {
+          setSettings((prev) => ({ ...prev, ...settingsSnap.data() }));
+        }
+
+        // Fetch team members
+        const q = query(collection(db, 'academyTeam'), orderBy('order', 'asc'));
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const members = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setTeamMembers(members);
+        }
+      } catch (error) {
+        console.error('Error fetching team:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <section
@@ -47,13 +89,13 @@ export default function TeamSection() {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-5xl lg:text-6xl font-bold mb-16 text-center uppercase"
         >
-          Курснинг менторлари ва экспертлари
+          {settings.sectionTitle}
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {teamMembers.map((member, idx) => (
             <motion.div
-              key={idx}
+              key={member.id || idx}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

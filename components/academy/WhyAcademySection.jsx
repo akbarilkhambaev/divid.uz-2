@@ -1,19 +1,43 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+const defaultAdvantages = [
+  'Амалиётга асосланган дастур',
+  'Big 4 тажрибаси бор менторлар',
+  'Ҳақиқий корпоратив кейслар',
+  'Замонавий молиявий воситалар',
+  'Халқаро стандартлар',
+  'Иш жойлаштириш кафолати',
+  'Флексибл ўқиш график',
+  'Онлайн ва оффлайн форматлар',
+  'Давомий қўллаб-қувватлаш',
+];
 
 export default function WhyAcademySection() {
-  const advantages = [
-    'Амалиётга асосланган дастур',
-    'Big 4 тажрибаси бор менторлар',
-    'Ҳақиқий корпоратив кейслар',
-    'Замонавий молиявий воситалар',
-    'Халқаро стандартлар',
-    'Иш жойлаштириш кафолати',
-    'Флексибл ўқиш график',
-    'Онлайн ва оффлайн форматлар',
-    'Давомий қўллаб-қувватлаш',
-  ];
+  const [advantages, setAdvantages] = useState(defaultAdvantages);
+
+  useEffect(() => {
+    const fetchAdvantages = async () => {
+      try {
+        const q = query(
+          collection(db, 'academyWhyItems'),
+          orderBy('order', 'asc'),
+        );
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const firebaseData = snapshot.docs.map((doc) => doc.data().title);
+          setAdvantages(firebaseData);
+        }
+      } catch (error) {
+        console.error('Error fetching advantages:', error);
+      }
+    };
+    fetchAdvantages();
+  }, []);
 
   return (
     <section

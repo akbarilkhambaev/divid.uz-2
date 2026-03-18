@@ -1,15 +1,73 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+} from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+const defaultPremiumFeatures = [
+  'Факат сиз учун ажратилган ментор',
+  'Реал компанияларда амалиётга олиб чикиш',
+  'Ҳафтасига умумий амалиётдан ташқари 1:1 учрашувлар (online/offline)',
+  'Резюме таёрлаш , суҳбатларга тайёрлаш',
+  'Сизнинг кизикишингизга мос кейслар',
+];
+
+const defaultSettings = {
+  sectionTitle: 'PREMIUM',
+  sectionSubtitle: 'INDIVIDUAL MENTOR',
+  sectionDescription:
+    'Агар сиз янада чуқурроқ ривожланишни истасангиз, қўшимча тўлов эвазига шахсий ментор танлашингиз мумкин.',
+};
 
 export default function IndividualMentorSection() {
-  const premiumFeatures = [
-    'Факат сиз учун ажратилган ментор',
-    'Реал компанияларда амалиётга олиб чикиш',
-    'Ҳафтасига умумий амалиётдан ташқари 1:1 учрашувлар (online/offline)',
-    'Резюме таёрлаш , суҳбатларга тайёрлаш',
-    'Сизнинг кизикишингизга мос кейслар',
-  ];
+  const [premiumFeatures, setPremiumFeatures] = useState(
+    defaultPremiumFeatures,
+  );
+  const [settings, setSettings] = useState(defaultSettings);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch settings
+        const settingsDoc = await getDoc(
+          doc(db, 'academySettings', 'individual'),
+        );
+        if (settingsDoc.exists()) {
+          setSettings({
+            sectionTitle:
+              settingsDoc.data().sectionTitle || defaultSettings.sectionTitle,
+            sectionSubtitle:
+              settingsDoc.data().sectionSubtitle ||
+              defaultSettings.sectionSubtitle,
+            sectionDescription:
+              settingsDoc.data().sectionDescription ||
+              defaultSettings.sectionDescription,
+          });
+        }
+        // Fetch features
+        const q = query(
+          collection(db, 'academyIndividualFeatures'),
+          orderBy('order', 'asc'),
+        );
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const firebaseData = snapshot.docs.map((d) => d.data().title);
+          setPremiumFeatures(firebaseData);
+        }
+      } catch (error) {
+        console.error('Error fetching individual data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <section
@@ -28,13 +86,12 @@ export default function IndividualMentorSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-            PREMIUM
+            {settings.sectionTitle}
             <br />
-            <span className="text-cs-blue">INDIVIDUAL MENTOR</span>
+            <span className="text-cs-blue">{settings.sectionSubtitle}</span>
           </h2>
           <p className="text-xl md:text-2xl text-white/80">
-            Агар сиз янада чуқурроқ ривожланишни истасангиз, қўшимча тўлов
-            эвазига шахсий ментор танлашингиз мумкин.
+            {settings.sectionDescription}
           </p>
         </motion.div>
 

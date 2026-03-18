@@ -3,54 +3,85 @@
 import { motion } from 'framer-motion';
 import Lottie from 'lottie-react';
 import { useState, useEffect } from 'react';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+const defaultAudiences = [
+  {
+    title: 'Янги бошловчилар',
+    desc: 'Молиявий соҳада карьера бошламоқчи бўлган кишилар учун асосий билимлар',
+    animationPath: '/academy/lottie-beginner.json',
+    gradient: 'from-blue-500 to-cyan-500',
+  },
+  {
+    title: 'Амалиётчилар',
+    desc: 'Ўз билимларини чуқурлаштириш ва замонавий усулларни ўрганмоқчи мутахассислар',
+    animationPath: '/academy/lottie-practitioner.json',
+    gradient: 'from-blue-500 to-cyan-500',
+  },
+  {
+    title: 'Тадбиркорлар',
+    desc: 'Ўз бизнесини тўғри бошқариш ва молиявий жиҳатдан ривожлантириш истаганлар',
+    animationPath: '/academy/lottie-entrepreneur.json',
+    gradient: 'from-blue-500 to-cyan-500',
+  },
+  {
+    title: 'Малакали мутахассислар',
+    desc: 'CFO, финансовый директор ва юқори лавозимларга талонт бўлганлар',
+    animationPath: '/academy/lottie-professional.json',
+    gradient: 'from-blue-500 to-cyan-500',
+  },
+];
 
 export default function TargetAudienceSection() {
   const [animationData, setAnimationData] = useState({});
+  const [audiences, setAudiences] = useState(defaultAudiences);
 
-  const audiences = [
-    {
-      title: 'Янги бошловчилар',
-      desc: 'Молиявий соҳада карьера бошламоқчи бўлган кишилар учун асосий билимлар',
-      animationPath: '/academy/lottie-beginner.json',
-      gradient: 'from-blue-500 to-cyan-500',
-    },
-    {
-      title: 'Амалиётчилар',
-      desc: 'Ўз билимларини чуқурлаштириш ва замонавий усулларни ўрганмоқчи мутахассислар',
-      animationPath: '/academy/lottie-practitioner.json',
-      gradient: 'from-blue-500 to-cyan-500',
-    },
-    {
-      title: 'Тадбиркорлар',
-      desc: 'Ўз бизнесини тўғри бошқариш ва молиявий жиҳатдан ривожлантириш истаганлар',
-      animationPath: '/academy/lottie-entrepreneur.json',
-      gradient: 'from-blue-500 to-cyan-500',
-    },
-    {
-      title: 'Малакали мутахассислар',
-      desc: 'CFO, финансовый директор ва юқори лавозимларга талонт бўлганлар',
-      animationPath: '/academy/lottie-professional.json',
-      gradient: 'from-blue-500 to-cyan-500',
-    },
-  ];
+  // Загружаем данные из Firestore
+  useEffect(() => {
+    const fetchAudiences = async () => {
+      try {
+        const q = query(
+          collection(db, 'academyAudience'),
+          orderBy('order', 'asc'),
+        );
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const firebaseData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            title: doc.data().title,
+            desc: doc.data().description,
+            animationPath: doc.data().animationPath,
+            gradient: doc.data().gradient || 'from-blue-500 to-cyan-500',
+          }));
+          setAudiences(firebaseData);
+        }
+      } catch (error) {
+        console.error('Error fetching audiences:', error);
+      }
+    };
+    fetchAudiences();
+  }, []);
 
   // Загружаем все анимации
   useEffect(() => {
     const loadAnimations = async () => {
       const loaded = {};
       for (const audience of audiences) {
-        try {
-          const response = await fetch(audience.animationPath);
-          const data = await response.json();
-          loaded[audience.animationPath] = data;
-        } catch (error) {
-          console.error(`Failed to load ${audience.animationPath}:`, error);
+        if (audience.animationPath) {
+          try {
+            const response = await fetch(audience.animationPath);
+            const data = await response.json();
+            loaded[audience.animationPath] = data;
+          } catch (error) {
+            console.error(`Failed to load ${audience.animationPath}:`, error);
+          }
         }
       }
       setAnimationData(loaded);
     };
     loadAnimations();
-  }, []);
+  }, [audiences]);
 
   return (
     <section

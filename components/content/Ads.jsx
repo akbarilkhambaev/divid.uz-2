@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IMaskInput } from 'react-imask';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { sendToTelegram } from '@/lib/telegram';
 
 export default function Ads() {
   const [formData, setFormData] = useState({
@@ -28,6 +29,15 @@ export default function Ads() {
         message: formData.message,
         createdAt: serverTimestamp(),
         status: 'new',
+      });
+
+      // Отправляем в Telegram
+      await sendToTelegram({
+        name: formData.name,
+        phone: formData.phone,
+        message: formData.message,
+        service: formData.topic,
+        formType: 'ads',
       });
 
       setSubmitted(true);

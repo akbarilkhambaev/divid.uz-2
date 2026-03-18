@@ -1,15 +1,67 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import {
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+} from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+const defaultFeatures = [
+  'Назарий узлаштиришларни текширади',
+  'Амалиётга мажбур килади',
+  'Индивидуал feedback беради',
+  'Сизни реал натижага олиб чикади',
+  'Бахолашнинг 30% ментор хулосига боғлиқ',
+];
+
+const defaultSettings = {
+  sectionTitle: 'Ментор:',
+  sectionDescription:
+    'Бизда ментор — бу дарсдан ташқари саволга жавоб берувчи одам эмас. Бу сизнинг натижангиз учун масъул устоз.',
+};
 
 export default function MentorshipSection() {
-  const features = [
-    'Назарий узлаштиришларни текширади',
-    'Амалиётга мажбур килади',
-    'Индивидуал feedback беради',
-    'Сизни реал натижага олиб чикади',
-    'Бахолашнинг 30% ментор хулосига боғлиқ',
-  ];
+  const [features, setFeatures] = useState(defaultFeatures);
+  const [settings, setSettings] = useState(defaultSettings);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch settings
+        const settingsDoc = await getDoc(
+          doc(db, 'academySettings', 'mentorship'),
+        );
+        if (settingsDoc.exists()) {
+          setSettings({
+            sectionTitle:
+              settingsDoc.data().sectionTitle || defaultSettings.sectionTitle,
+            sectionDescription:
+              settingsDoc.data().sectionDescription ||
+              defaultSettings.sectionDescription,
+          });
+        }
+        // Fetch features
+        const q = query(
+          collection(db, 'academyMentorshipFeatures'),
+          orderBy('order', 'asc'),
+        );
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          const firebaseData = snapshot.docs.map((d) => d.data().title);
+          setFeatures(firebaseData);
+        }
+      } catch (error) {
+        console.error('Error fetching mentorship data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <section
@@ -27,7 +79,7 @@ export default function MentorshipSection() {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 text-center"
         >
-          Ментор:
+          {settings.sectionTitle}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
@@ -36,8 +88,7 @@ export default function MentorshipSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xl md:text-2xl text-center mb-16 text-white/90"
         >
-          Бизда ментор — бу дарсдан ташқари саволга жавоб берувчи одам эмас. Бу
-          сизнинг натижангиз учун масъул устоз.
+          {settings.sectionDescription}
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

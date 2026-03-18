@@ -1,8 +1,46 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+const defaultSettings = {
+  sectionTitle: 'Курс тузилиши',
+  beginnerTitle: 'Бошланғич дастур',
+  beginnerDuration: 'Давомийлиги: 2 ой',
+  course1Title: '1-курс: Корпоратив молияга кириш',
+  course1Desc: 'Молиявий асослар ва корпоратив ҳисоботлар',
+  course2Title: '2-курс: Молиявий таҳлилчи',
+  course2Desc: 'Таҳлил усуллари ва прогнозлаш',
+  professionalTitle: 'Профессионал дастур',
+  professionalDuration: 'Давомийлиги: 5 ой',
+  course12Title: '1-2 курс: Бошланғич пакет',
+  course12Desc: 'Барча бошланғич курслар',
+  course3Title: '3-курс: Илғор молиявий таҳлил',
+  course3Desc: 'M&A, валуация, инвестициялар',
+  course4Title: '4-курс: Корпоратив стратегия',
+  course4Desc: 'Бизнес-режалаштириш ва CFO вазифалари',
+};
 
 export default function CourseStructureSection() {
+  const [settings, setSettings] = useState(defaultSettings);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const docRef = doc(db, 'academySettings', 'courses');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setSettings((prev) => ({ ...prev, ...docSnap.data() }));
+        }
+      } catch (error) {
+        console.error('Error fetching course settings:', error);
+      }
+    };
+    fetchSettings();
+  }, []);
+
   return (
     <section
       id="structure"
@@ -19,7 +57,7 @@ export default function CourseStructureSection() {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-16 text-center"
         >
-          Курс тузилиши
+          {settings.sectionTitle}
         </motion.h2>
 
         {/* Grid Container */}
@@ -34,8 +72,12 @@ export default function CourseStructureSection() {
           >
             {/* Контент слева */}
             <div className="bg-gradient-to-br from-cs-blue to-blue-700 p-8 rounded-2xl text-white shadow-xl hover:shadow-2xl transition-shadow duration-300">
-              <h3 className="text-3xl font-bold mb-4">Бошланғич дастур</h3>
-              <p className="text-2xl font-semibold mb-6">Давомийлиги: 2 ой</p>
+              <h3 className="text-3xl font-bold mb-4">
+                {settings.beginnerTitle}
+              </h3>
+              <p className="text-2xl font-semibold mb-6">
+                {settings.beginnerDuration}
+              </p>
 
               <div className="space-y-4 relative">
                 {/* Вертикальная линия таймлайна */}
@@ -78,10 +120,10 @@ export default function CourseStructureSection() {
 
                   <div className="bg-white/20 backdrop-blur p-4 rounded-lg hover:bg-white/30 transition-all">
                     <p className="font-semibold mb-2">
-                      1-курс: Корпоратив молияга кириш
+                      {settings.course1Title}
                     </p>
                     <p className="text-sm text-white/80">
-                      Молиявий асослар ва корпоратив ҳисоботлар
+                      {settings.course1Desc}
                     </p>
                   </div>
                 </motion.div>
@@ -111,10 +153,10 @@ export default function CourseStructureSection() {
 
                   <div className="bg-white/20 backdrop-blur p-4 rounded-lg hover:bg-white/30 transition-all">
                     <p className="font-semibold mb-2">
-                      2-курс: Молиявий таҳлилчи
+                      {settings.course2Title}
                     </p>
                     <p className="text-sm text-white/80">
-                      Таҳлил усуллари ва прогнозлаш
+                      {settings.course2Desc}
                     </p>
                   </div>
                 </motion.div>
@@ -180,8 +222,12 @@ export default function CourseStructureSection() {
 
             {/* Контент справа */}
             <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-8 rounded-2xl text-white shadow-xl hover:shadow-2xl transition-shadow duration-300 lg:order-2">
-              <h3 className="text-3xl font-bold mb-4">Профессионал дастур</h3>
-              <p className="text-2xl font-semibold mb-6">Давомийлиги: 5 ой</p>
+              <h3 className="text-3xl font-bold mb-4">
+                {settings.professionalTitle}
+              </h3>
+              <p className="text-2xl font-semibold mb-6">
+                {settings.professionalDuration}
+              </p>
 
               <div className="space-y-4 relative">
                 {/* Вертикальная линия таймлайна справа */}
@@ -225,10 +271,10 @@ export default function CourseStructureSection() {
 
                   <div className="bg-white/20 backdrop-blur p-4 rounded-lg hover:bg-white/30 transition-all">
                     <p className="font-semibold mb-2">
-                      1-2 курс: Бошланғич пакет
+                      {settings.course12Title}
                     </p>
                     <p className="text-sm text-white/80">
-                      Барча бошланғич курслар
+                      {settings.course12Desc}
                     </p>
                   </div>
                 </motion.div>
@@ -258,10 +304,10 @@ export default function CourseStructureSection() {
 
                   <div className="bg-white/20 backdrop-blur p-4 rounded-lg hover:bg-white/30 transition-all">
                     <p className="font-semibold mb-2">
-                      3-курс: Илғор молиявий таҳлил
+                      {settings.course3Title}
                     </p>
                     <p className="text-sm text-white/80">
-                      M&A, валуация, инвестициялар
+                      {settings.course3Desc}
                     </p>
                   </div>
                 </motion.div>
@@ -291,10 +337,10 @@ export default function CourseStructureSection() {
 
                   <div className="bg-white/20 backdrop-blur p-4 rounded-lg hover:bg-white/30 transition-all">
                     <p className="font-semibold mb-2">
-                      4-курс: Корпоратив стратегия
+                      {settings.course4Title}
                     </p>
                     <p className="text-sm text-white/80">
-                      Бизнес-режалаштириш ва CFO вазифалари
+                      {settings.course4Desc}
                     </p>
                   </div>
                 </motion.div>

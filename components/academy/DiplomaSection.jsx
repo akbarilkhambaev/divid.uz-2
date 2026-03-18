@@ -1,8 +1,39 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+const defaultSettings = {
+  sectionTitle: 'Курс якунида нимага эга бўласиз',
+  sectionSubtitle: 'Dividend Academy Дипломи – Сизнинг Молиявий Паспортингиз',
+  diplomaBlockTitle: 'Диплом сизга қуйдагиларни беради:',
+  diplomaBlockText:
+    'Бизнинг диплом - "факат қатнашганлик" ҳужжати эмас, балки бозорга чиққанингизда сизни бошқа номзодлардан ажратиб турадиган исботланган натижа.',
+  certificateBlockTitle: 'Dividend Academy дипломи устунликлари:',
+  certificateBlockText:
+    'Хозирда Dividend Academy дипломи ҳамкор компаниялари олдида тан олинади (30+ компания). Кейинги қадам: халқаро/давлат аккредитацияси учун ҳужжатлар тайёрланмоқда. Натижада сизнинг дипломингиз вақт ўтиши билан янада қимматлашади.',
+};
 
 export default function DiplomaSection() {
+  const [settings, setSettings] = useState(defaultSettings);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const docRef = doc(db, 'academySettings', 'diploma');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setSettings((prev) => ({ ...prev, ...docSnap.data() }));
+        }
+      } catch (error) {
+        console.error('Error fetching diploma settings:', error);
+      }
+    };
+    fetchSettings();
+  }, []);
+
   return (
     <section
       id="diploma"
@@ -20,7 +51,7 @@ export default function DiplomaSection() {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 text-white"
         >
-          Курс якунида нимага эга бўласиз
+          {settings.sectionTitle}
         </motion.h2>
 
         <motion.p
@@ -30,7 +61,7 @@ export default function DiplomaSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-lg md:text-xl text-white/70 mb-16 max-w-4xl"
         >
-          Dividend Academy Дипломи – Сизнинг Молиявий Паспортингиз
+          {settings.sectionSubtitle}
         </motion.p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -45,12 +76,10 @@ export default function DiplomaSection() {
               className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all duration-300"
             >
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Диплом сизга қуйдагиларни беради:
+                {settings.diplomaBlockTitle}
               </h3>
               <p className="text-white/80 text-lg leading-relaxed">
-                Бизнинг диплом - "факат қатнашганлик" ҳужжати эмас, балки
-                бозорга чиққанингизда сизни бошқа номзодлардан ажратиб турадиган
-                исботланган натижа.
+                {settings.diplomaBlockText}
               </p>
             </motion.div>
 
@@ -63,13 +92,10 @@ export default function DiplomaSection() {
               className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all duration-300"
             >
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Dividend Academy дипломи устунликлари:
+                {settings.certificateBlockTitle}
               </h3>
               <p className="text-white/80 text-lg leading-relaxed">
-                Хозирда Dividend Academy дипломи ҳамкор компаниялари олдида тан
-                олинади (30+ компания). Кейинги қадам: халқаро/давлат
-                аккредитацияси учун ҳужжатлар тайёрланмоқда. Натижада сизнинг
-                дипломингиз вақт ўтиши билан янада қимматлашади.
+                {settings.certificateBlockText}
               </p>
             </motion.div>
           </div>

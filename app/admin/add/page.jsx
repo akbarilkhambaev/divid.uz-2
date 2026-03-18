@@ -121,7 +121,7 @@ export default function AddServicePage() {
                       name: modalData.name,
                       description: modalData.description,
                     }
-                  : s
+                  : s,
               ),
             };
           }

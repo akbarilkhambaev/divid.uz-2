@@ -1,9 +1,16 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { sendToTelegram } from '@/lib/telegram';
 import {
   FaPhone,
   FaTelegram,
@@ -14,7 +21,29 @@ import {
 } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 
+const defaultSettings = {
+  sectionTitle: 'Биз билан алоқага чиқинг',
+  sectionSubtitle: 'Саволларингиз борми? Биз сизга ёрдам беришга тайёрмиз!',
+  formTitle: 'Қўнғироқ қолдиринг',
+  contactInfoTitle: 'Алоқа маълумотлари',
+  workHoursTitle: 'Ишчи соатлар',
+  addressTitle: 'Манзил',
+  address: 'Тошкент шаҳри, Мирзо Улуғбек тумани, Буюк Турон кўчаси, 1-уй',
+  mondayFriday: '9:00 - 18:00',
+  saturday: '10:00 - 15:00',
+  sunday: 'Дам олиш',
+  phone: '+998 90 123 45 67',
+  telegram: '@dividend_academy',
+  telegramLink: 'https://t.me/dividend_academy',
+  facebook: 'Dividend Academy',
+  facebookLink: 'https://facebook.com/dividend.academy',
+  whatsapp: '+998 90 123 45 67',
+  whatsappLink: 'https://wa.me/998901234567',
+  socialFooter: 'Ижтимоий тармоқларда биз билан боғланинг',
+};
+
 export default function ContactFormSection() {
+  const [settings, setSettings] = useState(defaultSettings);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -23,6 +52,21 @@ export default function ContactFormSection() {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const docRef = doc(db, 'academySettings', 'contact');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setSettings((prev) => ({ ...prev, ...docSnap.data() }));
+        }
+      } catch (error) {
+        console.error('Error fetching contact settings:', error);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +81,15 @@ export default function ContactFormSection() {
         message: formData.message,
         createdAt: serverTimestamp(),
         status: 'new',
+      });
+
+      // Отправляем в Telegram
+      await sendToTelegram({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        message: formData.message,
+        formType: 'academy_contact',
       });
 
       setSubmitted(true);
@@ -60,29 +113,29 @@ export default function ContactFormSection() {
     {
       icon: FaPhone,
       label: 'Телефон',
-      value: '+998 90 123 45 67',
-      link: 'tel:+998901234567',
+      value: settings.phone,
+      link: `tel:${settings.phone?.replace(/\s/g, '')}`,
       color: 'text-blue-400',
     },
     {
       icon: FaTelegram,
       label: 'Telegram',
-      value: '@dividend_academy',
-      link: 'https://t.me/dividend_academy',
+      value: settings.telegram,
+      link: settings.telegramLink,
       color: 'text-blue-500',
     },
     {
       icon: FaFacebook,
       label: 'Facebook',
-      value: 'Dividend Academy',
-      link: 'https://facebook.com/dividend.academy',
+      value: settings.facebook,
+      link: settings.facebookLink,
       color: 'text-blue-600',
     },
     {
       icon: FaWhatsapp,
       label: 'WhatsApp',
-      value: '+998 90 123 45 67',
-      link: 'https://wa.me/998901234567',
+      value: settings.whatsapp,
+      link: settings.whatsappLink,
       color: 'text-green-500',
     },
   ];
@@ -105,10 +158,10 @@ export default function ContactFormSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white uppercase">
-            Биз билан алоқага чиқинг
+            {settings.sectionTitle}
           </h2>
           <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
-            Саволларингиз борми? Биз сизга ёрдам беришга тайёрмиз!
+            {settings.sectionSubtitle}
           </p>
         </motion.div>
 
@@ -122,7 +175,7 @@ export default function ContactFormSection() {
             className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl"
           >
             <h3 className="text-3xl font-bold text-white mb-6">
-              Қўнғироқ қолдиринг
+              {settings.formTitle}
             </h3>
             <form
               onSubmit={handleSubmit}
@@ -208,7 +261,7 @@ export default function ContactFormSection() {
           >
             <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl">
               <h3 className="text-3xl font-bold text-white mb-6">
-                Алоқа маълумотлари
+                {settings.contactInfoTitle}
               </h3>
               <div className="space-y-4">
                 {contactInfo.map((contact, idx) => {
@@ -248,20 +301,22 @@ export default function ContactFormSection() {
             <div className="bg-gradient-to-r from-cs-blue to-blue-600 p-8 rounded-3xl">
               <div className="flex items-center gap-3 mb-4">
                 <FaClock className="text-white text-2xl" />
-                <h4 className="text-2xl font-bold text-white">Ишчи соатлар</h4>
+                <h4 className="text-2xl font-bold text-white">
+                  {settings.workHoursTitle}
+                </h4>
               </div>
               <div className="space-y-2 text-white/90">
                 <p className="flex justify-between">
                   <span>Душанба - Жума:</span>
-                  <span className="font-bold">9:00 - 18:00</span>
+                  <span className="font-bold">{settings.mondayFriday}</span>
                 </p>
                 <p className="flex justify-between">
                   <span>Шанба:</span>
-                  <span className="font-bold">10:00 - 15:00</span>
+                  <span className="font-bold">{settings.saturday}</span>
                 </p>
                 <p className="flex justify-between">
                   <span>Якшанба:</span>
-                  <span className="font-bold">Дам олиш</span>
+                  <span className="font-bold">{settings.sunday}</span>
                 </p>
               </div>
             </div>
@@ -270,13 +325,11 @@ export default function ContactFormSection() {
             <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl">
               <div className="flex items-center gap-3 mb-4">
                 <FaMapMarkerAlt className="text-cs-blue text-2xl" />
-                <h4 className="text-2xl font-bold text-white">Манзил</h4>
+                <h4 className="text-2xl font-bold text-white">
+                  {settings.addressTitle}
+                </h4>
               </div>
-              <p className="text-white/90 text-lg">
-                Тошкент шаҳри, Мирзо Улуғбек тумани,
-                <br />
-                Буюк Турон кўчаси, 1-уй
-              </p>
+              <p className="text-white/90 text-lg">{settings.address}</p>
             </div>
           </motion.div>
         </div>
@@ -289,14 +342,12 @@ export default function ContactFormSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-16 text-center"
         >
-          <p className="text-white/60 text-lg mb-6">
-            Ижтимоий тармоқларда биз билан боғланинг
-          </p>
+          <p className="text-white/60 text-lg mb-6">{settings.socialFooter}</p>
           <div className="flex justify-center gap-6">
             <motion.a
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
-              href="https://t.me/dividend_academy"
+              href={settings.telegramLink}
               target="_blank"
               rel="noopener noreferrer"
               className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center hover:shadow-xl transition-all"
@@ -309,7 +360,7 @@ export default function ContactFormSection() {
             <motion.a
               whileHover={{ scale: 1.1, rotate: -5 }}
               whileTap={{ scale: 0.9 }}
-              href="https://facebook.com/dividend.academy"
+              href={settings.facebookLink}
               target="_blank"
               rel="noopener noreferrer"
               className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center hover:shadow-xl transition-all"
@@ -322,7 +373,7 @@ export default function ContactFormSection() {
             <motion.a
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
-              href="https://wa.me/998901234567"
+              href={settings.whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
               className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center hover:shadow-xl transition-all"
@@ -335,7 +386,7 @@ export default function ContactFormSection() {
             <motion.a
               whileHover={{ scale: 1.1, rotate: -5 }}
               whileTap={{ scale: 0.9 }}
-              href="tel:+998901234567"
+              href={`tel:${settings.phone?.replace(/\s/g, '')}`}
               className="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center hover:shadow-xl transition-all"
             >
               <FaPhone

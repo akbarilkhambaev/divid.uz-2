@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ContactMap from '../components/ContactMap';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { sendToTelegram } from '@/lib/telegram';
 import Head from 'next/head';
 
 export default function ContactPage() {
@@ -36,6 +37,14 @@ export default function ContactPage() {
         message: formData.message,
         createdAt: serverTimestamp(),
         status: 'new',
+      });
+
+      // Отправляем в Telegram
+      await sendToTelegram({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        formType: 'contact',
       });
 
       setSubmitted(true);

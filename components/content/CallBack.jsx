@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineChatBubbleLeftRight, HiXMark } from 'react-icons/hi2';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { sendToTelegram } from '@/lib/telegram';
 
 export default function FullSupportWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,6 +76,14 @@ export default function FullSupportWidget() {
                       message: formData.message,
                       createdAt: serverTimestamp(),
                       status: 'new',
+                    });
+
+                    // Отправляем в Telegram
+                    await sendToTelegram({
+                      name: formData.name,
+                      email: formData.email,
+                      message: formData.message,
+                      formType: 'callback',
                     });
 
                     setSubmitted(true);
