@@ -101,7 +101,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-white shadow-md p-4">
+    <aside className="fixed top-0 left-0 z-30 h-screen w-64 overflow-y-auto bg-white shadow-md p-4">
       <Image
         width={377}
         height={402}

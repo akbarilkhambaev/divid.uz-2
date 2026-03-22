@@ -69,12 +69,12 @@ export default function ExampleWorksInfo() {
   return (
     <section
       id="about_us"
-      className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-20 text-white"
+      className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-12 md:py-20 text-white"
     >
       <ThreeParticlesBg />
       <div className="relative z-10 mx-auto flex w-full max-w-full flex-col gap-10 px-6 md:px-12">
         <motion.h2
-          className="text-center text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl"
+          className="text-center text-2xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -98,8 +98,8 @@ export default function ExampleWorksInfo() {
               Консалтинг компанияси
             </span>
 
-            <p className="text-xl leading-relaxed text-slate-200 md:text-2xl">
-              <span className="text-2xl font-bold text-white md:text-3xl">
+            <p className="text-base leading-relaxed text-slate-200 md:text-xl lg:text-2xl">
+              <span className="text-xl font-bold text-white md:text-2xl lg:text-3xl">
                 DIVIDEND
               </span>{' '}
               {description.replace(/^DIVIDEND\s*[—-]\s*/i, '')}
@@ -107,13 +107,13 @@ export default function ExampleWorksInfo() {
 
             <div className="h-px w-16 bg-cs-blue/60" />
 
-            <blockquote className="border-l-4 border-cs-blue pl-5 text-base italic text-slate-300 md:text-lg">
+            <blockquote className="border-l-4 border-cs-blue pl-4 text-sm italic text-slate-300 md:text-base lg:text-lg">
               &ldquo;{quote}&rdquo;
             </blockquote>
 
             <Link
               href="/contacts"
-              className="mt-2 inline-flex w-fit items-center gap-3 rounded-full border border-cs-blue/60 bg-cs-blue/15 px-6 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-cs-blue transition duration-300 hover:border-white/50 hover:bg-white/15 hover:text-white"
+              className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border border-cs-blue/60 bg-cs-blue/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cs-blue transition duration-300 hover:border-white/50 hover:bg-white/15 hover:text-white sm:px-6 sm:py-3 sm:text-sm sm:tracking-[0.35em] sm:gap-3"
             >
               Биз билан боғланиш
               <FaLongArrowAltRight />
@@ -124,10 +124,10 @@ export default function ExampleWorksInfo() {
             <table className="w-full border-collapse text-left">
               <thead>
                 <tr className="bg-cs-blue/20">
-                  <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.3em] text-cs-blue w-[40%]">
+                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-cs-blue w-[40%] md:px-6 md:py-4 md:text-xs md:tracking-[0.3em]">
                     Йўналиш
                   </th>
-                  <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.3em] text-cs-blue">
+                  <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-cs-blue md:px-6 md:py-4 md:text-xs md:tracking-[0.3em]">
                     Таъриф
                   </th>
                 </tr>
@@ -138,13 +138,13 @@ export default function ExampleWorksInfo() {
                     key={item.id || item.title}
                     className={`border-t border-white/10 transition-colors duration-200 hover:bg-white/5 ${index % 2 === 0 ? 'bg-white/[0.03]' : 'bg-transparent'}`}
                   >
-                    <td className="px-6 py-5 align-top">
-                      <span className="text-sm font-bold uppercase tracking-[0.25em] text-white">
+                    <td className="px-3 py-3 align-top md:px-6 md:py-5">
+                      <span className="text-xs font-bold uppercase tracking-[0.15em] text-white md:text-sm md:tracking-[0.25em]">
                         {item.title}
                       </span>
                     </td>
-                    <td className="px-6 py-5 align-top">
-                      <span className="text-base leading-relaxed text-slate-300">
+                    <td className="px-3 py-3 align-top md:px-6 md:py-5">
+                      <span className="text-xs leading-relaxed text-slate-300 md:text-base">
                         {item.description}
                       </span>
                     </td>

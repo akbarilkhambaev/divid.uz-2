@@ -1,41 +1,42 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { HiPencilAlt } from 'react-icons/hi';
 import { HiOutlineTrash } from 'react-icons/hi2';
 import { db } from '@/lib/firebase';
+import RichEditor from '@/components/admin/RichEditor';
 
 export default function AdminPage() {
   const [services, setServices] = useState([]);
   const [editingService, setEditingService] = useState(null);
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    subcategory: '',
-  });
+  const [formData, setFormData] = useState({ title: '', description: '' });
+  const [saving, setSaving] = useState(false);
 
   const fetchServices = async () => {
     const snapshot = await getDocs(collection(db, 'servicesTree'));
-    const data = snapshot.docs.map((doc) => doc.data());
 
-    console.log('Firestore RAW data:', data);
-
-    const flatServices = data.flatMap((category) => {
-      if (!Array.isArray(category.subcategories)) return [];
-
-      return category.subcategories.flatMap((sub) => {
+    const flatServices = snapshot.docs.flatMap((docSnap) => {
+      const data = docSnap.data();
+      if (!Array.isArray(data.subcategories)) return [];
+      return data.subcategories.flatMap((sub) => {
         if (!Array.isArray(sub.services)) return [];
-
         return sub.services.map((service) => ({
           ...service,
-          subcategory: sub.name,
-          category: category.name,
+          _categoryDocId: docSnap.id,
+          _categoryName: data.name,
+          _subcategoryId: sub.id,
+          _subcategoryName: sub.name,
         }));
       });
     });
 
-    console.log('Parsed services:', flatServices);
     setServices(flatServices);
   };
 
@@ -47,19 +48,76 @@ export default function AdminPage() {
     setEditingService(service);
     setFormData({
       title: service.name,
-      description: service.description,
-      subcategory: service.subcategory,
+      description: service.description || '',
     });
-  };
-
-  const handleEditChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-    alert('Редактирование через Firebase пока не реализовано.');
+    if (!formData.title.trim()) return alert('Введите название');
+    setSaving(true);
+    try {
+      const categoryRef = doc(
+        db,
+        'servicesTree',
+        editingService._categoryDocId,
+      );
+      const snap = await getDoc(categoryRef);
+      if (!snap.exists()) throw new Error('Документ не найден');
+      const data = snap.data();
+      const updated = {
+        ...data,
+        subcategories: data.subcategories.map((sub) => {
+          if (String(sub.id) !== String(editingService._subcategoryId))
+            return sub;
+          return {
+            ...sub,
+            services: (sub.services || []).map((s) =>
+              s.id === editingService.id
+                ? {
+                    ...s,
+                    name: formData.title,
+                    description: formData.description,
+                  }
+                : s,
+            ),
+          };
+        }),
+      };
+      await updateDoc(categoryRef, updated);
+      setEditingService(null);
+      await fetchServices();
+    } catch (err) {
+      console.error(err);
+      alert('Ошибка при сохранении: ' + err.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async (service) => {
+    if (!confirm(`Удалить услугу "${service.name}"?`)) return;
+    try {
+      const categoryRef = doc(db, 'servicesTree', service._categoryDocId);
+      const snap = await getDoc(categoryRef);
+      if (!snap.exists()) throw new Error('Документ не найден');
+      const data = snap.data();
+      const updated = {
+        ...data,
+        subcategories: data.subcategories.map((sub) => {
+          if (String(sub.id) !== String(service._subcategoryId)) return sub;
+          return {
+            ...sub,
+            services: (sub.services || []).filter((s) => s.id !== service.id),
+          };
+        }),
+      };
+      await updateDoc(categoryRef, updated);
+      await fetchServices();
+    } catch (err) {
+      console.error(err);
+      alert('Ошибка при удалении: ' + err.message);
+    }
   };
 
   return (
@@ -82,10 +140,12 @@ export default function AdminPage() {
                 key={service.id}
                 className="text-center hover:bg-gray-50"
               >
-                <td className="px-4 py-2 border">{service.id}</td>
+                <td className="px-4 py-2 border text-xs text-gray-500">
+                  {service.id}
+                </td>
                 <td className="px-4 py-2 border">{service.name}</td>
                 <td className="px-4 py-2 border">
-                  {service.category} / {service.subcategory}
+                  {service._categoryName} / {service._subcategoryName}
                 </td>
                 <td className="px-4 py-2 border space-x-2 ">
                   <button
@@ -95,7 +155,7 @@ export default function AdminPage() {
                     <HiPencilAlt />
                   </button>
                   <button
-                    onClick={() => alert('Удаление пока не реализовано')}
+                    onClick={() => handleDelete(service)}
                     className="bg-red-600 text-white px-2 py-1 rounded"
                   >
                     <HiOutlineTrash />
@@ -139,37 +199,49 @@ export default function AdminPage() {
           {editingService && (
             <>
               <h2 className="text-xl font-bold mb-4">Редактирование услуги</h2>
+              <p className="text-sm text-gray-500 mb-4">
+                {editingService._categoryName} /{' '}
+                {editingService._subcategoryName}
+              </p>
               <form
                 onSubmit={handleEditSubmit}
                 className="space-y-4"
               >
-                <input
-                  name="title"
-                  value={formData.title}
-                  onChange={handleEditChange}
-                  placeholder="Название"
-                  className="w-full border p-2 rounded"
-                />
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleEditChange}
-                  placeholder="Описание"
-                  className="w-full border p-2 rounded"
-                />
-                <input
-                  name="subcategory"
-                  value={formData.subcategory}
-                  onChange={handleEditChange}
-                  placeholder="Подкатегория"
-                  className="w-full border p-2 rounded"
-                />
-                <div className="flex justify-between">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Название
+                  </label>
+                  <input
+                    value={formData.title}
+                    onChange={(e) =>
+                      setFormData((p) => ({ ...p, title: e.target.value }))
+                    }
+                    placeholder="Название"
+                    className="w-full border p-2 rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Описание
+                  </label>
+                  <RichEditor
+                    value={formData.description}
+                    onChange={(_e, editor) =>
+                      setFormData((p) => ({
+                        ...p,
+                        description: editor.getData(),
+                      }))
+                    }
+                  />
+                </div>
+                <div className="flex justify-between pt-2">
                   <button
                     type="submit"
-                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                    disabled={saving}
+                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-50"
                   >
-                    Сохранить
+                    {saving ? 'Сохранение...' : 'Сохранить'}
                   </button>
                   <button
                     type="button"

@@ -75,12 +75,12 @@ export default function InfoSection() {
           disableOnInteraction: false,
         }}
         onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
-        className="custom-swiper relative z-10 h-[520px] w-full md:h-[620px] lg:h-[720px]"
+        className="custom-swiper relative z-10 h-[460px] w-full md:h-[620px] lg:h-[720px]"
       >
         {slides.map((slide, index) => (
           <SwiperSlide
             key={slide.id}
-            className="relative h-[520px] md:h-[620px] lg:h-[720px]"
+            className="relative h-[460px] md:h-[620px] lg:h-[720px]"
           >
             <div className="absolute inset-0">
               <div
@@ -95,34 +95,34 @@ export default function InfoSection() {
               <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
 
-            <div className="relative z-10 mx-auto flex h-full w-full max-w-full flex-col justify-start px-4 py-10 md:flex-row md:items-center md:gap-12 md:px-6">
+            <div className="relative z-10 mx-auto flex h-full w-full max-w-full flex-col justify-start px-4 py-6 md:flex-row md:items-center md:gap-12 md:px-6 md:py-10">
               <div className="w-full md:w-[40%] lg:w-[40%]">
                 <div
-                  className={`relative overflow-hidden  rounded-3xl border border-white/10 bg-white/10 p-8 text-white shadow-xl backdrop-blur-xl transition-all duration-500 md:p-12 ${
+                  className={`relative overflow-hidden rounded-3xl border border-white/10 bg-white/10 p-5 text-white shadow-xl backdrop-blur-xl transition-all duration-500 sm:p-7 md:p-12 ${
                     activeSlide === index
                       ? 'animate__animated animate__fadeInLeft'
                       : ''
                   }`}
                 >
                   <div className="absolute inset-px rounded-[inherit] border border-white/10 opacity-60" />
-                  <h2 className="relative text-left text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+                  <h2 className="relative text-left text-xl font-bold leading-tight sm:text-2xl md:text-4xl lg:text-5xl">
                     {slide.title}
                   </h2>
                   <div
-                    className="relative mt-6 max-w-3xl text-left text-base text-slate-200 md:text-lg [&_p]:mb-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+                    className="relative mt-3 max-w-3xl text-left text-sm text-slate-200 sm:mt-4 md:mt-6 md:text-lg [&_p]:mb-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
                     dangerouslySetInnerHTML={{ __html: slide.text || '' }}
                   />
 
                   <Link
                     href="/services"
-                    className={`relative mt-10 inline-flex items-center gap-3 rounded-full border border-cs-blue/70 bg-cs-blue/20 px-7 py-3 text-sm font-semibold uppercase tracking-[0.4em] text-cs-blue transition duration-300 hover:border-white/60 hover:bg-white/20 hover:text-white ${
+                    className={`relative mt-5 inline-flex items-center gap-2 rounded-full border border-cs-blue/70 bg-cs-blue/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cs-blue transition duration-300 hover:border-white/60 hover:bg-white/20 hover:text-white sm:px-6 sm:py-2.5 sm:tracking-[0.3em] md:mt-10 md:gap-3 md:px-7 md:py-3 md:text-sm md:tracking-[0.4em] ${
                       activeSlide === index
                         ? 'animate__animated animate__fadeInUpBig'
                         : ''
                     }`}
                   >
                     Копрок маълумот олиш
-                    <FaLongArrowAltRight className="text-lg" />
+                    <FaLongArrowAltRight className="text-sm md:text-lg" />
                   </Link>
                 </div>
               </div>
