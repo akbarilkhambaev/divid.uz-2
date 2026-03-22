@@ -108,9 +108,10 @@ export default function InfoSection() {
                   <h2 className="relative text-left text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
                     {slide.title}
                   </h2>
-                  <p className="relative mt-6 max-w-3xl text-left text-base text-slate-200 md:text-lg">
-                    {slide.text}
-                  </p>
+                  <div
+                    className="relative mt-6 max-w-3xl text-left text-base text-slate-200 md:text-lg [&_p]:mb-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+                    dangerouslySetInnerHTML={{ __html: slide.text || '' }}
+                  />
 
                   <Link
                     href="/services"

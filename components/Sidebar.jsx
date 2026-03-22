@@ -84,6 +84,11 @@ export default function Sidebar() {
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
+      label: 'Биз ҳақимизда',
+      href: '/admin/about-us',
+      icon: <RxPencil2 className="inline-flex mb-1" />,
+    },
+    {
       label: 'CRM - Заявки',
       href: '/admin/crm',
       icon: <GiPapers className="inline-flex mb-1" />,

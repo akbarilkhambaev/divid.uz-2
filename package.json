@@ -34,6 +34,7 @@
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "swiper": "^11.2.6",
+    "three": "^0.183.2",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

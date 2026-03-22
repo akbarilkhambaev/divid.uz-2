@@ -71,13 +71,16 @@ export default function ServicesPage() {
     const fetchData = async () => {
       try {
         const snapshot = await getDocs(collection(db, 'servicesTree'));
-        const data = snapshot.docs.map((doc) => doc.data());
+        const data = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          _docId: doc.id,
+        }));
 
         console.log('RAW Firestore data:', data);
 
         // Нормализуем категории
         const cats = data.map((cat) => ({
-          id: cat.id,
+          id: cat._docId,
           name: cat.name,
           subcategories: Array.isArray(cat.subcategories)
             ? cat.subcategories
@@ -213,7 +216,7 @@ export default function ServicesPage() {
                         dangerouslySetInnerHTML={{
                           __html: (function () {
                             const raw = renderDescription(
-                              service.description || 'Нет описания.'
+                              service.description || 'Нет описания.',
                             );
                             if (DOMPurify) {
                               return DOMPurify.sanitize(raw, {

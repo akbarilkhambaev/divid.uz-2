@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { HiPencilAlt } from 'react-icons/hi';
 import { HiOutlineTrash } from 'react-icons/hi2';
+import RichEditor from '@/components/admin/RichEditor';
 import { db } from '@/lib/firebase';
 import {
   collection,
@@ -134,7 +135,10 @@ export default function SliderManagementPage() {
             <h2 className="text-2xl font-bold mb-4">
               {editData ? 'Редактировать слайд' : 'Добавить слайд'}
             </h2>
-            <form onSubmit={handleAddOrUpdate} className="space-y-4">
+            <form
+              onSubmit={handleAddOrUpdate}
+              className="space-y-4"
+            >
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Заголовок *
@@ -153,14 +157,11 @@ export default function SliderManagementPage() {
                 <label className="block text-sm font-medium mb-2">
                   Текст *
                 </label>
-                <textarea
-                  value={formData.text}
-                  onChange={(e) =>
-                    setFormData({ ...formData, text: e.target.value })
+                <RichEditor
+                  data={formData.text}
+                  onChange={(_event, editor) =>
+                    setFormData({ ...formData, text: editor.getData() })
                   }
-                  className="w-full border p-2 rounded"
-                  rows="4"
-                  required
                 />
               </div>
               <div>
@@ -228,7 +229,9 @@ export default function SliderManagementPage() {
         </div>
       )}
 
-      <div className={modalOpen ? 'blur-sm transition-filter duration-300' : ''}>
+      <div
+        className={modalOpen ? 'blur-sm transition-filter duration-300' : ''}
+      >
         <h2 className="text-lg font-semibold mb-2">Список слайдов</h2>
         <table className="w-full border bg-white">
           <thead>
@@ -242,7 +245,10 @@ export default function SliderManagementPage() {
           </thead>
           <tbody>
             {slides.map((item) => (
-              <tr key={item.id} className="border-t align-top text-sm">
+              <tr
+                key={item.id}
+                className="border-t align-top text-sm"
+              >
                 <td className="p-2 border">{item.order || 0}</td>
                 <td className="p-2 border max-w-[200px]">{item.title}</td>
                 <td className="p-2 border max-w-[300px]">
@@ -281,4 +287,3 @@ export default function SliderManagementPage() {
     </div>
   );
 }
-
