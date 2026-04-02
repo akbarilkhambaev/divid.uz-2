@@ -62,14 +62,14 @@ export default function Header() {
             >
               <FiPhone className="text-cs-white text-xl mx-2" />
               <span className="text-cs-white text-sm uppercase underline underline-offset-2 decoration-dotted mx-2">
-                биз билан боғланинг
+                biz bilan bog'laning
               </span>
             </Link>
             <div className="flex items-center gap-2">
               <div className="flex flex-col">
                 <Link href="">
                   <span className="text-[10px] uppercase underline underline-offset-2 decoration-dotted">
-                    Юнусобод т. Бектемир 87
+                    Yunusobod t. Bektemir 87
                   </span>
                 </Link>
                 <Link
@@ -136,7 +136,7 @@ export default function Header() {
                     href="/#about_us"
                     className="hover:text-cs-blue"
                   >
-                    Биз хакимизда
+                    Biz haqimizda
                   </Link>
                 </li>
                 <li className="hover:border-cs-blue border-b-2 border-transparent transition">
@@ -144,7 +144,7 @@ export default function Header() {
                     href="/services"
                     className="hover:text-cs-blue"
                   >
-                    Хизматлар
+                    Xizmatlar
                   </Link>
                 </li>
                 <li className="hover:border-cs-blue border-b-2 border-transparent transition">
@@ -152,7 +152,7 @@ export default function Header() {
                     href="/media"
                     className="hover:text-cs-blue"
                   >
-                    Янгиликлар
+                    Yangiliklar
                   </Link>
                 </li>
                 <li className="hover:border-cs-blue border-b-2 border-transparent transition">
@@ -160,7 +160,7 @@ export default function Header() {
                     href="/contacts"
                     className="hover:text-cs-blue"
                   >
-                    Контактлар
+                    Kontaktlar
                   </Link>
                 </li>
                 <li className="hover:border-cs-blue border-b-2 border-transparent transition">
@@ -226,7 +226,7 @@ export default function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="block text-gray-800 hover:text-cs-blue text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition uppercase"
                     >
-                      Биз хакимизда
+                      Biz haqimizda
                     </Link>
                   </li>
                   <li>
@@ -235,7 +235,7 @@ export default function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="block text-gray-800 hover:text-cs-blue text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition uppercase"
                     >
-                      Хизматлар
+                      Xizmatlar
                     </Link>
                   </li>
                   <li>
@@ -244,7 +244,7 @@ export default function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="block text-gray-800 hover:text-cs-blue text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition uppercase"
                     >
-                      Янгиликлар
+                      Yangiliklar
                     </Link>
                   </li>
                   <li>
@@ -253,7 +253,7 @@ export default function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="block text-gray-800 hover:text-cs-blue text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition uppercase"
                     >
-                      Контактлар
+                      Kontaktlar
                     </Link>
                   </li>
                   <li>
@@ -278,7 +278,7 @@ export default function Header() {
                       <span>+998 71 000 00 00</span>
                     </Link>
                     <p className="text-sm text-gray-600">
-                      Юнусобод т. Бектемир 87
+                      Yunusobod t. Bektemir 87
                     </p>
                   </div>
 
@@ -316,8 +316,8 @@ export default function Header() {
           scrolled
             ? 'pt-14 md:pt-16'
             : showTopBar
-            ? 'pt-16 md:pt-[120px]'
-            : 'pt-16 md:pt-20'
+              ? 'pt-16 md:pt-[120px]'
+              : 'pt-16 md:pt-20'
         }`}
       />
     </>

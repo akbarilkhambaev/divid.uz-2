@@ -48,7 +48,7 @@ export default function FullSupportWidget() {
               <div className="relative">
                 <span className="absolute -inset-1 -skew-y-2 rounded-lg bg-white/60 blur-sm" />
                 <h3 className="relative text-lg font-semibold uppercase tracking-wide text-slate-900">
-                  Қўллаб-қувватлаш
+                  Qo‘llab-quvvatlash
                 </h3>
               </div>
               <button
@@ -61,7 +61,7 @@ export default function FullSupportWidget() {
 
             <div className="flex-1 space-y-6 overflow-y-auto px-5 py-8 text-sm">
               <p className="text-slate-600">
-                Салом! Сизга қандай ёрдам беришимиз мумкин?
+                Salom! Sizga qanday yordam berishimiz mumkin?
               </p>
               <form
                 onSubmit={async (e) => {
@@ -90,7 +90,7 @@ export default function FullSupportWidget() {
                     setFormData({ name: '', email: '', message: '' });
                   } catch (error) {
                     console.error('Ошибка отправки формы:', error);
-                    alert('Ошибка отправки. Попробуйте позже.');
+                    alert('Yuborish xatoligi. Keyinroq urinib ko‘ring.');
                   } finally {
                     setLoading(false);
                   }
@@ -99,11 +99,11 @@ export default function FullSupportWidget() {
               >
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-[0.25em] text-slate-500">
-                    Исмингиз
+                    Ismingiz
                   </label>
                   <input
                     type="text"
-                    placeholder="Исмингиз"
+                    placeholder="Ismingiz"
                     value={formData.name}
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
@@ -129,10 +129,10 @@ export default function FullSupportWidget() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-[0.25em] text-slate-500">
-                    Хабарингиз
+                    Xabaringiz
                   </label>
                   <textarea
-                    placeholder="Хабарингиз..."
+                    placeholder="Xabaringiz..."
                     rows={4}
                     value={formData.message}
                     onChange={(e) =>
@@ -147,13 +147,13 @@ export default function FullSupportWidget() {
                   disabled={loading}
                   className="w-full rounded-full border border-cs-blue/60 bg-cs-blue/90 px-6 py-3 text-sm font-semibold uppercase tracking-[0.4em] text-white shadow-lg transition hover:shadow-[0_20px_40px_-30px_rgba(59,130,246,0.7)] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {loading ? 'Юборилмоқда...' : 'Юбориш'}
+                  {loading ? 'Yuborilmoqda...' : 'Yuborish'}
                 </button>
               </form>
             </div>
 
             <div className="border-t border-slate-200 py-3 text-center text-xs text-slate-500">
-              Қўллаб-қувватлаш © {new Date().getFullYear()}
+              Qo‘llab-quvvatlash © {new Date().getFullYear()}
             </div>
           </motion.div>
         )}
@@ -212,10 +212,10 @@ export default function FullSupportWidget() {
                   </svg>
                 </motion.div>
 
-                <h3 className="text-2xl font-semibold">Хабар юборилди!</h3>
+                <h3 className="text-2xl font-semibold">Xabar yuborildi!</h3>
                 <p className="mt-3 text-sm text-slate-600 md:text-base">
-                  Сизнинг заявкангиз қабул қилинди. Тез орада сиз билан
-                  боғланамиз.
+                  Sizning zayavkangiz qabul qilindi. Tez orada siz bilan
+                  bog‘lanamiz.
                 </p>
 
                 <button
@@ -225,7 +225,7 @@ export default function FullSupportWidget() {
                   }}
                   className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-cs-blue/60 bg-cs-blue/90 px-6 py-3 text-sm font-semibold uppercase tracking-[0.4em] text-white shadow-lg transition hover:shadow-[0_20px_40px_-30px_rgba(59,130,246,0.7)]"
                 >
-                  Яхши
+                  Yaxshi
                 </button>
               </div>
             </motion.div>

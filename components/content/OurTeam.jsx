@@ -29,8 +29,8 @@ export default function OurTeam() {
         console.error('Ошибка загрузки команды:', error);
         setTeamMembers([
           {
-            name: 'САГДИЕВ КАМОЛИДДИН',
-            position: 'ТАСИСЧИ / МОЛИЯВИЙ ДИРЕКТОР',
+            name: 'SAGDIYEV KAMOLIDDIN',
+            position: 'ASOSCHI / MOLIYAVIY DIREKTOR',
             image: '/team/Sagdiyev_K.png',
           },
         ]);
@@ -45,7 +45,7 @@ export default function OurTeam() {
   if (loading) {
     return (
       <section className="flex h-[480px] min-h-full items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
-        <div className="text-lg md:text-xl">Загрузка...</div>
+        <div className="text-lg md:text-xl">Yuklanmoqda...</div>
       </section>
     );
   }
@@ -77,9 +77,9 @@ export default function OurTeam() {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
-            <span className="relative text-slate-950">БИЗНИНГ</span>
+            <span className="relative text-slate-950">BIZNING</span>
           </span>
-          <span className="ml-2 text-cs-blue"> ЖАМОА</span>
+          <span className="ml-2 text-cs-blue"> JAMOA</span>
         </motion.h2>
 
         <Swiper

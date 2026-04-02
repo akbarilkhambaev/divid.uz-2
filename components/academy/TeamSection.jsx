@@ -14,27 +14,27 @@ import { db } from '@/lib/firebase';
 
 const defaultTeamMembers = [
   {
-    name: 'Муҳаммад Бобур Абдураҳимов',
+    name: 'Muhammad Bobur Abduraximov',
     role: 'Lecturer',
     hasPhoto: true,
     photoPath: '/academy/team/bobur.avif',
-    bio: 'Муҳаммад Бобур Абдураҳимов — 8 йиллик тажрибага эга корпоратив молия експерти. Big 4 консултанти ва йирик компанияларда CFO лавозимларида ишлаган, 30+ бизнесда самарали молиявий бошқарув тизимларини шакллантирган.',
+    bio: 'Muhammad Bobur Abduraximov — 8 yillik tajribaga ega korporativ moliya eksperti. Big 4 konsultanti va yirik kompaniyalarda CFO lavozimlarida ishlagan, 30+ biznesda samarali moliyaviy boshqaruv tizimlarini shakllantirgan.',
   },
   {
-    name: 'Акмал Тураев',
-    role: 'Ментор асистенти',
+    name: 'Akmal Turaev',
+    role: 'Mentor assistenti',
     hasPhoto: false,
     photoPath: '/academy/team/akmal.avif',
   },
   {
-    name: 'Мирали Толибов',
-    role: 'Ментор',
+    name: 'Mirali Tolibov',
+    role: 'Mentor',
     hasPhoto: false,
     photoPath: '/academy/team/mirali.avif',
   },
   {
-    name: 'Азиз Толибов',
-    role: 'Ментор асистенти',
+    name: 'Aziz Tolibov',
+    role: 'Mentor assistenti',
     hasPhoto: false,
     photoPath: '/academy/team/aziz.avif',
   },
@@ -43,7 +43,7 @@ const defaultTeamMembers = [
 export default function TeamSection() {
   const [teamMembers, setTeamMembers] = useState(defaultTeamMembers);
   const [settings, setSettings] = useState({
-    sectionTitle: 'Курснинг менторлари ва экспертлари',
+    sectionTitle: 'Kursning mentorlari va ekspertlari',
   });
 
   useEffect(() => {

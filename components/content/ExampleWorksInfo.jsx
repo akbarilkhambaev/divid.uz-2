@@ -10,39 +10,39 @@ import ThreeParticlesBg from '@/components/ThreeParticlesBg';
 
 const DEFAULT_DATA = {
   description:
-    'DIVIDEND — стратегик консалтинг компанияси бўлиб, бизнесининг ривожланиши ва рақобатбардошлигини таъминлашга ихтисослашган. Бизнесингизни ривожлантириш учун инновацион ечимларни таклиф этувчи консалтинг компанияси. Биз шунчаки маслаҳатчи эмасмиз — мижозларимизнинг ҳақиқий ҳамкоримиз ва ҳар бир босқичда амалий ечимлар билан ёрдам берамиз.',
+    'DIVIDEND — strategik konsalting kompaniyasi bo‘lib, biznesining rivojlanishi va raqobatbardoshligini ta‘minlashga ixtisoslashgan. Biznesingizni rivojlantirish uchun innovatsion yechimlarni taklif etuvchi konsalting kompaniyasi. Biz shunchaki maslahatchi emasmiz — mijozlarimizning haqiqiy hamkorimiz va har bir bosqichda amaliy yechimlar bilan yordam beramiz.',
   quote:
-    'Нега айнан DIVIDEND? Чунки ҳар бир тавсиямиз амалиётда синалган ва натижага йўналтирилган — жорий этиш жараёнида ҳамиша ёнингиздамиз.',
+    'Nega aynan DIVIDEND? Chunki har bir tavsiyamiz amaliyotda sinallgan va natijaga yo‘naltirilgan — joriy etish jarayonida hamisha yoningizda‘miz.',
   directions: [
     {
       id: '1',
-      title: 'Молиявий аудит ва оптималлаштириш',
+      title: 'Moliyaviy audit va optimallashtirish',
       description:
-        'Жараёнларни чуқур таҳлил қилиб, хатоларни аниқлаймиз ва харажатларни қисқартириш стратегиясини ишлаб чиқамиз. Мақсад — молиявий соғлиқни сақлаш.',
+        'Jarayonlarni chuqur tahlil qilib, xatolarni aniqlaymiz va xarajatlarni qisqartirish strategiyasini ishlab chiqamiz. Maqsad — moliyaviy sog‘liqni saqlash.',
     },
     {
       id: '2',
-      title: 'Стратегик молия бошқаруви',
+      title: 'Strategik moliya boshqaruvi',
       description:
-        'Даромадларни режалаштириш, инвестицияларни бошқариш ва рискларни минималлаштириш бўйича амалий йўриқномалар тайёрлаймиз.',
+        'Daromadlarni rejallashtirish, investitsiyalarni boshqarish va risklarni minimallashtirilish bo‘yicha amaliy yo‘riqnomalar tayyorlaymiz.',
     },
     {
       id: '3',
-      title: 'Кадрлар бошқаруви ва HR-тизимлар',
+      title: 'Kadrlar boshqaruvi va HR-tizimlar',
       description:
-        'Жамоани танлаш, баҳолаш ва мотивациялаш бўйича ечимлар, корпоратив маданиятни ривожлантириш режалари билан таъминлаймиз.',
+        'Jamoani tanlash, baholash va motivatsiyalash bo‘yicha yechimlar, korporativ madaniyatni rivojlantirish rejalari bilan ta‘minlaymiz.',
     },
     {
       id: '4',
-      title: 'Бизнес-жараёнларни рақамлаштириш',
+      title: 'Biznes jarayonlarni raqamlashtirish',
       description:
-        'CRM, ERP ва автоматлаштириш тизимларини жорий этиб, стратегияга кўпроқ, рутинага камроқ вақт ажратиш имконини берамиз.',
+        'CRM, ERP va avtomatlashtirish tizimlarini joriy etib, strategiyaga ko‘proq, rutinaga kamroq vaqt ajratish imkonini beramiz.',
     },
     {
       id: '5',
-      title: 'Бизнес-стратегия ва масштаблаш',
+      title: 'Biznes strategiya va masshtablash',
       description:
-        'Янги бозорларга чиқиш, маҳсулот ривожи ва ўсиш сценарийлари бўйича амалий йўл хариталарини ишлаб чиқамиз.',
+        'Yangi bozorlarga chiqish, mahsulot rivoji va o‘sish stsenariyalari bo‘yicha amaliy yo‘l xaritalarini ishlab chiqamiz.',
     },
   ],
 };
@@ -81,9 +81,9 @@ export default function ExampleWorksInfo() {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
-            <span className="relative text-slate-950">БИЗ</span>
+            <span className="relative text-slate-950">BIZ</span>
           </span>
-          <span className="ml-2 md:ml-3">ҲАҚИМИЗДА</span>
+          <span className="ml-2 md:ml-3">HAQIMIZDA</span>
         </motion.h2>
 
         <motion.div
@@ -95,7 +95,7 @@ export default function ExampleWorksInfo() {
         >
           <div className="flex flex-col gap-6">
             <span className="w-fit text-[11px] font-semibold uppercase tracking-[0.4em] text-cs-blue">
-              Консалтинг компанияси
+              Konsalting kompaniyasi
             </span>
 
             <p className="text-base leading-relaxed text-slate-200 md:text-xl lg:text-2xl">
@@ -115,7 +115,7 @@ export default function ExampleWorksInfo() {
               href="/contacts"
               className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border border-cs-blue/60 bg-cs-blue/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cs-blue transition duration-300 hover:border-white/50 hover:bg-white/15 hover:text-white sm:px-6 sm:py-3 sm:text-sm sm:tracking-[0.35em] sm:gap-3"
             >
-              Биз билан боғланиш
+              Biz bilan bog‘lanish
               <FaLongArrowAltRight />
             </Link>
           </div>
@@ -125,10 +125,10 @@ export default function ExampleWorksInfo() {
               <thead>
                 <tr className="bg-cs-blue/20">
                   <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-cs-blue w-[40%] md:px-6 md:py-4 md:text-xs md:tracking-[0.3em]">
-                    Йўналиш
+                    Yo‘nalish
                   </th>
                   <th className="px-3 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-cs-blue md:px-6 md:py-4 md:text-xs md:tracking-[0.3em]">
-                    Таъриф
+                    Ta'rif
                   </th>
                 </tr>
               </thead>

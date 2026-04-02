@@ -51,7 +51,7 @@ export default function ContactPage() {
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
-      alert('Ошибка отправки. Попробуйте позже.');
+      alert('Yuborish xatoligi. Keyinroq urinib ko‘ring.');
     } finally {
       setLoading(false);
     }
@@ -60,18 +60,18 @@ export default function ContactPage() {
   return (
     <>
       <Head>
-        <title>Контакты | Divid.uz</title>
+        <title>Kontaktlar | Divid.uz</title>
         <meta
           name="description"
-          content="Свяжитесь с нами — Divid.uz. Адрес, телефон, email, форма обратной связи и карта проезда."
+          content="Biz bilan bog'laning — Divid.uz. Manzil, telefon, email, aloqa shakli va yo'nalish xaritasi."
         />
         <meta
           property="og:title"
-          content="Контакты | Divid.uz"
+          content="Kontaktlar | Divid.uz"
         />
         <meta
           property="og:description"
-          content="Свяжитесь с Divid.uz: адрес, телефон, email, форма обратной связи и карта проезда."
+          content="Divid.uz bilan bog'laning: manzil, telefon, email, aloqa shakli va yo'nalish xaritasi."
         />
         <meta
           property="og:type"
@@ -100,7 +100,7 @@ export default function ContactPage() {
         <div className="relative z-10 mx-auto flex w-full max-w-full flex-col gap-12 px-4 sm:px-6 lg:px-8 md:flex-row md:items-stretch">
           <div className="w-full max-w-md rounded-[28px] border border-white/10 bg-white/5 p-8 shadow-[0_35px_65px_-40px_rgba(15,23,42,0.9)] backdrop-blur-xl flex flex-col justify-center min-h-[480px]">
             <h2 className="text-2xl font-bold mb-6 text-white">
-              Биз билан боғланинг
+              Biz bilan bog‘laning
             </h2>
             <form
               onSubmit={handleSubmit}
@@ -111,7 +111,7 @@ export default function ContactPage() {
                   className="block font-semibold mb-1 text-slate-200"
                   htmlFor="name"
                 >
-                  Исм
+                  Ism
                 </label>
                 <input
                   className="border border-white/10 focus:border-cs-blue/40 focus:ring-2 focus:ring-cs-blue/30 w-full p-3 rounded-xl transition outline-none placeholder:text-slate-400 bg-white/10 text-white"
@@ -121,7 +121,7 @@ export default function ContactPage() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Исмингиз"
+                  placeholder="Ismingiz"
                   autoComplete="name"
                 />
               </div>
@@ -158,7 +158,7 @@ export default function ContactPage() {
                   rows="4"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Хабарингизни ёзинг..."
+                  placeholder="Xabaringizni yozing..."
                 />
               </div>
               <button
@@ -166,7 +166,7 @@ export default function ContactPage() {
                 type="submit"
                 disabled={loading}
               >
-                {loading ? 'Юборилмоқда...' : 'Юбориш'}
+                {loading ? 'Yuborilmoqda...' : 'Yuborish'}
               </button>
             </form>
           </div>
@@ -240,11 +240,11 @@ export default function ContactPage() {
 
                   {/* Текст */}
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Хабар юборилди!
+                    Xabar yuborildi!
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    Сизнинг хабарингиз қабул қилинди. Тез орада сиз билан
-                    боғланамиз.
+                    Sizning xabaringiz qabul qilindi. Tez orada siz bilan
+                    bog‘lanamiz.
                   </p>
 
                   {/* Кнопка */}
@@ -252,7 +252,7 @@ export default function ContactPage() {
                     onClick={() => setSubmitted(false)}
                     className="w-full bg-cs-blue text-white py-3 px-6 rounded-lg font-semibold hover:bg-cs-blue/80 transition duration-300"
                   >
-                    Яхши
+                    Yaxshi
                   </button>
                 </div>
               </motion.div>

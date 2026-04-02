@@ -129,7 +129,7 @@ export default function ServicesPage() {
           <div className="">
             <div className="pb-5">
               <h2 className="text-lg font-semibold uppercase tracking-[0.35em] text-slate-200">
-                Разделы
+                Bo‘limlar
               </h2>
             </div>
 
@@ -185,11 +185,11 @@ export default function ServicesPage() {
               <div className="flex h-full min-h-[360px] w-full items-center justify-center rounded-[28px] border border-dashed border-white/15 bg-white/5 text-center text-slate-300 backdrop-blur-lg">
                 <div className="max-w-full">
                   <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
-                    Навигация
+                    Navigatsiya
                   </p>
                   <p className="text-lg font-medium text-slate-200 md:text-xl">
-                    Аввало категория ва подкатегория танланг. Кейин ҳар бир
-                    хизмат ҳақида кенг маълумотлар очилади.
+                    Avvalo kategoriya va podkategoriya tanlang. Keyin har bir
+                    xizmat haqida keng ma‘lumotlar ochiladi.
                   </p>
                 </div>
               </div>
@@ -204,7 +204,7 @@ export default function ServicesPage() {
                     <div className="relative z-10 space-y-6">
                       <header className="space-y-2">
                         <p className="text-xs uppercase tracking-[0.4em] text-slate-300">
-                          Хизмат
+                          Xizmat
                         </p>
                         <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
                           {service.title || service.name}
@@ -216,7 +216,7 @@ export default function ServicesPage() {
                         dangerouslySetInnerHTML={{
                           __html: (function () {
                             const raw = renderDescription(
-                              service.description || 'Нет описания.',
+                              service.description || 'Tavsif mavjud emas.',
                             );
                             if (DOMPurify) {
                               return DOMPurify.sanitize(raw, {
@@ -246,11 +246,11 @@ export default function ServicesPage() {
               <div className="flex h-full min-h-[360px] w-full items-center justify-center rounded-[28px] border border-white/10 bg-white/5 p-10 text-center text-slate-300 backdrop-blur-lg">
                 <div className="space-y-3">
                   <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
-                    Мавжуд эмас
+                    Mavjud emas
                   </p>
                   <p className="text-lg font-medium text-slate-200 md:text-xl">
-                    Бу йўналиш бўйича ҳозирча хизматлар қўшилмаган. Илтимос,
-                    бошқа подкатегорияни танлаб кўринг.
+                    Bu yo‘nalish bo‘yicha hozircha xizmatlar qo‘shilmagan.
+                    Iltimos, boshqa podkategoriyani tanlab ko‘ring.
                   </p>
                 </div>
               </div>

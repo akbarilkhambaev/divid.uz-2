@@ -8,9 +8,9 @@ import { db } from '@/lib/firebase';
 // Дефолтные значения
 const defaultData = {
   title:
-    'Билимга килинган инвестициядa —<br /><span class="text-white/90">дивиденд кафолатланган</span>',
+    'Bilimga kilingan investitsiyada —<br /><span class="text-white/90">dividend kafolatlanagan</span>',
   description:
-    'Дивиденд Академия — молиявий соҳада карьера қуришингиз учун профессионал тайёргарлик маркази',
+    'Dividend Akademiya — moliyaviy sohada karyera qurishingiz uchun professional tayyorgarlik markazi',
   videoUrl: '/academy/hero-bg.webm',
   posterUrl: '/academy/hero-poster.avif',
 };

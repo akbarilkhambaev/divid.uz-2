@@ -22,18 +22,18 @@ export default function FeedbackForm() {
         >
           <h2 className="text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
             <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
-              <span className="relative text-slate-950">БИЗНИНГ</span>
+              <span className="relative text-slate-950">BIZNING</span>
             </span>
-            <span className="ml-2 md:ml-3">МАНЗИЛ ҲАРИТАДА</span>
+            <span className="ml-2 md:ml-3">MANZIL XARITADA</span>
           </h2>
           <p className="mx-auto max-w-2xl text-base text-slate-300 md:text-lg">
-            Батафсил маълумот олиш учун офисимизга ташриф буюринг, ёки харита
-            орқали удоб йўналишни тўғридан-тўғри режалаштиринг.
+            Batafsil ma'lumot olish uchun ofisimizga tashrif buyuring, yoki
+            xarita orqali qulay yo‘nalishni to‘g‘ridan-to‘g‘ri rejallashtiring.
           </p>
 
           <div className="mx-auto flex max-w-md flex-wrap items-center justify-center gap-3 text-xs uppercase tracking-[0.35em] text-slate-400">
             <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-200">
-              иш куни • душанба — шанба
+              ish kuni • dushanba — shanba
             </span>
             <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-slate-200">
               09:00 — 18:00
@@ -63,12 +63,12 @@ export default function FeedbackForm() {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Бизнинг манзил харитада"
+            title="Bizning manzil xaritada"
           />
 
           <div className="pointer-events-none absolute bottom-6 left-6 flex w-fit flex-col gap-2 rounded-2xl border border-white/15 bg-white/15 px-6 py-4 text-left text-xs uppercase tracking-[0.35em] text-white backdrop-blur">
             <span className="text-[11px] font-semibold text-slate-100">
-              офисимиз
+              ofisimiz
             </span>
             <span className="text-[10px] text-slate-200">
               Toshkent sh., Yunusobod tumani, 12-uy

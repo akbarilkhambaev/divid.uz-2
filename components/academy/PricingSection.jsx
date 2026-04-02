@@ -6,24 +6,24 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 const defaultPricing = {
-  sectionTitle: 'Бошланғич курс нархлари',
-  beginnerPackageTitle: 'Бошланғич пакет (2 ой)',
-  beginnerCourse1Title: 'Корпоратив молияга кириш',
-  beginnerCourse1Price: '8 МЛН',
-  beginnerCourse2Title: 'Молиявий таҳлилчи',
-  beginnerCourse2Price: '12 МЛН',
-  beginnerTotalPrice: "Умумий қиймат: 20 МЛН со'м",
+  sectionTitle: 'Boshlang‘ich kurs narxlari',
+  beginnerPackageTitle: 'Boshlang‘ich paket (2 oy)',
+  beginnerCourse1Title: 'Korporativ moliyaga kirish',
+  beginnerCourse1Price: '8 MLN',
+  beginnerCourse2Title: 'Moliyaviy tahlilchi',
+  beginnerCourse2Price: '12 MLN',
+  beginnerTotalPrice: "Umumiy qiymat: 20 MLN so'm",
   beginnerTotalNote:
-    '(2 ой давомида, 24 та назарий, 8 амалий дарс, 40 дан ошиқ кейслар)',
-  additionalTitle: 'Қўшимча имкониат',
+    '(2 oy davomida, 24 ta nazariy, 8 amaliy dars, 40 dan oshiq keyslar)',
+  additionalTitle: 'Qo‘shimcha imkoniyat',
   additionalCourse1Title: 'Individual mentorlik',
-  additionalCourse1Price: '4 МЛН',
+  additionalCourse1Price: '4 MLN',
   additionalCourse2Title: 'Individual mentorlik',
-  additionalCourse2Price: '6 МЛН',
+  additionalCourse2Price: '6 MLN',
   additionalResultNote:
-    'Натижа: атиги 2 ой ичида молиявий сифатида иш бошлаш даражасига чиқасиз',
+    'Natija: atigi 2 oy ichida moliyaviy sifatida ish boshlash darajasiga chiqasiz',
   footerNote:
-    'Ҳамда академиямиз ва курсларимиз ҳақида тўлиқ малумотлар берамиз.',
+    'Hamda akademiyamiz va kurslarimiz haqida to‘liq maʼlumotlar beramiz.',
 };
 
 export default function PricingSection() {

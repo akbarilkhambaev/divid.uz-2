@@ -5,18 +5,20 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>Divid.uz — Консалтинг, Молия, Бухгалтерия, HR хизматлари</title>
+        <title>
+          Divid.uz — Konsalting, Moliya, Buxgalteriya, HR xizmatlari
+        </title>
         <meta
           name="description"
-          content="Divid.uz — Консалтинг, молия, бухгалтерия ва HR хизматлари. Бизнесингиз учун профессионал маслаҳат, молиявий таҳлил, кадрлар бошқаруви ва бухгалтерия хизматлари."
+          content="Divid.uz — Konsalting, moliya, buxgalteriya va HR xizmatlari. Biznesingiz uchun professional maslahat, moliyaviy tahlil, kadrlar boshqaruvi va buxgalteriya xizmatlari."
         />
         <meta
           property="og:title"
-          content="Divid.uz — Консалтинг, Молия, Бухгалтерия, HR хизматлари"
+          content="Divid.uz — Konsalting, Moliya, Buxgalteriya, HR xizmatlari"
         />
         <meta
           property="og:description"
-          content="Консалтинг, молия, бухгалтерия ва HR хизматлари. Бизнес учун профессионал ечимлар ва маслаҳатлар."
+          content="Konsalting, moliya, buxgalteriya va HR xizmatlari. Biznes uchun professional yechimlar va maslahatlar."
         />
         <meta
           property="og:type"

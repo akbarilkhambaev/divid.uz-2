@@ -35,22 +35,22 @@ const DEFAULT_STATS = [
     icon: 'briefcase',
     value: 120,
     suffix: '+',
-    label: 'Якунланган лойиҳалар',
+    label: 'Yakunlangan loyihalar',
   },
-  { id: '2', icon: 'users', value: 80, suffix: '+', label: 'Мамнун мижозлар' },
+  { id: '2', icon: 'users', value: 80, suffix: '+', label: 'Mamnun mijozlar' },
   {
     id: '3',
     icon: 'chart',
     value: 10,
-    suffix: ' йил',
-    label: 'жамоа тажрибаси',
+    suffix: ' yil',
+    label: 'jamoa tajribasi',
   },
   {
     id: '4',
     icon: 'award',
     value: 95,
     suffix: '%',
-    label: 'мижозлар сақланиш даражаси',
+    label: 'mijozlar saqlanish darajasi',
   },
 ];
 

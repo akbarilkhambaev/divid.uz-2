@@ -13,18 +13,18 @@ import {
 import { db } from '@/lib/firebase';
 
 const defaultPremiumFeatures = [
-  'Факат сиз учун ажратилган ментор',
-  'Реал компанияларда амалиётга олиб чикиш',
-  'Ҳафтасига умумий амалиётдан ташқари 1:1 учрашувлар (online/offline)',
-  'Резюме таёрлаш , суҳбатларга тайёрлаш',
-  'Сизнинг кизикишингизга мос кейслар',
+  'Faqat siz uchun ajratilgan mentor',
+  'Real kompaniyalarda amaliyotga olib chiqish',
+  'Haftasiga umumiy amaliyotdan tashqari 1:1 uchrashuvlar (online/offline)',
+  'Rezyume tayyorlash, suhbatlarga tayyorlash',
+  'Sizning qiziqishingizga mos keyslar',
 ];
 
 const defaultSettings = {
   sectionTitle: 'PREMIUM',
   sectionSubtitle: 'INDIVIDUAL MENTOR',
   sectionDescription:
-    'Агар сиз янада чуқурроқ ривожланишни истасангиз, қўшимча тўлов эвазига шахсий ментор танлашингиз мумкин.',
+    'Agar siz yanada chuqurroq rivojlanishni istasangiz, qo‘shimcha to‘lov evaziga shaxsiy mentor tanlashingiz mumkin.',
 };
 
 export default function IndividualMentorSection() {

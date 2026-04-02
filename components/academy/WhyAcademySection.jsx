@@ -6,15 +6,15 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 const defaultAdvantages = [
-  'Амалиётга асосланган дастур',
-  'Big 4 тажрибаси бор менторлар',
-  'Ҳақиқий корпоратив кейслар',
-  'Замонавий молиявий воситалар',
-  'Халқаро стандартлар',
-  'Иш жойлаштириш кафолати',
-  'Флексибл ўқиш график',
-  'Онлайн ва оффлайн форматлар',
-  'Давомий қўллаб-қувватлаш',
+  'Amaliyotga asoslangan dastur',
+  'Big 4 tajribasi bor mentorlar',
+  'Haqiqiy korporativ keyslar',
+  'Zamonaviy moliyaviy vositalar',
+  'Xalqaro standartlar',
+  'Ish joylashtirish kafolati',
+  'Fleksibil o‘qish grafigi',
+  'Online va offline formatlar',
+  'Davomiy qo‘llab-quvvatlash',
 ];
 
 export default function WhyAcademySection() {
@@ -55,7 +55,7 @@ export default function WhyAcademySection() {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-100 mb-16 text-center"
         >
-          Нега Дивиденд Академия?
+          Nega Dividend Akademiya?
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

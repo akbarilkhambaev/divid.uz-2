@@ -49,7 +49,7 @@ export default function AcademyHeader() {
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions
+      observerOptions,
     );
 
     // Observe all sections
@@ -92,17 +92,17 @@ export default function AcademyHeader() {
     }
   };
   const navItems = [
-    { id: 'hero', label: 'Асосий' },
-    { id: 'about', label: 'Биз хақида' },
-    { id: 'audience', label: 'Кимлар учун' },
-    { id: 'why', label: 'Нега биз' },
-    { id: 'structure', label: 'Тузилиш' },
-    { id: 'diploma', label: 'Диплом' },
-    { id: 'mentorship', label: 'Менторлик' },
-    { id: 'individual', label: 'Индивидуал' },
-    { id: 'pricing', label: 'Нархлар' },
-    { id: 'team', label: 'Жамоа' },
-    { id: 'free-lesson', label: 'Бепул дарс' },
+    { id: 'hero', label: 'Asosiy' },
+    { id: 'about', label: 'Biz haqida' },
+    { id: 'audience', label: 'Kimlar uchun' },
+    { id: 'why', label: 'Nega biz' },
+    { id: 'structure', label: 'Tuzilish' },
+    { id: 'diploma', label: 'Diplom' },
+    { id: 'mentorship', label: 'Mentorlik' },
+    { id: 'individual', label: 'Individual' },
+    { id: 'pricing', label: 'Narxlar' },
+    { id: 'team', label: 'Jamoa' },
+    { id: 'free-lesson', label: 'Bepul dars' },
   ];
 
   return (
@@ -169,7 +169,7 @@ export default function AcademyHeader() {
               type="button"
               className="px-4 py-2 bg-cs-blue text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors"
             >
-              Навигация ▼
+              Navigatsiya ▼
             </button>
 
             <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 max-h-[70vh] overflow-y-auto">

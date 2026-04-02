@@ -19,35 +19,35 @@ export async function POST(request) {
 
     // Формируем сообщение
     const formTypeLabels = {
-      callback: '📞 Обратный звонок',
-      contact: '📧 Контактная форма',
-      academy_contact: '🎓 Академия - Контакт',
-      footer: '📋 Форма из футера',
-      ads: '📢 Рекламная заявка',
-      service: '🛠 Заявка на услугу',
+      callback: '📞 Qayta qo‘ng‘iroq',
+      contact: '📧 Aloqa shakli',
+      academy_contact: '🎓 Akademiya - Aloqa',
+      footer: '📋 Footer shakli',
+      ads: '📢 Reklama arizasi',
+      service: '🛠 Xizmat arizasi',
     };
 
-    const typeLabel = formTypeLabels[formType] || '📝 Новая заявка';
+    const typeLabel = formTypeLabels[formType] || '📝 Yangi ariza';
 
     let text = `${typeLabel}\n\n`;
-    text += `👤 Имя: ${name || 'Не указано'}\n`;
-    text += `📱 Телефон: ${phone || 'Не указан'}\n`;
+    text += `👤 Ism: ${name || 'Ko‘rsatilmagan'}\n`;
+    text += `📱 Telefon: ${phone || 'Ko‘rsatilmagan'}\n`;
 
     if (email) {
       text += `📧 Email: ${email}\n`;
     }
 
     if (service) {
-      text += `🛠 Услуга: ${service}\n`;
+      text += `🛠 Xizmat: ${service}\n`;
     }
 
     if (message) {
-      text += `💬 Сообщение: ${message}\n`;
+      text += `💬 Xabar: ${message}\n`;
     }
 
-    text += `\n🕐 ${new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Tashkent' })}`;
+    text += `\n🕐 ${new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })}`;
 
-    // Отправляем в Telegram
+    // Telegramga yuborish
     const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
     const response = await fetch(telegramUrl, {

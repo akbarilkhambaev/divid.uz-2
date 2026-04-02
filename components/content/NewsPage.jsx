@@ -31,7 +31,7 @@ export default function NewsPageSlider() {
       <section className="min-h-[500px] md:min-h-[720px] h-full py-8 md:py-16 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
         <h2 className="text-3xl md:text-4xl lg:text-5xl uppercase font-bold mb-6 md:mb-8 pb-4 md:pb-5 text-center px-4">
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-cs-blue">
-            <span className="relative text-white">ЯНГИЛИКЛАР</span>
+            <span className="relative text-white">YANGILIKLAR</span>
           </span>
         </h2>
         <div className="w-full overflow-x-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
@@ -81,9 +81,9 @@ export default function NewsPageSlider() {
                     <span className="text-[10px] sm:text-xs text-gray-300">
                       {item.createdAt
                         ? new Date(
-                            item.createdAt.seconds * 1000
+                            item.createdAt.seconds * 1000,
                           ).toLocaleDateString()
-                        : 'неизвестна'}
+                        : 'nomaʼlum'}
                     </span>
                   </div>
                 </div>

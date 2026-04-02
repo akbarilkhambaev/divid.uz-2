@@ -39,7 +39,7 @@ export default function Reviews() {
   if (loading) {
     return (
       <section className="flex min-h-[520px] items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
-        <div className="text-lg md:text-xl">Загрузка...</div>
+        <div className="text-lg md:text-xl">Yuklanmoqda...</div>
       </section>
     );
   }
@@ -65,9 +65,9 @@ export default function Reviews() {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
-            <span className="relative text-slate-950">МИЖОЗЛАР</span>
+            <span className="relative text-slate-950">MIJOZLAR</span>
           </span>
-          <span className="ml-2 md:ml-3">ФИКРЛАРИ</span>
+          <span className="ml-2 md:ml-3">FIKRLARI</span>
         </motion.h2>
 
         <motion.p
@@ -81,8 +81,8 @@ export default function Reviews() {
             ease: [0.25, 0.1, 0.25, 1],
           }}
         >
-          Реал кейслар ва фикрлар орқали биз билан ишлашдан кейинги ўзгаришларни
-          кўринг.
+          Real keyslar va fikrlar orqali biz bilan ishlashdan keyingi
+          o‘zgarishlarni ko‘ring.
         </motion.p>
 
         <motion.div
@@ -148,7 +148,7 @@ export default function Reviews() {
                           {String(index + 1).padStart(2, '0')}
                         </span>
                         <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-semibold text-slate-200">
-                          отзыв
+                          fikr
                         </span>
                       </div>
 
@@ -168,7 +168,7 @@ export default function Reviews() {
 
                       <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                       <div className="text-xs uppercase tracking-[0.4em] text-slate-400">
-                        • тажриба • ишонч • натижа •
+                        • tajriba • ishonch • natija •
                       </div>
                     </div>
                   </motion.div>

@@ -8,26 +8,26 @@ import { db } from '@/lib/firebase';
 
 const defaultAudiences = [
   {
-    title: 'Янги бошловчилар',
-    desc: 'Молиявий соҳада карьера бошламоқчи бўлган кишилар учун асосий билимлар',
+    title: 'Yangi boshlovchilar',
+    desc: 'Moliyaviy sohada karyera boshlayotganlar uchun asosiy bilimlar',
     animationPath: '/academy/lottie-beginner.json',
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
-    title: 'Амалиётчилар',
-    desc: 'Ўз билимларини чуқурлаштириш ва замонавий усулларни ўрганмоқчи мутахассислар',
+    title: 'Amaliyotchilar',
+    desc: 'O‘z bilimlarini chuqurlashtirish va zamonaviy usullarni o‘rganmoqchi mutaxassislar',
     animationPath: '/academy/lottie-practitioner.json',
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
-    title: 'Тадбиркорлар',
-    desc: 'Ўз бизнесини тўғри бошқариш ва молиявий жиҳатдан ривожлантириш истаганлар',
+    title: 'Tadbirkorlar',
+    desc: 'O‘z biznesini to‘g‘ri boshqarish va moliyaviy jihatdan rivojlantirish istaganlar',
     animationPath: '/academy/lottie-entrepreneur.json',
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
-    title: 'Малакали мутахассислар',
-    desc: 'CFO, финансовый директор ва юқори лавозимларга талонт бўлганлар',
+    title: 'Malakali mutaxassislar',
+    desc: 'CFO, moliyaviy direktor va yuqori lavozimlarga intilganlar',
     animationPath: '/academy/lottie-professional.json',
     gradient: 'from-blue-500 to-cyan-500',
   },
@@ -107,10 +107,10 @@ export default function TargetAudienceSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-            Кимлар учун?
+            Kimlar uchun?
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Ҳар бир даражадаги мутахассислар учун мўлжалланган
+            Har bir darajadagi mutaxassislar uchun mo‘ljallangan
           </p>
         </motion.div>
 

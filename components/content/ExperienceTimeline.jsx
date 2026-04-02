@@ -9,49 +9,49 @@ import { db } from '@/lib/firebase';
 
 const timelineItems = [
   {
-    title: 'Мебел ишлаб чиқариш',
+    title: 'Mebel ishlab chiqarish',
     description:
-      'Индивидуаллаштирилган ечимлар ва серияли ишлаб чиқариш учун тўлиқ хизматлар цикли.',
+      'Individuallashtirilgan yechimlar va seriyali ishlab chiqarish uchun to‘liq xizmatlar sikli.',
     image:
       'https://images.unsplash.com/photo-1523419409543-0c1df022bdd1?auto=format&fit=crop&w=1200&q=80',
     href: '/services',
   },
   {
-    title: 'Омборхона ва логистика',
+    title: 'Omborxona va logistika',
     description:
-      'Сақлаш, инвентаризация ва етказиб бериш жараёнларини оптималлаштириш бўйича консультациялар.',
+      'Saqlash, inventarizatsiya va yetkazib berish jarayonlarini optimallashtirish bo‘yicha konsultatsiyalar.',
     image:
       'https://images.unsplash.com/photo-1585079542156-2755d9c8a094?auto=format&fit=crop&w=1200&q=80',
     href: '/services',
   },
   {
-    title: 'Ўқув марказлари',
+    title: 'O‘quv markazlari',
     description:
-      'Корхона ичидаги таълим марказларини яратиш ва уларни рақамлаштириш бўйича тажриба.',
+      'Korxona ichidagi ta‘lim markazlarini yaratish va ularni raqamlashtirish bo‘yicha tajriba.',
     image:
       'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80',
     href: '/academy',
   },
   {
-    title: 'Озиқ-овқат ишлаб чиқариш',
+    title: 'Oziq-ovqat ishlab chiqarish',
     description:
-      'Гигиена стандартлари ва ишлаб чиқариш линияларининг узлуксизлигини таъминлаш.',
+      'Gigiena standartlari va ishlab chiqarish liniyalarining uzluksizligini ta‘minlash.',
     image:
       'https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=1200&q=80',
     href: '/services',
   },
   {
-    title: 'Автотранспорт ва савдо',
+    title: 'Avtotransport va savdo',
     description:
-      'Автосалонлар, савдо заллари ва чакана тармоқлар учун автоматлаштирилган CRM жараёнлари.',
+      'Avtosalonlar, savdo zallari va chakana tarmoqlar uchun avtomatlashtirilgan CRM jarayonlari.',
     image:
       'https://images.unsplash.com/photo-1549921296-3cc26f510d04?auto=format&fit=crop&w=1200&q=80',
     href: '/services',
   },
   {
-    title: 'Технологик стартаплар',
+    title: 'Texnologik startaplar',
     description:
-      'Маҳаллий бозорга мос маҳсулот кашф этиш, MVP ва масштаблаш ёндашувлари.',
+      'Mahalliy bozorga mos mahsulot kashf etish, MVP va masshtablash yondashuvlari.',
     image:
       'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
     href: '/services',
@@ -74,7 +74,7 @@ export default function ExperienceTimeline({
       try {
         const q = query(
           collection(db, 'experienceTimeline'),
-          orderBy('order', 'asc')
+          orderBy('order', 'asc'),
         );
         const snapshot = await getDocs(q);
         const data = snapshot.docs.map((doc) => {
@@ -114,9 +114,9 @@ export default function ExperienceTimeline({
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
-            <span className="relative text-slate-950">СОХАЛАР</span>
+            <span className="relative text-slate-950">SOHALAR</span>
           </span>
-          <span className="ml-2 md:ml-3">БУЙИЧА ТАЖРИБАМИЗ</span>
+          <span className="ml-2 md:ml-3">BO‘YICHA TAJRIBAMIZ</span>
         </motion.h2>
         <motion.p
           className="mx-auto max-w-3xl text-center text-base text-slate-300 md:text-lg"
@@ -129,8 +129,9 @@ export default function ExperienceTimeline({
             ease: [0.25, 0.1, 0.25, 1],
           }}
         >
-          Хар бир лойиҳа учун соҳа хусусиятларини инобатга олиб, операцион
-          жараёнлар, рақамли ечимлар ва бошқарув амалиётларини мослаштирамиз.
+          Har bir loyiha uchun soha xususiyatlarini inobatga olib, operatsion
+          jarayonlar, raqamli yechimlar va boshqaruv amaliyotlarini
+          moslashtiramiz.
         </motion.p>
 
         <div className="relative mt-12 lg:mt-16">
@@ -180,7 +181,7 @@ export default function ExperienceTimeline({
                           {String(idx + 1).padStart(2, '0')}
                         </span>
                         <span className="hidden rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-slate-200 sm:inline">
-                          тажриба соҳаси
+                          tajriba sohasi
                         </span>
                       </div>
 
@@ -195,7 +196,7 @@ export default function ExperienceTimeline({
 
                       {hasLink ? (
                         <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-cs-blue transition group-hover:text-white">
-                          Батафсил маълумот
+                          Batafsil ma'lumot
                           <FaArrowRight className="text-xs" />
                         </div>
                       ) : (

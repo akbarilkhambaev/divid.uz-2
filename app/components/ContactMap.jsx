@@ -134,7 +134,7 @@ export default function ContactMap() {
     >
       <Marker
         position={center}
-        title="Наш адрес"
+        title="Bizning manzil"
         icon={undefined}
         onClick={() => setInfoOpen(true)}
       />
@@ -147,10 +147,12 @@ export default function ContactMap() {
           }}
         >
           <div style={{ minWidth: 180 }}>
-            <div style={{ fontWeight: 'bold', marginBottom: 4 }}>Наш адрес</div>
-            <div>г. Ташкент, ул. Бектемир, 87</div>
+            <div style={{ fontWeight: 'bold', marginBottom: 4 }}>
+              Bizning manzil
+            </div>
+            <div>Toshkent sh., Bektemir ko‘ch., 87</div>
             <div>
-              Тел:{' '}
+              Tel:{' '}
               <a
                 href="tel:+998901234567"
                 style={{ color: '#2563eb' }}
@@ -174,7 +176,7 @@ export default function ContactMap() {
                 rel="noopener noreferrer"
                 style={{ color: '#2563eb', fontWeight: 500 }}
               >
-                Открыть в Google Maps
+                Google Maps‘da ochish
               </a>
             </div>
           </div>
@@ -183,7 +185,7 @@ export default function ContactMap() {
     </GoogleMap>
   ) : (
     <div className="flex items-center justify-center w-full h-full min-h-[480px] text-slate-400">
-      Загрузка карты...
+      Xarita yuklanmoqda...
     </div>
   );
 }

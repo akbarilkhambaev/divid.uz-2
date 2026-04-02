@@ -22,16 +22,16 @@ import {
 import { MdEmail } from 'react-icons/md';
 
 const defaultSettings = {
-  sectionTitle: 'Биз билан алоқага чиқинг',
-  sectionSubtitle: 'Саволларингиз борми? Биз сизга ёрдам беришга тайёрмиз!',
-  formTitle: 'Қўнғироқ қолдиринг',
-  contactInfoTitle: 'Алоқа маълумотлари',
-  workHoursTitle: 'Ишчи соатлар',
-  addressTitle: 'Манзил',
-  address: 'Тошкент шаҳри, Мирзо Улуғбек тумани, Буюк Турон кўчаси, 1-уй',
+  sectionTitle: 'Biz bilan aloqaga chiqing',
+  sectionSubtitle: 'Savollaringiz bormi? Biz sizga yordam berishga tayyormiz!',
+  formTitle: 'Qo‘ng‘iroq qoldiring',
+  contactInfoTitle: 'Aloqa ma‘lumotlari',
+  workHoursTitle: 'Ishchi soatlar',
+  addressTitle: 'Manzil',
+  address: 'Toshkent shahri, Mirzo Ulug‘bek tumani, Buyuk Turon ko‘chasi, 1-uy',
   mondayFriday: '9:00 - 18:00',
   saturday: '10:00 - 15:00',
-  sunday: 'Дам олиш',
+  sunday: 'Dam olish',
   phone: '+998 90 123 45 67',
   telegram: '@dividend_academy',
   telegramLink: 'https://t.me/dividend_academy',
@@ -39,7 +39,7 @@ const defaultSettings = {
   facebookLink: 'https://facebook.com/dividend.academy',
   whatsapp: '+998 90 123 45 67',
   whatsappLink: 'https://wa.me/998901234567',
-  socialFooter: 'Ижтимоий тармоқларда биз билан боғланинг',
+  socialFooter: 'Ijtimoiy tarmoqlarda biz bilan bog‘laning',
 };
 
 export default function ContactFormSection() {
@@ -96,7 +96,7 @@ export default function ContactFormSection() {
       setFormData({ name: '', phone: '', email: '', message: '' });
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
-      alert('Хатолик юз берди. Илтимос, қайта уриниб кўринг.');
+      alert('Xatolik yuz berdi. Iltimos, qayta urinib ko‘ring.');
     } finally {
       setLoading(false);
     }
@@ -112,7 +112,7 @@ export default function ContactFormSection() {
   const contactInfo = [
     {
       icon: FaPhone,
-      label: 'Телефон',
+      label: 'Telefon',
       value: settings.phone,
       link: `tel:${settings.phone?.replace(/\s/g, '')}`,
       color: 'text-blue-400',
@@ -183,7 +183,7 @@ export default function ContactFormSection() {
             >
               <div>
                 <label className="block text-white/80 mb-2 font-semibold">
-                  Исм
+                  Ism
                 </label>
                 <input
                   type="text"
@@ -192,13 +192,13 @@ export default function ContactFormSection() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-cs-blue focus:ring-2 focus:ring-cs-blue/50 transition-all"
-                  placeholder="Исмингизни киритинг"
+                  placeholder="Ismingizni kiriting"
                 />
               </div>
 
               <div>
                 <label className="block text-white/80 mb-2 font-semibold">
-                  Телефон рақам
+                  Telefon raqam
                 </label>
                 <input
                   type="tel"
@@ -227,7 +227,7 @@ export default function ContactFormSection() {
 
               <div>
                 <label className="block text-white/80 mb-2 font-semibold">
-                  Хабар
+                  Xabar
                 </label>
                 <textarea
                   name="message"
@@ -235,7 +235,7 @@ export default function ContactFormSection() {
                   onChange={handleChange}
                   rows={4}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-cs-blue focus:ring-2 focus:ring-cs-blue/50 transition-all resize-none"
-                  placeholder="Савол ёки изоҳингизни ёзинг..."
+                  placeholder="Savol yoki izohingizni yozing..."
                 ></textarea>
               </div>
 
@@ -246,7 +246,7 @@ export default function ContactFormSection() {
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-cs-blue to-blue-600 text-white font-bold py-4 px-8 rounded-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Юборилмоқда...' : 'Юбориш'}
+                {loading ? 'Yuborilmoqda...' : 'Yuborish'}
               </motion.button>
             </form>
           </motion.div>
@@ -307,15 +307,15 @@ export default function ContactFormSection() {
               </div>
               <div className="space-y-2 text-white/90">
                 <p className="flex justify-between">
-                  <span>Душанба - Жума:</span>
+                  <span>Dushanba - Juma:</span>
                   <span className="font-bold">{settings.mondayFriday}</span>
                 </p>
                 <p className="flex justify-between">
-                  <span>Шанба:</span>
+                  <span>Shanba:</span>
                   <span className="font-bold">{settings.saturday}</span>
                 </p>
                 <p className="flex justify-between">
-                  <span>Якшанба:</span>
+                  <span>Yakshanba:</span>
                   <span className="font-bold">{settings.sunday}</span>
                 </p>
               </div>
@@ -463,11 +463,11 @@ export default function ContactFormSection() {
 
                 {/* Текст */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Хабар юборилди!
+                  Xabar yuborildi!
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  Сизнинг заявкангиз қабул қилинди. Тез орада сиз билан
-                  боғланамиз.
+                  Sizning zayavkangiz qabul qilindi. Tez orada siz bilan
+                  bog‘lanamiz.
                 </p>
 
                 {/* Кнопка */}
@@ -475,7 +475,7 @@ export default function ContactFormSection() {
                   onClick={() => setSubmitted(false)}
                   className="w-full bg-cs-blue text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
                 >
-                  Яхши
+                  Yaxshi
                 </button>
               </div>
             </motion.div>

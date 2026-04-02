@@ -39,7 +39,7 @@ export default function Footer() {
       setFormData({ name: '', phone: '+998 ' });
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
-      alert('Ошибка отправки. Попробуйте позже.');
+      alert('Yuborish xatoligi. Keyinroq urinib ko‘ring.');
     } finally {
       setLoading(false);
     }
@@ -55,13 +55,13 @@ export default function Footer() {
             alt="Divid Logo"
             className="h-12 md:h-14 mb-4"
           />
-          <p className="text-sm text-center md:text-left">© 2025 Консалтинг</p>
+          <p className="text-sm text-center md:text-left">© 2025 Konsalting</p>
         </div>
         {/* Contacts */}
         <div className="flex flex-col items-center md:items-start w-full md:w-1/3 mb-6 md:mb-0 text-center md:text-left">
-          <h3 className="text-lg font-semibold mb-2">Алоқа</h3>
+          <h3 className="text-lg font-semibold mb-2">Aloqa</h3>
           <p className="mb-1 text-sm md:text-base">
-            Телефон:{' '}
+            Telefon:{' '}
             <a
               href="tel:+998901234567"
               className="underline hover:text-cs-blue transition"
@@ -79,7 +79,7 @@ export default function Footer() {
             </a>
           </p>
           <p className="text-sm md:text-base">
-            Манзил: Тошкент ш., Намуна кўчаси, 1-уй
+            Manzil: Toshkent sh., Namuna ko‘chasi, 1-uy
           </p>
           <div className="flex gap-4 mt-3">
             <a
@@ -108,7 +108,7 @@ export default function Footer() {
         {/* Order Service Form */}
         <div className="w-full md:w-1/3 bg-gray-800 rounded-lg p-4 md:p-6 flex flex-col items-center">
           <h3 className="text-base md:text-lg font-semibold mb-4 text-center">
-            Хизматга буюртма бериш
+            Xizmatga buyurtma berish
           </h3>
           <form
             onSubmit={handleSubmit}
@@ -116,7 +116,7 @@ export default function Footer() {
           >
             <input
               type="text"
-              placeholder="Исм"
+              placeholder="Ism"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -141,7 +141,7 @@ export default function Footer() {
               disabled={loading}
               className="w-full py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Юборилмоқда...' : 'Буюртма бериш'}
+              {loading ? 'Yuborilmoqda...' : 'Buyurtma berish'}
             </button>
           </form>
         </div>
@@ -212,11 +212,11 @@ export default function Footer() {
 
                 {/* Текст */}
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Муваффақиятли юборилди!
+                  Muvaffaqiyatli yuborildi!
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  Сизнинг буюртмангиз қабул қилинди. Тез орада сиз билан
-                  боғланамиз.
+                  Sizning buyurtmangiz qabul qilindi. Tez orada siz bilan
+                  bog'lanamiz.
                 </p>
 
                 {/* Кнопка */}
@@ -224,7 +224,7 @@ export default function Footer() {
                   onClick={() => setSubmitted(false)}
                   className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
                 >
-                  Яхши
+                  Yaxshi
                 </button>
               </div>
             </motion.div>

@@ -44,7 +44,7 @@ export default function Ads() {
       setFormData({ name: '', phone: '+998 ', topic: 'audit', message: '' });
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
-      alert('Ошибка отправки. Попробуйте позже.');
+      alert('Yuborish xatoligi. Keyinroq urinib ko‘ring.');
     } finally {
       setLoading(false);
     }
@@ -68,23 +68,24 @@ export default function Ads() {
         >
           <h2 className="text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
             <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
-              <span className="relative text-slate-950">ХАМКОРЛИККА</span>
+              <span className="relative text-slate-950">HAMKORLIKKA</span>
             </span>
-            <span className="ml-2 md:ml-3">ТАЁРМИСИЗ?</span>
+            <span className="ml-2 md:ml-3">TAYORMISIZ?</span>
           </h2>
 
           <p className="mt-6 max-w-xl text-base text-slate-300 md:text-lg">
-            Стратегик шерик сифатида биз компаниянгиз учун аудит, молия ва HR
-            йўналишларида комплекс ечимларни тайёрлаймиз. Қисқа форма орқали биз
-            билан боғланинг ва мақсадларингизга мос режани бошлаймиз.
+            Strategik sherik sifatida biz kompaniyangiz uchun audit, moliya va
+            HR yo‘nalishlarida kompleks yechimlarni tayyorlaymiz. Qisqa forma
+            orqali biz bilan bog‘laning va maqsadlaringizga mos rejani
+            boshlaymiz.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 text-sm uppercase tracking-[0.35em] text-slate-400">
             <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-slate-200 md:text-sm">
-              стратегик аудит • молиявий консалтинг • кадрлар бошқаруви
+              strategik audit • moliyaviy konsalting • kadrlar boshqaruvi
             </span>
             <span className="text-xs text-slate-500">
-              доимий қўллаб-қувватлаш • шаффофлик • натижа
+              doimiy qo‘llab-quvvatlash • shaffoflik • natija
             </span>
           </div>
         </motion.div>
@@ -107,7 +108,7 @@ export default function Ads() {
             <span className="pointer-events-none absolute inset-y-0 right-0 h-full w-1/3 bg-gradient-to-l from-cs-blue/15 via-transparent to-transparent" />
 
             <h3 className="relative text-base font-semibold text-white md:text-lg">
-              Биз билан <span className="text-cs-blue">боғланинг</span>
+              Biz bilan <span className="text-cs-blue">bog‘laning</span>
             </h3>
 
             <div className="mt-6 space-y-5 text-left tracking-[0] normal-case">
@@ -116,7 +117,7 @@ export default function Ads() {
                   htmlFor="name"
                   className="text-xs uppercase tracking-[0.35em] text-slate-400"
                 >
-                  Исмингиз
+                  Ismingiz
                 </label>
                 <input
                   type="text"
@@ -126,7 +127,7 @@ export default function Ads() {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
-                  placeholder="Исмингизни киритинг"
+                  placeholder="Ismingizni kiriting"
                   required
                 />
               </div>
@@ -136,7 +137,7 @@ export default function Ads() {
                   htmlFor="tel"
                   className="text-xs uppercase tracking-[0.35em] text-slate-400"
                 >
-                  Телефон рақамингиз
+                  Telefon raqamingiz
                 </label>
                 <IMaskInput
                   mask="+998 00 000 00 00"
@@ -158,7 +159,7 @@ export default function Ads() {
                   htmlFor="topic"
                   className="text-xs uppercase tracking-[0.35em] text-slate-400"
                 >
-                  Мавзу
+                  Mavzu
                 </label>
                 <select
                   id="topic"
@@ -173,19 +174,19 @@ export default function Ads() {
                     className="text-slate-900"
                     value="audit"
                   >
-                    АУДИТ ВА ТАҲЛИЛ ХИЗМАТЛАРИ
+                    AUDIT VA TAHLIL XIZMATLARI
                   </option>
                   <option
                     className="text-slate-900"
                     value="finance"
                   >
-                    МОЛИЯВИЙ КОНСАЛТИНГ
+                    MOLIYAVIY KONSALTING
                   </option>
                   <option
                     className="text-slate-900"
                     value="hr"
                   >
-                    HR ВА КАДРЛАР БИЛАН ИШЛАШ
+                    HR VA KADRLAR BILAN ISHLASH
                   </option>
                 </select>
               </div>
@@ -195,7 +196,7 @@ export default function Ads() {
                   htmlFor="message"
                   className="text-xs uppercase tracking-[0.35em] text-slate-400"
                 >
-                  Хабарингиз
+                  Xabaringiz
                 </label>
                 <textarea
                   id="message"
@@ -205,7 +206,7 @@ export default function Ads() {
                     setFormData({ ...formData, message: e.target.value })
                   }
                   className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
-                  placeholder="Хабарингизни ёзинг"
+                  placeholder="Xabaringizni yozing"
                   required
                 />
               </div>
@@ -216,7 +217,7 @@ export default function Ads() {
               disabled={loading}
               className="mt-8 w-full rounded-full border border-cs-blue/60 bg-cs-blue/90 px-6 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-white shadow-[0_25px_60px_-30px_rgba(59,130,246,0.9)] transition hover:shadow-[0_35px_80px_-35px_rgba(59,130,246,1)] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? 'Юборилмоқда...' : 'Юбориш'}
+              {loading ? 'Yuborilmoqda...' : 'Yuborish'}
             </button>
           </form>
         </motion.div>
@@ -281,18 +282,18 @@ export default function Ads() {
                 </motion.div>
 
                 <h3 className="text-2xl font-semibold">
-                  Муваффақиятли юборилди!
+                  Muvaffaqiyatli yuborildi!
                 </h3>
                 <p className="mt-3 text-sm text-slate-600 md:text-base">
-                  Сизнинг заявкангиз қабул қилинди. Тез орада сиз билан
-                  боғланамиз.
+                  Sizning zayavkangiz qabul qilindi. Tez orada siz bilan
+                  bog‘lanamiz.
                 </p>
 
                 <button
                   onClick={() => setSubmitted(false)}
                   className="mt-8 inline-flex w-full items-center justify-center rounded-full border border-cs-blue/60 bg-cs-blue/90 px-6 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-white shadow-lg transition hover:shadow-[0_25px_60px_-35px_rgba(59,130,246,0.95)]"
                 >
-                  Яхши
+                  Yaxshi
                 </button>
               </div>
             </motion.div>

@@ -24,7 +24,7 @@ export default function NewsTablePage() {
   const filteredAndSortedNews = useMemo(() => {
     return newsList
       .filter((item) =>
-        item.title?.toLowerCase().includes(searchQuery.toLowerCase())
+        item.title?.toLowerCase().includes(searchQuery.toLowerCase()),
       )
       .sort((a, b) => {
         if (sortOrder === 'asc') {
@@ -45,14 +45,14 @@ export default function NewsTablePage() {
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
         <header className="space-y-4 text-center sm:text-left">
           <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
-            Медиа
+            Media
           </p>
           <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-            Янгиликлар ва медиа контент
+            Yangiliklar va media kontent
           </h1>
           <p className="max-w-2xl text-sm text-slate-300">
-            Янгиликларни фильтрлаб, васият учун қизиқарли мавзуни танланг. Барча
-            мақолалар замонавий форматда тақдим этилган.
+            Yangiliklarni filtrlang va qiziqarli mavzularni tanlang. Barcha
+            maqolalar zamonaviy formatda taqdim etilgan.
           </p>
         </header>
 
@@ -60,11 +60,11 @@ export default function NewsTablePage() {
           <div className="flex flex-col gap-4 md:flex-row md:items-center">
             <div className="flex-1">
               <label className="block text-xs uppercase tracking-[0.3em] text-slate-400">
-                Қидириш
+                Qidirish
               </label>
               <input
                 type="text"
-                placeholder="Янгиликларни қидириш..."
+                placeholder="Yangiliklarni qidirish..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="mt-2 w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-cs-blue/40 focus:outline-none focus:ring-2 focus:ring-cs-blue/30"
@@ -73,7 +73,7 @@ export default function NewsTablePage() {
 
             <div className="md:w-56">
               <label className="block text-xs uppercase tracking-[0.3em] text-slate-400">
-                Тартиблаш
+                Tartiblash
               </label>
               <select
                 value={sortOrder}
@@ -84,13 +84,13 @@ export default function NewsTablePage() {
                   className="text-slate-900"
                   value="asc"
                 >
-                  Усиш тартибида
+                  O‘sish tartibida
                 </option>
                 <option
                   className="text-slate-900"
                   value="desc"
                 >
-                  Камайиш тартибида
+                  Kamayish tartibida
                 </option>
               </select>
             </div>
@@ -116,7 +116,7 @@ export default function NewsTablePage() {
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-slate-800/40 text-sm text-slate-400">
-                      Нет изображения
+                      Rasm mavjud emas
                     </div>
                   )}
                 </div>
@@ -124,7 +124,7 @@ export default function NewsTablePage() {
                 <div className="flex flex-1 flex-col gap-4 p-6">
                   <header className="space-y-2">
                     <p className="text-xs uppercase tracking-[0.35em] text-slate-400">
-                      Янгилик
+                      Yangilik
                     </p>
                     <h2 className="text-xl font-semibold text-white line-clamp-2">
                       {item.title}
@@ -132,7 +132,7 @@ export default function NewsTablePage() {
                   </header>
 
                   <p className="line-clamp-3 text-sm text-slate-300">
-                    {item.description || 'Описание недоступно.'}
+                    {item.description || 'Tavsif mavjud emas.'}
                   </p>
 
                   <div className="mt-auto space-y-3 text-sm text-slate-300">
@@ -140,14 +140,14 @@ export default function NewsTablePage() {
                       href={`/media/${item.id}`}
                       className="inline-flex items-center justify-center rounded-2xl border border-cs-blue/40 bg-cs-blue/20 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition-colors duration-200 hover:bg-cs-blue/30"
                     >
-                      Батафсил
+                      Batafsil
                     </Link>
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
                       {item.createdAt
                         ? new Date(
-                            item.createdAt.seconds * 1000
+                            item.createdAt.seconds * 1000,
                           ).toLocaleDateString()
-                        : 'Дата неизвестна'}
+                        : 'Sana noma‘lum'}
                     </p>
                   </div>
                 </div>
@@ -156,7 +156,7 @@ export default function NewsTablePage() {
           </div>
         ) : (
           <div className="rounded-[26px] border border-dashed border-white/15 bg-white/5 p-12 text-center text-slate-300 backdrop-blur-xl">
-            Новостей не найдено.
+            Yangiliklar topilmadi.
           </div>
         )}
       </div>

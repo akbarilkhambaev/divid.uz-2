@@ -13,58 +13,58 @@ export default function Sidebar() {
 
   const navLinks = [
     {
-      label: 'Все услуги',
+      label: 'Barcha xizmatlar',
       href: '/admin',
       icon: <RxFileText className="inline-flex mb-1" />,
     },
 
     {
-      label: 'Добавить категорию',
+      label: 'Kategoriya qo\u2018shish',
       href: '/admin/categories',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Добавить подкатегорию',
+      label: 'Podkategoriya qo\u2018shish',
       href: '/admin/subcategories',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Добавить услугу',
+      label: 'Xizmat qo\u2018shish',
       href: '/admin/add',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Новости',
+      label: 'Yangiliklar',
       href: '/admin/news',
       icon: <GiPapers className="inline-flex mb-1" />,
     },
     {
-      label: 'Слайдер',
+      label: 'Slayder',
       href: '/admin/slider',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Команда',
+      label: 'Jamoa',
       href: '/admin/team',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Отзывы',
+      label: 'Sharhlar',
       href: '/admin/reviews',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Партнеры',
+      label: 'Hamkorlar',
       href: '/admin/partners',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Таймлайн опыта',
+      label: 'Tajriba tarixchasi',
       href: '/admin/experience-timeline',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Академия',
+      label: 'Akademiya',
       href: '/admin/academy',
       icon: <HiAcademicCap className="inline-flex mb-1" />,
     },
@@ -74,27 +74,27 @@ export default function Sidebar() {
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'SEO Секции',
+      label: 'SEO Bo\u2018limlari',
       href: '/admin/seo-sections',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Услуги (Главная)',
+      label: 'Xizmatlar (Asosiy)',
       href: '/admin/home-services',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'Биз ҳақимизда',
+      label: 'Biz haqimizda',
       href: '/admin/about-us',
       icon: <RxPencil2 className="inline-flex mb-1" />,
     },
     {
-      label: 'CRM - Заявки',
+      label: 'CRM - Arizalar',
       href: '/admin/crm',
       icon: <GiPapers className="inline-flex mb-1" />,
     },
     {
-      label: 'Настройки',
+      label: 'Sozlamalar',
       href: '/admin/settings',
       icon: <HiCog className="inline-flex mb-1" />,
     },
@@ -109,7 +109,7 @@ export default function Sidebar() {
         alt="feedback"
         className="pb-10 w-100"
       />
-      <h2 className="text-xl font-bold mb-6">Админ-панель</h2>
+      <h2 className="text-xl font-bold mb-6">Admin-panel</h2>
       <nav className="space-y-2 row justify-center items-center">
         {navLinks.map((link) => (
           <Link

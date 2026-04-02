@@ -6,14 +6,14 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 const defaultSettings = {
-  sectionTitle: 'Курс якунида нимага эга бўласиз',
-  sectionSubtitle: 'Dividend Academy Дипломи – Сизнинг Молиявий Паспортингиз',
-  diplomaBlockTitle: 'Диплом сизга қуйдагиларни беради:',
+  sectionTitle: 'Kurs yakunida nimaga ega bo‘lasiz',
+  sectionSubtitle: 'Dividend Academy Diplomi – Sizning Moliyaviy Pasportingiz',
+  diplomaBlockTitle: 'Diplom sizga quyidagilarni beradi:',
   diplomaBlockText:
-    'Бизнинг диплом - "факат қатнашганлик" ҳужжати эмас, балки бозорга чиққанингизда сизни бошқа номзодлардан ажратиб турадиган исботланган натижа.',
-  certificateBlockTitle: 'Dividend Academy дипломи устунликлари:',
+    'Bizning diplom - "faqat qatnashganlik" hujjati emas, balki bozorga chiqqaningizda sizni boshqa nomzodlardan ajratib turadigan isbotlangan natija.',
+  certificateBlockTitle: 'Dividend Academy diplomi ustunliklari:',
   certificateBlockText:
-    'Хозирда Dividend Academy дипломи ҳамкор компаниялари олдида тан олинади (30+ компания). Кейинги қадам: халқаро/давлат аккредитацияси учун ҳужжатлар тайёрланмоқда. Натижада сизнинг дипломингиз вақт ўтиши билан янада қимматлашади.',
+    'Hozirda Dividend Academy diplomi hamkor kompaniyalari oldida tan olinadi (30+ kompaniya). Keyingi qadam: xalqaro/davlat akkreditatsiyasi uchun hujjatlar tayyorlanmoqda. Natijada sizning diplomingiz vaqt o‘tishi bilan yanada qimmatlashadi.',
 };
 
 export default function DiplomaSection() {

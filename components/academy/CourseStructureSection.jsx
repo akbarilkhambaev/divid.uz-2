@@ -6,21 +6,21 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 const defaultSettings = {
-  sectionTitle: 'Курс тузилиши',
-  beginnerTitle: 'Бошланғич дастур',
-  beginnerDuration: 'Давомийлиги: 2 ой',
-  course1Title: '1-курс: Корпоратив молияга кириш',
-  course1Desc: 'Молиявий асослар ва корпоратив ҳисоботлар',
-  course2Title: '2-курс: Молиявий таҳлилчи',
-  course2Desc: 'Таҳлил усуллари ва прогнозлаш',
-  professionalTitle: 'Профессионал дастур',
-  professionalDuration: 'Давомийлиги: 5 ой',
-  course12Title: '1-2 курс: Бошланғич пакет',
-  course12Desc: 'Барча бошланғич курслар',
-  course3Title: '3-курс: Илғор молиявий таҳлил',
-  course3Desc: 'M&A, валуация, инвестициялар',
-  course4Title: '4-курс: Корпоратив стратегия',
-  course4Desc: 'Бизнес-режалаштириш ва CFO вазифалари',
+  sectionTitle: 'Kurs tuzilishi',
+  beginnerTitle: 'Boshlang‘ich dastur',
+  beginnerDuration: 'Davomiyligi: 2 oy',
+  course1Title: '1-kurs: Korporativ moliyaga kirish',
+  course1Desc: 'Moliyaviy asoslar va korporativ hisobotlar',
+  course2Title: '2-kurs: Moliyaviy tahlilchi',
+  course2Desc: 'Tahlil usullari va prognozlash',
+  professionalTitle: 'Professional dastur',
+  professionalDuration: 'Davomiyligi: 5 oy',
+  course12Title: '1-2 kurs: Boshlang‘ich paket',
+  course12Desc: 'Barcha boshlang‘ich kurslar',
+  course3Title: '3-kurs: Ilg‘or moliyaviy tahlil',
+  course3Desc: 'M&A, valuatsiya, investitsiyalar',
+  course4Title: '4-kurs: Korporativ strategiya',
+  course4Desc: 'Biznes rejallashtirish va CFO vazifalari',
 };
 
 export default function CourseStructureSection() {

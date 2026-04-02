@@ -33,8 +33,8 @@ export default function InfoSection() {
         setSlides([
           {
             id: 1,
-            title: 'Аудит ва таҳлил хизматлари',
-            text: 'Молиявий муаммолар, уларга ечим топиш',
+            title: 'Audit va tahlil xizmatlari',
+            text: 'Moliyaviy muammolar, ularga yechim topish',
             image: 'slider/audit.png',
           },
         ]);
@@ -49,7 +49,7 @@ export default function InfoSection() {
   if (loading) {
     return (
       <section className="flex h-[420px] min-h-full items-center justify-center bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        <div className="text-lg text-white md:text-xl">Загрузка...</div>
+        <div className="text-lg text-white md:text-xl">Yuklanmoqda...</div>
       </section>
     );
   }
@@ -121,7 +121,7 @@ export default function InfoSection() {
                         : ''
                     }`}
                   >
-                    Копрок маълумот олиш
+                    Ko‘proq ma'lumot olish
                     <FaLongArrowAltRight className="text-sm md:text-lg" />
                   </Link>
                 </div>

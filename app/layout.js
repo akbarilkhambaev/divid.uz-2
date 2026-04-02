@@ -10,14 +10,14 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'Divid.uz - Консалтинг',
-  description: 'Профессиональные консалтинговые услуги',
+  title: 'Divid.uz - Konsalting',
+  description: 'Professional konsalting xizmatlari',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="ru"
+      lang="uz"
       className={`${inter.className} h-full`}
       suppressHydrationWarning
     >

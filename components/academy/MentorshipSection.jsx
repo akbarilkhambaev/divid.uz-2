@@ -13,17 +13,17 @@ import {
 import { db } from '@/lib/firebase';
 
 const defaultFeatures = [
-  'Назарий узлаштиришларни текширади',
-  'Амалиётга мажбур килади',
-  'Индивидуал feedback беради',
-  'Сизни реал натижага олиб чикади',
-  'Бахолашнинг 30% ментор хулосига боғлиқ',
+  'Nazariy o‘zlashtirishlarni tekshiradi',
+  'Amaliyotga majbur qiladi',
+  'Individual feedback beradi',
+  'Sizni real natijaga olib chiqadi',
+  'Baholashning 30% mentor xulosasiga bog‘liq',
 ];
 
 const defaultSettings = {
-  sectionTitle: 'Ментор:',
+  sectionTitle: 'Mentor:',
   sectionDescription:
-    'Бизда ментор — бу дарсдан ташқари саволга жавоб берувчи одам эмас. Бу сизнинг натижангиз учун масъул устоз.',
+    'Bizda mentor — bu darsdan tashqari savolga javob beruvchi odam emas. Bu sizning natijangiz uchun mas‘ul ustoz.',
 };
 
 export default function MentorshipSection() {

@@ -15,7 +15,7 @@ export default function Services() {
       try {
         const q = query(
           collection(db, 'homeServices'),
-          orderBy('order', 'asc')
+          orderBy('order', 'asc'),
         );
         const snapshot = await getDocs(q);
         const data = snapshot.docs.map((doc) => ({
@@ -37,7 +37,7 @@ export default function Services() {
   if (loading) {
     return (
       <section className="flex min-h-[520px] items-center justify-center bg-slate-950 text-white">
-        <div className="text-lg md:text-xl">Загрузка...</div>
+        <div className="text-lg md:text-xl">Yuklanmoqda...</div>
       </section>
     );
   }
@@ -63,9 +63,9 @@ export default function Services() {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
-            <span className="relative text-slate-950">БИЗНИНГ</span>
+            <span className="relative text-slate-950">BIZNING</span>
           </span>
-          <span className="ml-2 md:ml-3">ХИЗМАТЛАР</span>
+          <span className="ml-2 md:ml-3">XIZMATLAR</span>
         </motion.h2>
 
         <motion.p
@@ -138,7 +138,7 @@ export default function Services() {
                       {String(index + 1).padStart(2, '0')}
                     </span>
                     <span className="hidden rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-slate-200 sm:inline">
-                      хизматлар йуналиши
+                      xizmatlar yo‘nalishi
                     </span>
                   </div>
 
@@ -152,7 +152,7 @@ export default function Services() {
                   </div>
 
                   <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-cs-blue transition group-hover:text-white">
-                    Батафсил маълумот
+                    Batafsil ma'lumot
                     <FaArrowRight className="text-xs" />
                   </div>
                 </div>

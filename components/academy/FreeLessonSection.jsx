@@ -13,27 +13,27 @@ import {
 import { db } from '@/lib/firebase';
 
 const defaultSettings = {
-  sectionTitle: 'Сизни бепул кириш дарсига таклиф қиламиз',
+  sectionTitle: 'Sizni bepul kirish darsiga taklif qilamiz',
   topic:
-    '"Нега кўпчилик бизнеслар 3 йилда банкрот бўлади — ва нега уларнинг молиявий ҳисоботлари фойда келтирмайди?"',
-  dateText: 'Сана:',
-  durationText: 'Давомийлиги: 2 соат',
-  seatsText: 'Жойлар сони чекланган',
-  registrationText: 'Рўйхатдан ўтиш учун:',
-  learningTitle: 'Бу дарсда биз:',
+    '"Nega ko‘pchilik bizneslar 3 yilda bankrot bo‘ladi — va nega ularning moliyaviy hisobotlari foyda keltirmaydi?"',
+  dateText: 'Sana:',
+  durationText: 'Davomiyligi: 2 soat',
+  seatsText: 'Joylar soni cheklangan',
+  registrationText: 'Ro‘yxatdan o‘tish uchun:',
+  learningTitle: 'Bu darsda biz:',
   footerNote:
-    'Ҳамда академиямиз ва курсларимиз ҳақида тўлиқ малумотлар берамиз.',
+    'Hamda akademiyamiz va kurslarimiz haqida to‘liq maʼlumotlar beramiz.',
 };
 
 const defaultLearningPoints = [
   {
-    text: 'ҳисоботларда рақамлар ортда яширинган вақтинчалик "ўсиш" иллузияларини мавжудлигини',
+    text: 'hisobotlarda raqamlar ortda yashiringan vaqtinchalik "o‘sish" illyuziyalarini mavjudligini',
   },
-  { text: 'нега кўпчилик ҳисоботлар real ҳолатни акс еттирмаслигини,' },
+  { text: 'nega ko‘pchilik hisobotlar real holatni aks ettirmasligini,' },
   {
-    text: 'уларни қандай қилиб бошқарув қарорларига йўналтирган шаклда тузиш мумкинлигини',
+    text: 'ularni qanday qilib boshqaruv qarorlariga yo‘naltirilgan shaklda tuzish mumkinligini',
   },
-  { text: 'ва хатоларни ерта аниқлаш йўлларини муҳокама қиламиз' },
+  { text: 'va xatolarni erta aniqlash yo‘llarini muhokama qilamiz' },
 ];
 
 export default function FreeLessonSection() {
@@ -97,7 +97,7 @@ export default function FreeLessonSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-2xl font-bold mb-6">Мавзу:</p>
+            <p className="text-2xl font-bold mb-6">Mavzu:</p>
             <h3 className="text-2xl md:text-3xl font-bold mb-8 leading-tight">
               {settings.topic}
             </h3>

@@ -27,10 +27,10 @@ export default function Layout() {
     <SeoOptimizing key="seo" />,
     <Services key="services" />,
     <ExperienceTimeline key="experience" />,
-    <Ads key="ads" />,
-    <Reviews key="reviews" />,
-    <Previlegies key="previlegies" />,
     <OurPartners key="partners" />,
+    <Previlegies key="previlegies" />,
+    <Reviews key="reviews" />,
+    <Ads key="ads" />,
     <NewsPage key="news" />,
     <FeedbackForm key="form" />,
   ];

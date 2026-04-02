@@ -61,7 +61,7 @@ function getExcerptHtml(entry) {
   } else {
     html = html.replace(
       /<(?!\/?(b|strong|i|em|ul|ol|li|blockquote)\b)[^>]*>/gi,
-      ''
+      '',
     );
   }
   // Обрезаем текст до 140 символов без учета тегов
@@ -112,7 +112,7 @@ export default function MediaDetailPage() {
           await updateDoc(docRef, { views: increment(1) });
         }
       } catch (error) {
-        console.error('Ошибка при загрузке новости:', error);
+        console.error('Yangilikni yuklashda xatolik:', error);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -132,7 +132,7 @@ export default function MediaDetailPage() {
     const fetchRelated = async () => {
       try {
         const relatedSnap = await getDocs(
-          query(collection(db, 'news'), orderBy('createdAt', 'desc'), limit(5))
+          query(collection(db, 'news'), orderBy('createdAt', 'desc'), limit(5)),
         );
         if (!isMounted) return;
         const items = relatedSnap.docs
@@ -141,7 +141,7 @@ export default function MediaDetailPage() {
           .slice(0, 3);
         setRelatedNews(items);
       } catch (error) {
-        console.error('Ошибка при загрузке похожих новостей:', error);
+        console.error('O‘xshash yangiliklarni yuklashda xatolik:', error);
       }
     };
 
@@ -153,11 +153,11 @@ export default function MediaDetailPage() {
   }, [media]);
 
   const formattedDate = useMemo(() => {
-    if (!media?.createdAt?.seconds) return 'Дата неизвестна';
+    if (!media?.createdAt?.seconds) return 'Sana noma‘lum';
     try {
       return new Date(media.createdAt.seconds * 1000).toLocaleString();
     } catch (error) {
-      return 'Дата неизвестна';
+      return 'Sana noma‘lum';
     }
   }, [media?.createdAt]);
 
@@ -169,7 +169,7 @@ export default function MediaDetailPage() {
   if (loading) {
     return (
       <section className="flex min-h-screen items-center justify-center bg-slate-950 text-slate-300">
-        Загрузка...
+        Yuklanmoqda...
       </section>
     );
   }
@@ -177,7 +177,7 @@ export default function MediaDetailPage() {
   if (!media) {
     return (
       <section className="flex min-h-screen items-center justify-center bg-slate-950 text-red-400">
-        Медиа не найдено
+        Media topilmadi
       </section>
     );
   }
@@ -198,7 +198,7 @@ export default function MediaDetailPage() {
                 href="/media"
                 className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-200 transition-colors duration-200 hover:border-cs-blue/40 hover:bg-cs-blue/20"
               >
-                <FaArrowLeft /> Орқага
+                <FaArrowLeft /> Orqaga
               </Link>
               <div className="flex flex-row flex-wrap gap-3 lg:flex-col">
                 <a
@@ -226,7 +226,7 @@ export default function MediaDetailPage() {
                 <div className="flex flex-wrap items-center justify-between gap-3 text-xs uppercase tracking-[0.35em] text-slate-400">
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="inline-flex items-center rounded-full bg-cs-blue/20 px-3 py-1 text-xs font-medium uppercase tracking-[0.35em] text-cs-blue">
-                      {media.category || 'Янгилик'}
+                      {media.category || 'Yangilik'}
                     </span>
                     <span>{formattedDate}</span>
                   </div>
@@ -270,7 +270,7 @@ export default function MediaDetailPage() {
                 </figure>
               ) : (
                 <div className="flex h-64 w-full items-center justify-center rounded-[28px] border border-dashed border-white/15 bg-white/10 text-sm text-slate-400">
-                  Изображение отсутствует
+                  Rasm mavjud emas
                 </div>
               )}
 
@@ -290,7 +290,7 @@ export default function MediaDetailPage() {
               {relatedNews.length > 0 && (
                 <section className="space-y-4 rounded-[26px] border border-white/10 bg-white/5 p-6 shadow-[0_35px_65px_-40px_rgba(15,23,42,0.9)] backdrop-blur-xl">
                   <h2 className="text-lg font-semibold uppercase tracking-[0.3em] text-slate-200">
-                    Бошқа янгиликлар
+                    Boshqa yangiliklar
                   </h2>
                   <div
                     className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent"
@@ -312,7 +312,7 @@ export default function MediaDetailPage() {
                         <div className="relative z-10 flex flex-col h-full justify-between px-4 py-3 space-y-3">
                           <div>
                             <p className="text-xs uppercase tracking-[0.3em] text-slate-300">
-                              {item.category || 'Янгилик'}
+                              {item.category || 'Yangilik'}
                             </p>
                             <h3 className="mt-1 text-base font-semibold text-white line-clamp-3">
                               {item.title}
@@ -330,7 +330,7 @@ export default function MediaDetailPage() {
                           {item.createdAt?.seconds && (
                             <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mt-4">
                               {new Date(
-                                item.createdAt.seconds * 1000
+                                item.createdAt.seconds * 1000,
                               ).toLocaleDateString()}
                             </p>
                           )}
