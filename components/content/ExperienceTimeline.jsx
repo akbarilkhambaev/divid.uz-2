@@ -1,110 +1,75 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FaArrowRight } from 'react-icons/fa';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-
-const timelineItems = [
-  {
-    title: 'Mebel ishlab chiqarish',
-    description:
-      'Individuallashtirilgan yechimlar va seriyali ishlab chiqarish uchun to‘liq xizmatlar sikli.',
-    image:
-      'https://images.unsplash.com/photo-1523419409543-0c1df022bdd1?auto=format&fit=crop&w=1200&q=80',
-    href: '/services',
-  },
-  {
-    title: 'Omborxona va logistika',
-    description:
-      'Saqlash, inventarizatsiya va yetkazib berish jarayonlarini optimallashtirish bo‘yicha konsultatsiyalar.',
-    image:
-      'https://images.unsplash.com/photo-1585079542156-2755d9c8a094?auto=format&fit=crop&w=1200&q=80',
-    href: '/services',
-  },
-  {
-    title: 'O‘quv markazlari',
-    description:
-      'Korxona ichidagi ta‘lim markazlarini yaratish va ularni raqamlashtirish bo‘yicha tajriba.',
-    image:
-      'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80',
-    href: '/academy',
-  },
-  {
-    title: 'Oziq-ovqat ishlab chiqarish',
-    description:
-      'Gigiena standartlari va ishlab chiqarish liniyalarining uzluksizligini ta‘minlash.',
-    image:
-      'https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=1200&q=80',
-    href: '/services',
-  },
-  {
-    title: 'Avtotransport va savdo',
-    description:
-      'Avtosalonlar, savdo zallari va chakana tarmoqlar uchun avtomatlashtirilgan CRM jarayonlari.',
-    image:
-      'https://images.unsplash.com/photo-1549921296-3cc26f510d04?auto=format&fit=crop&w=1200&q=80',
-    href: '/services',
-  },
-  {
-    title: 'Texnologik startaplar',
-    description:
-      'Mahalliy bozorga mos mahsulot kashf etish, MVP va masshtablash yondashuvlari.',
-    image:
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
-    href: '/services',
-  },
-];
 
 const cardVariants = {
   hidden: { opacity: 0, scale: 0.94, y: 24 },
   visible: { opacity: 1, scale: 1, y: 0 },
 };
 
-export default function ExperienceTimeline({
-  items: fallbackItems = timelineItems,
-}) {
-  const [items, setItems] = useState([]);
+export default function ExperienceTimeline() {
+  const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchItems = async () => {
+    const fetchPartners = async () => {
       try {
-        const q = query(
-          collection(db, 'experienceTimeline'),
-          orderBy('order', 'asc'),
+        const snap = await getDocs(
+          query(collection(db, 'partners'), orderBy('order', 'asc')),
         );
-        const snapshot = await getDocs(q);
-        const data = snapshot.docs.map((doc) => {
-          const payload = doc.data();
-          return {
-            id: doc.id,
-            title: payload.title || '',
-            description: payload.description || '',
-            href: payload.href || '',
-            order: payload.order ?? 0,
-            imageBase64: payload.imageBase64 || '',
-            image: payload.image || '',
-          };
+
+        const partners = snap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        // Group partners by category; partners without a category go into a fallback group
+        const groupMap = new Map();
+        partners.forEach((p) => {
+          const cat = p.category?.trim() || 'Boshqalar';
+          if (!groupMap.has(cat)) groupMap.set(cat, []);
+          groupMap.get(cat).push(p);
         });
-        setItems(data);
+
+        const grouped = Array.from(groupMap.entries()).map(
+          ([title, items]) => ({
+            title,
+            items,
+          }),
+        );
+
+        setCards(grouped);
       } catch (error) {
-        console.error('Failed to load experience timeline items', error);
-        setItems([]);
+        console.error('Failed to load partners', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchItems();
+    fetchPartners();
   }, []);
 
-  const list = items.length > 0 ? items : fallbackItems;
+  if (loading) {
+    return (
+      <section className="flex min-h-[520px] items-center justify-center bg-slate-950 text-white">
+        <div className="text-lg md:text-xl">Yuklanmoqda...</div>
+      </section>
+    );
+  }
+
+  if (cards.length === 0) return null;
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-16 md:py-24">
+      <div className="pointer-events-none absolute inset-0 opacity-40">
+        <div className="animate-pulse absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cs-blue/30 blur-3xl" />
+        <div className="animate-pulse absolute bottom-10 left-16 h-60 w-60 rounded-full bg-fuchsia-500/20 blur-3xl" />
+      </div>
+
       <div className="relative z-10 mx-auto flex w-full max-w-full flex-col gap-6 px-4 text-white md:px-6">
         <motion.h2
           className="text-center text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl"
@@ -116,8 +81,11 @@ export default function ExperienceTimeline({
           <span className="relative inline-block before:absolute before:-inset-2 before:block before:-skew-y-2 before:bg-white/90 before:blur-[2px]">
             <span className="relative text-slate-950">SOHALAR</span>
           </span>
-          <span className="ml-2 md:ml-3">BO‘YICHA TAJRIBAMIZ</span>
+          <span className="ml-2 md:ml-3">
+            BO'YICHA TAJRIBAMIZ VA HAMKORLARIMIZ
+          </span>
         </motion.h2>
+
         <motion.p
           className="mx-auto max-w-3xl text-center text-base text-slate-300 md:text-lg"
           initial={{ opacity: 0 }}
@@ -135,87 +103,67 @@ export default function ExperienceTimeline({
         </motion.p>
 
         <div className="relative mt-12 lg:mt-16">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-            {list.map((item, idx) => {
-              const hasLink = Boolean(item.href);
-              const Wrapper = hasLink ? Link : 'div';
-              const wrapperProps = hasLink
-                ? { href: item.href, className: 'group block h-full' }
-                : { className: 'group block h-full cursor-default' };
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {cards.map((card, idx) => (
+              <motion.article
+                key={card.title}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: 0.6,
+                  delay: idx * 0.08,
+                  ease: [0.43, 0.13, 0.23, 0.96],
+                }}
+                className="relative flex flex-col gap-6 overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8"
+              >
+                {/* Card number + title */}
+                <div className="flex items-center gap-3">
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-200">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="text-lg font-semibold uppercase tracking-wide text-white md:text-xl">
+                    {card.title}
+                  </h3>
+                </div>
 
-              return (
-                <Wrapper
-                  key={item.id || item.title || idx}
-                  {...wrapperProps}
-                >
-                  <motion.article
-                    variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.25 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: idx * 0.06,
-                      ease: [0.43, 0.13, 0.23, 0.96],
-                    }}
-                    className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/10 backdrop-blur-xl transition-all duration-300 group-hover:border-cs-blue/60 group-hover:shadow-[0_35px_80px_-40px_rgba(59,130,246,0.8)]"
-                  >
-                    <div className="absolute inset-0">
-                      {(item.imageBase64 || item.image) && (
-                        <img
-                          src={item.imageBase64 || item.image}
-                          alt={item.title}
-                          className="h-full w-full object-cover opacity-80 transition-transform duration-[750ms] ease-out group-hover:scale-105"
-                          loading="lazy"
+                {/* Divider */}
+                <div className="h-px w-full bg-white/10" />
+
+                {/* Partner logos */}
+                <div className="grid grid-cols-3 gap-3">
+                  {card.items.map((partner) => (
+                    <div
+                      key={partner.id}
+                      className="flex flex-col items-center gap-2"
+                    >
+                      <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white p-2">
+                        <Image
+                          src={
+                            partner.imageBase64 ||
+                            partner.image ||
+                            partner.src ||
+                            '/ourpartners/default.png'
+                          }
+                          alt={partner.alt || partner.name || 'Partner'}
+                          width={96}
+                          height={96}
+                          className="h-full w-full object-contain"
                         />
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-br from-slate-950/80 via-slate-950/70 to-slate-900/60" />
-                      <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-cs-blue/30 via-transparent to-transparent" />
                       </div>
-                    </div>
-
-                    <div className="relative z-10 flex h-full flex-col justify-between p-6 md:p-7">
-                      <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-300">
-                        <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 font-semibold text-slate-200">
-                          {String(idx + 1).padStart(2, '0')}
+                      {(partner.alt || partner.name) && (
+                        <span className="text-center text-xs text-slate-300 leading-tight">
+                          {partner.alt || partner.name}
                         </span>
-                        <span className="hidden rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-slate-200 sm:inline">
-                          tajriba sohasi
-                        </span>
-                      </div>
-
-                      <div className="mt-12 space-y-4">
-                        <h3 className="text-2xl font-semibold text-white transition-colors duration-300 group-hover:text-cs-blue md:text-xl lg:text-2xl">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-slate-200 md:text-base">
-                          {item.description}
-                        </p>
-                      </div>
-
-                      {hasLink ? (
-                        <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-cs-blue transition group-hover:text-white">
-                          Batafsil ma'lumot
-                          <FaArrowRight className="text-xs" />
-                        </div>
-                      ) : (
-                        <div className="mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-cs-blue/70">
-                          Ko'proq ma'lumot tez orada
-                        </div>
                       )}
                     </div>
-                  </motion.article>
-                </Wrapper>
-              );
-            })}
+                  ))}
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
-      </div>
-
-      <div className="pointer-events-none absolute inset-0 opacity-40">
-        <div className="animate-pulse absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-cs-blue/30 blur-3xl" />
-        <div className="animate-pulse absolute bottom-10 left-16 h-60 w-60 rounded-full bg-fuchsia-500/20 blur-3xl" />
       </div>
     </section>
   );

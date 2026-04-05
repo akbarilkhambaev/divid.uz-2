@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className="h-full flex flex-col"
+        className="h-full flex flex-col bg-slate-950"
         suppressHydrationWarning
       >
         <LayoutWrapper>{children}</LayoutWrapper>

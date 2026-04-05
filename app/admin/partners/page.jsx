@@ -21,6 +21,7 @@ export default function PartnersManagementPage() {
     name: '',
     image: null,
     order: 0,
+    category: '',
   });
   const [editData, setEditData] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -43,7 +44,7 @@ export default function PartnersManagementPage() {
   }, []);
 
   const resetForm = () => {
-    setFormData({ name: '', image: null, order: 0 });
+    setFormData({ name: '', image: null, order: 0, category: '' });
     setEditData(null);
   };
 
@@ -55,7 +56,11 @@ export default function PartnersManagementPage() {
     const saveToFirestore = async (imageBase64, imageName) => {
       if (editData) {
         const docRef = doc(db, 'partners', editData.id);
-        const updateData = { name, order: Number(order) || 0 };
+        const updateData = {
+          name,
+          order: Number(order) || 0,
+          category: formData.category || '',
+        };
         if (imageBase64) {
           updateData.imageBase64 = imageBase64;
           updateData.imageName = imageName;
@@ -68,6 +73,7 @@ export default function PartnersManagementPage() {
           imageBase64: imageBase64 || '',
           imageName: imageName || '',
           order: Number(order) || 0,
+          category: formData.category || '',
         });
         alert('Партнер добавлен');
       }
@@ -102,6 +108,7 @@ export default function PartnersManagementPage() {
       name: item.name || '',
       image: null,
       order: item.order || 0,
+      category: item.category || '',
     });
     setModalOpen(true);
   };
@@ -130,7 +137,10 @@ export default function PartnersManagementPage() {
             <h2 className="text-2xl font-bold mb-4">
               {editData ? 'Редактировать партнера' : 'Добавить партнера'}
             </h2>
-            <form onSubmit={handleAddOrUpdate} className="space-y-4">
+            <form
+              onSubmit={handleAddOrUpdate}
+              className="space-y-4"
+            >
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Название партнера *
@@ -143,6 +153,20 @@ export default function PartnersManagementPage() {
                   }
                   className="w-full border p-2 rounded"
                   required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Категория (для группировки на главной)
+                </label>
+                <input
+                  type="text"
+                  value={formData.category}
+                  onChange={(e) =>
+                    setFormData({ ...formData, category: e.target.value })
+                  }
+                  placeholder="Например: Mebel ishlab chiqarish"
+                  className="w-full border p-2 rounded"
                 />
               </div>
               <div>
@@ -210,22 +234,31 @@ export default function PartnersManagementPage() {
         </div>
       )}
 
-      <div className={modalOpen ? 'blur-sm transition-filter duration-300' : ''}>
+      <div
+        className={modalOpen ? 'blur-sm transition-filter duration-300' : ''}
+      >
         <h2 className="text-lg font-semibold mb-2">Список партнеров</h2>
         <table className="w-full border bg-white">
           <thead>
             <tr className="bg-gray-100 text-left">
               <th className="p-2 border">Порядок</th>
               <th className="p-2 border">Название</th>
+              <th className="p-2 border">Категория</th>
               <th className="p-2 border">Логотип</th>
               <th className="p-2 border">Действия</th>
             </tr>
           </thead>
           <tbody>
             {partners.map((item) => (
-              <tr key={item.id} className="border-t align-top text-sm">
+              <tr
+                key={item.id}
+                className="border-t align-top text-sm"
+              >
                 <td className="p-2 border">{item.order || 0}</td>
                 <td className="p-2 border">{item.name}</td>
+                <td className="p-2 border text-sm text-gray-600">
+                  {item.category || '—'}
+                </td>
                 <td className="p-2 border">
                   {item.imageBase64 ? (
                     <img
@@ -259,4 +292,3 @@ export default function PartnersManagementPage() {
     </div>
   );
 }
-

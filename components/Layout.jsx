@@ -27,7 +27,7 @@ export default function Layout() {
     <SeoOptimizing key="seo" />,
     <Services key="services" />,
     <ExperienceTimeline key="experience" />,
-    <OurPartners key="partners" />,
+    // <OurPartners key="partners" />,
     <Previlegies key="previlegies" />,
     <Reviews key="reviews" />,
     <Ads key="ads" />,

@@ -26,10 +26,11 @@ html {
   height: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
+  background: #020617;
 }
 
 body {
-  background: var(--background);
+  background: #020617;
   color: var(--foreground);
   font-family: inherit;
   position: relative;

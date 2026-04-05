@@ -100,7 +100,11 @@ export default function Services() {
           {services.map((serv, index) => (
             <Link
               key={serv.id}
-              href="/services"
+              href={
+                serv.categoryId
+                  ? `/services?categoryId=${serv.categoryId}${serv.subcategoryId ? `&subcategoryId=${serv.subcategoryId}` : ''}`
+                  : '/services'
+              }
               className="group block h-full"
             >
               <motion.div

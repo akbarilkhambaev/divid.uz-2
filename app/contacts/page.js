@@ -8,11 +8,14 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { sendToTelegram } from '@/lib/telegram';
 import Head from 'next/head';
+import { FaInstagram, FaFacebook, FaTelegram } from 'react-icons/fa';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
+    telegram: '',
     message: '',
   });
   const [loading, setLoading] = useState(false);
@@ -34,6 +37,8 @@ export default function ContactPage() {
         formType: 'contacts',
         name: formData.name,
         email: formData.email,
+        phone: formData.phone,
+        telegram: formData.telegram,
         message: formData.message,
         createdAt: serverTimestamp(),
         status: 'new',
@@ -43,12 +48,20 @@ export default function ContactPage() {
       await sendToTelegram({
         name: formData.name,
         email: formData.email,
+        phone: formData.phone,
+        telegram: formData.telegram,
         message: formData.message,
         formType: 'contact',
       });
 
       setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        telegram: '',
+        message: '',
+      });
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
       alert('Yuborish xatoligi. Keyinroq urinib ko‘ring.');
@@ -147,9 +160,44 @@ export default function ContactPage() {
               <div>
                 <label
                   className="block font-semibold mb-1 text-slate-200"
+                  htmlFor="phone"
+                >
+                  Telefon
+                </label>
+                <input
+                  className="border border-white/10 focus:border-cs-blue/40 focus:ring-2 focus:ring-cs-blue/30 w-full p-3 rounded-xl transition outline-none placeholder:text-slate-400 bg-white/10 text-white"
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+998 90 000 00 00"
+                  autoComplete="tel"
+                />
+              </div>
+              <div>
+                <label
+                  className="block font-semibold mb-1 text-slate-200"
+                  htmlFor="telegram"
+                >
+                  Telegram username
+                </label>
+                <input
+                  className="border border-white/10 focus:border-cs-blue/40 focus:ring-2 focus:ring-cs-blue/30 w-full p-3 rounded-xl transition outline-none placeholder:text-slate-400 bg-white/10 text-white"
+                  type="text"
+                  name="telegram"
+                  id="telegram"
+                  value={formData.telegram}
+                  onChange={handleChange}
+                  placeholder="@username"
+                />
+              </div>
+              <div>
+                <label
+                  className="block font-semibold mb-1 text-slate-200"
                   htmlFor="message"
                 >
-                  Хабар
+                  Xabar
                 </label>
                 <textarea
                   className="border border-white/10 focus:border-cs-blue/40 focus:ring-2 focus:ring-cs-blue/30 w-full p-3 rounded-xl transition outline-none placeholder:text-slate-400 bg-white/10 text-white resize-none"
@@ -169,6 +217,37 @@ export default function ContactPage() {
                 {loading ? 'Yuborilmoqda...' : 'Yuborish'}
               </button>
             </form>
+
+            {/* Social links */}
+            <div className="mt-6 flex items-center gap-4 justify-center">
+              <a
+                href="https://instagram.com"
+                aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-300 hover:text-pink-500 transition"
+              >
+                <FaInstagram className="text-2xl" />
+              </a>
+              <a
+                href="https://facebook.com"
+                aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-300 hover:text-blue-500 transition"
+              >
+                <FaFacebook className="text-2xl" />
+              </a>
+              <a
+                href="https://t.me"
+                aria-label="Telegram"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-300 hover:text-blue-400 transition"
+              >
+                <FaTelegram className="text-2xl" />
+              </a>
+            </div>
           </div>
           <div className="flex-1 w-full rounded-[28px] overflow-hidden shadow-lg flex-shrink-0 border border-white/10 bg-white/5 backdrop-blur-xl min-h-[480px] flex items-stretch">
             <ContactMap />

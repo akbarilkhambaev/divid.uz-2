@@ -12,6 +12,8 @@ export default function FullSupportWidget() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
+    telegram: '',
     message: '',
   });
   const [loading, setLoading] = useState(false);
@@ -73,6 +75,8 @@ export default function FullSupportWidget() {
                       formType: 'callback',
                       name: formData.name,
                       email: formData.email,
+                      phone: formData.phone,
+                      telegram: formData.telegram,
                       message: formData.message,
                       createdAt: serverTimestamp(),
                       status: 'new',
@@ -82,12 +86,20 @@ export default function FullSupportWidget() {
                     await sendToTelegram({
                       name: formData.name,
                       email: formData.email,
+                      phone: formData.phone,
+                      telegram: formData.telegram,
                       message: formData.message,
                       formType: 'callback',
                     });
 
                     setSubmitted(true);
-                    setFormData({ name: '', email: '', message: '' });
+                    setFormData({
+                      name: '',
+                      email: '',
+                      phone: '',
+                      telegram: '',
+                      message: '',
+                    });
                   } catch (error) {
                     console.error('Ошибка отправки формы:', error);
                     alert('Yuborish xatoligi. Keyinroq urinib ko‘ring.');
@@ -125,6 +137,34 @@ export default function FullSupportWidget() {
                     }
                     className="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-2.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
                     required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-[0.25em] text-slate-500">
+                    Telefon
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="+998 90 000 00 00"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
+                    className="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-2.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-[0.25em] text-slate-500">
+                    Telegram username
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="@username"
+                    value={formData.telegram}
+                    onChange={(e) =>
+                      setFormData({ ...formData, telegram: e.target.value })
+                    }
+                    className="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-2.5 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
                   />
                 </div>
                 <div className="space-y-2">

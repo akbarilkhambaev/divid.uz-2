@@ -17,15 +17,34 @@ import {
 
 export default function HomeServicesManagementPage() {
   const [services, setServices] = useState([]);
+  const [treeCategories, setTreeCategories] = useState([]);
   const [formData, setFormData] = useState({
     title: '',
     text: '',
     order: 0,
     imageFile: null,
     imagePreview: '',
+    categoryId: '',
+    subcategoryId: '',
   });
   const [editData, setEditData] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+
+  const fetchTreeCategories = async () => {
+    try {
+      const snapshot = await getDocs(collection(db, 'servicesTree'));
+      const cats = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      console.log('treeCategories:', JSON.stringify(cats, null, 2));
+      setTreeCategories(cats);
+    } catch (e) {
+      console.error('Ошибка загрузки servicesTree:', e);
+    }
+  };
+
+  const selectedTreeCat = treeCategories.find(
+    (c) => String(c.id) === String(formData.categoryId),
+  );
+  const treeSubcategories = selectedTreeCat?.subcategories || [];
 
   const fetchServices = async () => {
     const q = query(collection(db, 'homeServices'), orderBy('order', 'asc'));
@@ -42,6 +61,7 @@ export default function HomeServicesManagementPage() {
 
   useEffect(() => {
     fetchServices();
+    fetchTreeCategories();
   }, []);
 
   const resetForm = () => {
@@ -51,6 +71,8 @@ export default function HomeServicesManagementPage() {
       order: 0,
       imageFile: null,
       imagePreview: '',
+      categoryId: '',
+      subcategoryId: '',
     });
     setEditData(null);
   };
@@ -70,6 +92,8 @@ export default function HomeServicesManagementPage() {
           title,
           text,
           order: Number(order) || 0,
+          categoryId: formData.categoryId || '',
+          subcategoryId: formData.subcategoryId || '',
         };
         if (typeof imageBase64 === 'string') {
           updateData.imageBase64 = imageBase64;
@@ -82,6 +106,8 @@ export default function HomeServicesManagementPage() {
           text,
           order: Number(order) || 0,
           imageBase64: imageBase64 || '',
+          categoryId: formData.categoryId || '',
+          subcategoryId: formData.subcategoryId || '',
         });
         alert('Услуга добавлена');
       }
@@ -118,6 +144,8 @@ export default function HomeServicesManagementPage() {
       order: item.order || 0,
       imageFile: null,
       imagePreview: item.imageBase64 || item.image || '',
+      categoryId: item.categoryId || '',
+      subcategoryId: item.subcategoryId || '',
     });
     setModalOpen(true);
   };
@@ -192,6 +220,59 @@ export default function HomeServicesManagementPage() {
                   min="0"
                 />
               </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Связать с категорией (страница /services)
+                </label>
+                <select
+                  value={formData.categoryId}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      categoryId: e.target.value,
+                      subcategoryId: '',
+                    })
+                  }
+                  className="w-full border p-2 rounded"
+                >
+                  <option value="">— Не выбрано —</option>
+                  {treeCategories.map((cat) => (
+                    <option
+                      key={cat.id}
+                      value={cat.id}
+                    >
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {formData.categoryId && (
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Связать с подкатегорией
+                  </label>
+                  <select
+                    value={formData.subcategoryId}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        subcategoryId: e.target.value,
+                      })
+                    }
+                    className="w-full border p-2 rounded"
+                  >
+                    <option value="">— Не выбрано —</option>
+                    {treeSubcategories.map((sub) => (
+                      <option
+                        key={sub.id}
+                        value={sub.id}
+                      >
+                        {sub.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Обложка услуги (JPEG/PNG)

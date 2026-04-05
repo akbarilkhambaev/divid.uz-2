@@ -10,6 +10,7 @@ export default function Ads() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '+998 ',
+    telegram: '',
     topic: 'audit',
     message: '',
   });
@@ -25,6 +26,7 @@ export default function Ads() {
         formType: 'ads',
         name: formData.name,
         phone: formData.phone,
+        telegram: formData.telegram,
         topic: formData.topic,
         message: formData.message,
         createdAt: serverTimestamp(),
@@ -35,13 +37,20 @@ export default function Ads() {
       await sendToTelegram({
         name: formData.name,
         phone: formData.phone,
+        telegram: formData.telegram,
         message: formData.message,
         service: formData.topic,
         formType: 'ads',
       });
 
       setSubmitted(true);
-      setFormData({ name: '', phone: '+998 ', topic: 'audit', message: '' });
+      setFormData({
+        name: '',
+        phone: '+998 ',
+        telegram: '',
+        topic: 'audit',
+        message: '',
+      });
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
       alert('Yuborish xatoligi. Keyinroq urinib ko‘ring.');
@@ -74,12 +83,10 @@ export default function Ads() {
           </h2>
 
           <p className="mt-6 max-w-xl text-base text-slate-300 md:text-lg">
-            Strategik sherik sifatida biz kompaniyangiz uchun audit, moliya va
-            HR yo‘nalishlarida kompleks yechimlarni tayyorlaymiz. Qisqa forma
-            orqali biz bilan bog‘laning va maqsadlaringizga mos rejani
-            boshlaymiz.
+            O'z biznesingizda moliya tizimini to'g'ri yo'lga qoyish uchun
+            quyidagi havolani to'ldiring
           </p>
-
+          {/* 
           <div className="mt-9 flex flex-col gap-3 text-sm uppercase tracking-[0.35em] text-slate-400">
             <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-slate-200 md:text-sm">
               strategik audit • moliyaviy konsalting • kadrlar boshqaruvi
@@ -87,7 +94,7 @@ export default function Ads() {
             <span className="text-xs text-slate-500">
               doimiy qo‘llab-quvvatlash • shaffoflik • natija
             </span>
-          </div>
+          </div> */}
         </motion.div>
 
         <motion.div
@@ -151,6 +158,25 @@ export default function Ads() {
                   className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
                   placeholder="+998 __ ___ __ __"
                   required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  htmlFor="telegram"
+                  className="text-xs uppercase tracking-[0.35em] text-slate-400"
+                >
+                  Telegram username
+                </label>
+                <input
+                  type="text"
+                  id="telegram"
+                  value={formData.telegram}
+                  onChange={(e) =>
+                    setFormData({ ...formData, telegram: e.target.value })
+                  }
+                  className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-400 focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
+                  placeholder="@username"
                 />
               </div>
 

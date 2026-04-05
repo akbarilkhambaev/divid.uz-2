@@ -46,12 +46,16 @@ function stripScripts(html) {
   return String(html).replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
 }
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import './ck-content.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 export default function ServicesPage() {
+  const searchParams = useSearchParams();
+  const didAutoSelect = useRef(false);
+
   const [categories, setCategories] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [subcategories, setSubcategories] = useState([]);
@@ -80,7 +84,7 @@ export default function ServicesPage() {
 
         // Нормализуем категории
         const cats = data.map((cat) => ({
-          id: cat._docId,
+          id: cat.id ?? cat._docId,
           name: cat.name,
           subcategories: Array.isArray(cat.subcategories)
             ? cat.subcategories
@@ -96,24 +100,49 @@ export default function ServicesPage() {
     fetchData();
   }, []);
 
+  // Auto-select category/subcategory from URL params — runs once after categories load
   useEffect(() => {
-    if (selectedCategoryId) {
-      const cat = categories.find((c) => c.id === selectedCategoryId);
-      setSubcategories(cat?.subcategories || []);
-      setSelectedSubcategoryId(null);
-      setServices([]);
-      console.log('Подкатегории:', cat?.subcategories || []);
-    }
-  }, [selectedCategoryId, categories]);
+    if (categories.length === 0 || didAutoSelect.current) return;
+    const catId = searchParams.get('categoryId');
+    const subId = searchParams.get('subcategoryId');
+    if (!catId) return;
 
-  useEffect(() => {
-    if (selectedSubcategoryId) {
-      const sub = subcategories.find((s) => s.id === selectedSubcategoryId);
+    didAutoSelect.current = true;
+
+    const cat = categories.find((c) => String(c.id) === String(catId));
+    if (!cat) return;
+
+    const subs = cat.subcategories || [];
+    const targetSubId = subId ? subId : subs.length > 0 ? subs[0].id : null;
+
+    setSelectedCategoryId(catId);
+    setSubcategories(subs);
+
+    if (targetSubId) {
+      const sub = subs.find((s) => s.id === targetSubId);
+      setSelectedSubcategoryId(targetSubId);
       setServices(sub?.services || []);
-      console.log('Выбрана подкатегория:', selectedSubcategoryId);
-      console.log('Услуги:', sub?.services || []);
     }
-  }, [selectedSubcategoryId, subcategories]);
+  }, [categories, searchParams]);
+
+  // Manual category selection by user
+  const handleSelectCategory = (catId) => {
+    didAutoSelect.current = false;
+    const cat = categories.find((c) => String(c.id) === String(catId));
+    const subs = cat?.subcategories || [];
+    setSelectedCategoryId(catId);
+    setSubcategories(subs);
+    setSelectedSubcategoryId(null);
+    setServices([]);
+  };
+
+  // Manual subcategory selection by user
+  const handleSelectSubcategory = (subId) => {
+    didAutoSelect.current = false;
+    const sub = subcategories.find((s) => s.id === subId);
+    setSelectedSubcategoryId(subId);
+    setServices(sub?.services || []);
+  };
 
   // Sidebar becomes fixed on wide layouts so navigation stays in view.
   return (
@@ -141,11 +170,11 @@ export default function ServicesPage() {
                 >
                   <button
                     className={`group flex w-full items-center justify-between rounded-2xl border border-transparent px-4 py-3 text-left text-sm font-semibold uppercase tracking-[0.35em] transition-all duration-200 ${
-                      selectedCategoryId === cat.id
+                      String(selectedCategoryId) === String(cat.id)
                         ? 'bg-cs-blue/25 text-white'
                         : 'bg-white/5 text-slate-200 hover:bg-cs-blue/10 hover:text-white'
                     }`}
-                    onClick={() => setSelectedCategoryId(cat.id)}
+                    onClick={() => handleSelectCategory(cat.id)}
                   >
                     <span>{cat.name}</span>
                     <span className="text-xs text-slate-400">
@@ -155,7 +184,7 @@ export default function ServicesPage() {
                     </span>
                   </button>
 
-                  {selectedCategoryId === cat.id && (
+                  {String(selectedCategoryId) === String(cat.id) && (
                     <ul className="space-y-2 pl-3">
                       {cat.subcategories.map((sub) => (
                         <li key={sub.id}>
@@ -165,7 +194,7 @@ export default function ServicesPage() {
                                 ? 'bg-white/15 text-white'
                                 : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
                             }`}
-                            onClick={() => setSelectedSubcategoryId(sub.id)}
+                            onClick={() => handleSelectSubcategory(sub.id)}
                           >
                             {sub.name}
                           </button>
@@ -180,7 +209,7 @@ export default function ServicesPage() {
         </aside>
 
         <main className="flex-1 xl:fixed xl:top-28 xl:right-16 xl:bottom-8 xl:left-[420px] xl:overflow-y-auto xl:rounded-[28px] xl:border xl:h-[calc(100vh-7rem) xl:border-white/10 xl:bg-white/5 xl:shadow-[0_45px_95px_-60px_rgba(15,23,42,0.9)] xl:backdrop-blur-xl">
-          <div className=" sm:px-4">
+          <div className="p-0">
             {!selectedSubcategoryId ? (
               <div className="flex h-full min-h-[360px] w-full items-center justify-center rounded-[28px] border border-dashed border-white/15 bg-white/5 text-center text-slate-300 backdrop-blur-lg">
                 <div className="max-w-full">
