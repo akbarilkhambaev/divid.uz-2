@@ -46,13 +46,13 @@ function stripScripts(html) {
   return String(html).replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
 }
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import './ck-content.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
-export default function ServicesPage() {
+function ServicesContent() {
   const searchParams = useSearchParams();
   const didAutoSelect = useRef(false);
 
@@ -288,5 +288,13 @@ export default function ServicesPage() {
         </main>
       </div>
     </section>
+  );
+}
+
+export default function ServicesPage() {
+  return (
+    <Suspense>
+      <ServicesContent />
+    </Suspense>
   );
 }
