@@ -163,14 +163,14 @@ export default function Header() {
                     Kontaktlar
                   </Link>
                 </li>
-                <li className="hover:border-cs-blue border-b-2 border-transparent transition">
+                {/* <li className="hover:border-cs-blue border-b-2 border-transparent transition">
                   <Link
                     href="/academy"
                     className="hover:text-cs-blue"
                   >
                     DIVIDEND <span className="text-cs-blue">ACADEMY</span>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </nav>
 
