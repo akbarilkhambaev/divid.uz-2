@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'Divid.uz - Konsalting',
+  title: 'Dividendgroup.uz - Konsalting',
   description: 'Professional konsalting xizmatlari',
 };
 
