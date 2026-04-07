@@ -6,15 +6,15 @@ export default function HomePage() {
     <>
       <Head>
         <title>
-          Divid.uz — Konsalting, Moliya, Buxgalteriya, HR xizmatlari
+          Dividendgroup.uz — Konsalting, Moliya, Buxgalteriya, HR xizmatlari
         </title>
         <meta
           name="description"
-          content="Divid.uz — Konsalting, moliya, buxgalteriya va HR xizmatlari. Biznesingiz uchun professional maslahat, moliyaviy tahlil, kadrlar boshqaruvi va buxgalteriya xizmatlari."
+          content="Dividendgroup.uz — Konsalting, moliya, buxgalteriya va HR xizmatlari. Biznesingiz uchun professional maslahat, moliyaviy tahlil, kadrlar boshqaruvi va buxgalteriya xizmatlari."
         />
         <meta
           property="og:title"
-          content="Divid.uz — Konsalting, Moliya, Buxgalteriya, HR xizmatlari"
+          content="Dividendgroup.uz — Konsalting, Moliya, Buxgalteriya, HR xizmatlari"
         />
         <meta
           property="og:description"
@@ -26,7 +26,7 @@ export default function HomePage() {
         />
         <meta
           property="og:url"
-          content="https://divid.uz/"
+          content="https://dividendgroup.uz/"
         />
         <meta
           property="og:image"

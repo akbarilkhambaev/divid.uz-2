@@ -32,13 +32,13 @@ const defaultSettings = {
   mondayFriday: '9:00 - 18:00',
   saturday: '10:00 - 15:00',
   sunday: 'Dam olish',
-  phone: '+998 90 123 45 67',
+  phone: '+998 50 100 49 99',
   telegram: '@dividend_academy',
   telegramLink: 'https://t.me/dividend_academy',
   facebook: 'Dividend Academy',
   facebookLink: 'https://facebook.com/dividend.academy',
-  whatsapp: '+998 90 123 45 67',
-  whatsappLink: 'https://wa.me/998901234567',
+  whatsapp: '+998 50 100 49 99',
+  whatsappLink: 'https://wa.me/998501004999',
   socialFooter: 'Ijtimoiy tarmoqlarda biz bilan bog‘laning',
 };
 

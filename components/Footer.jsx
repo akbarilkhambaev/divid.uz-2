@@ -63,10 +63,10 @@ export default function Footer() {
           <p className="mb-1 text-sm md:text-base">
             Telefon:{' '}
             <a
-              href="tel:+998901234567"
+              href="tel:+998501004999"
               className="underline hover:text-cs-blue transition"
             >
-              +998 90 123 45 67
+              +998 50 100 49 99
             </a>
           </p>
           <p className="mb-1 text-sm md:text-base">
@@ -97,7 +97,7 @@ export default function Footer() {
               <FaFacebook className="text-2xl" />
             </a>
             <a
-              href="#"
+              href="https://t.me/+998501004999"
               aria-label="Telegram"
               className="hover:text-blue-400 transition"
             >

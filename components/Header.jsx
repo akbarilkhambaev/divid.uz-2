@@ -57,7 +57,7 @@ export default function Header() {
         {showTopBar && (
           <div className="hidden md:flex h-12 px-4 py-2 justify-between bg-cs-blue text-cs-white items-center border-b border-gray-200">
             <Link
-              href="tel:+998712000000"
+              href="tel:+998501004999"
               className="flex items-center"
             >
               <FiPhone className="text-cs-white text-xl mx-2" />
@@ -73,10 +73,10 @@ export default function Header() {
                   </span>
                 </Link>
                 <Link
-                  href="tel:+998712000000"
+                  href="tel:+998501004999"
                   className="text-[10px] uppercase"
                 >
-                  +998 71 000 00 00
+                  +998 50 100 49 99
                 </Link>
               </div>
               <Link
@@ -92,7 +92,7 @@ export default function Header() {
                 <FaFacebook className="text-cs-white text-xl mx-2" />
               </Link>
               <Link
-                href="#"
+                href="https://t.me/+998501004999"
                 className="flex items-center"
               >
                 <FaTelegram className="text-cs-white text-xl mx-2" />
@@ -271,11 +271,11 @@ export default function Header() {
                 <div className="mt-8 pt-8 border-t border-gray-200">
                   <div className="space-y-4">
                     <Link
-                      href="tel:+998712000000"
+                      href="tel:+998501004999"
                       className="flex items-center text-gray-700 hover:text-cs-blue"
                     >
                       <FiPhone className="text-xl mr-3" />
-                      <span>+998 71 000 00 00</span>
+                      <span>+998 50 100 49 99</span>
                     </Link>
                     <p className="text-sm text-gray-600">
                       Yunusobod t. Bektemir 87
@@ -297,7 +297,7 @@ export default function Header() {
                       <FaFacebook className="text-2xl" />
                     </Link>
                     <Link
-                      href="#"
+                      href="https://t.me/+998501004999"
                       className="text-gray-700 hover:text-cs-blue transition"
                     >
                       <FaTelegram className="text-2xl" />

@@ -1,21 +1,46 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IMaskInput } from 'react-imask';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  getDocs,
+} from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { sendToTelegram } from '@/lib/telegram';
 
 export default function Ads() {
+  const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
     phone: '+998 ',
     telegram: '',
-    topic: 'audit',
+    topic: '',
     message: '',
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, 'servicesTree'));
+        const cats = snapshot.docs.map((doc) => ({
+          id: doc.data().id ?? doc.id,
+          name: doc.data().name,
+        }));
+        setCategories(cats);
+        if (cats.length > 0) {
+          setFormData((prev) => ({ ...prev, topic: cats[0].name }));
+        }
+      } catch (error) {
+        console.error('Kategoriyalarni yuklashda xato:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +73,7 @@ export default function Ads() {
         name: '',
         phone: '+998 ',
         telegram: '',
-        topic: 'audit',
+        topic: categories[0]?.name ?? '',
         message: '',
       });
     } catch (error) {
@@ -196,24 +221,24 @@ export default function Ads() {
                   className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white outline-none transition focus:border-cs-blue/60 focus:ring-2 focus:ring-cs-blue/30"
                   required
                 >
-                  <option
-                    className="text-slate-900"
-                    value="audit"
-                  >
-                    AUDIT VA TAHLIL XIZMATLARI
-                  </option>
-                  <option
-                    className="text-slate-900"
-                    value="finance"
-                  >
-                    MOLIYAVIY KONSALTING
-                  </option>
-                  <option
-                    className="text-slate-900"
-                    value="hr"
-                  >
-                    HR VA KADRLAR BILAN ISHLASH
-                  </option>
+                  {categories.length === 0 ? (
+                    <option
+                      value=""
+                      disabled
+                    >
+                      Yuklanmoqda...
+                    </option>
+                  ) : (
+                    categories.map((cat) => (
+                      <option
+                        key={cat.id}
+                        className="text-slate-900"
+                        value={cat.name}
+                      >
+                        {cat.name.toUpperCase()}
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
 

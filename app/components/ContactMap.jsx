@@ -154,10 +154,10 @@ export default function ContactMap() {
             <div>
               Tel:{' '}
               <a
-                href="tel:+998901234567"
+                href="tel:+998501004999"
                 style={{ color: '#2563eb' }}
               >
-                +998 90 123-45-67
+                +998 50 100 49 99
               </a>
             </div>
             <div>
