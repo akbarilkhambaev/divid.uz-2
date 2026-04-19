@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { sendToTelegram } from '@/lib/telegram';
+import TurnstileWidget from '@/components/TurnstileWidget';
 import {
   FaPhone,
   FaTelegram,
@@ -52,6 +53,7 @@ export default function ContactFormSection() {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState(null);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -90,9 +92,11 @@ export default function ContactFormSection() {
         email: formData.email,
         message: formData.message,
         formType: 'academy_contact',
+        turnstileToken,
       });
 
       setSubmitted(true);
+      setTurnstileToken(null);
       setFormData({ name: '', phone: '', email: '', message: '' });
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
@@ -239,11 +243,15 @@ export default function ContactFormSection() {
                 ></textarea>
               </div>
 
+              <TurnstileWidget
+                onVerify={setTurnstileToken}
+                onExpire={() => setTurnstileToken(null)}
+              />
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                disabled={loading}
+                disabled={loading || !turnstileToken}
                 className="w-full bg-gradient-to-r from-cs-blue to-blue-600 text-white font-bold py-4 px-8 rounded-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Yuborilmoqda...' : 'Yuborish'}

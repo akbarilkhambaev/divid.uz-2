@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { sendToTelegram } from '@/lib/telegram';
+import TurnstileWidget from '@/components/TurnstileWidget';
 
 export default function Ads() {
   const [categories, setCategories] = useState([]);
@@ -22,6 +23,7 @@ export default function Ads() {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -66,9 +68,11 @@ export default function Ads() {
         message: formData.message,
         service: formData.topic,
         formType: 'ads',
+        turnstileToken,
       });
 
       setSubmitted(true);
+      setTurnstileToken(null);
       setFormData({
         name: '',
         phone: '+998 ',
@@ -263,9 +267,13 @@ export default function Ads() {
               </div>
             </div>
 
+            <TurnstileWidget
+              onVerify={setTurnstileToken}
+              onExpire={() => setTurnstileToken(null)}
+            />
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !turnstileToken}
               className="mt-8 w-full rounded-full border border-cs-blue/60 bg-cs-blue/90 px-6 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-white shadow-[0_25px_60px_-30px_rgba(59,130,246,0.9)] transition hover:shadow-[0_35px_80px_-35px_rgba(59,130,246,1)] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? 'Yuborilmoqda...' : 'Yuborish'}

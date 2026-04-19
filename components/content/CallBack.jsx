@@ -6,6 +6,7 @@ import { HiOutlineChatBubbleLeftRight, HiXMark } from 'react-icons/hi2';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { sendToTelegram } from '@/lib/telegram';
+import TurnstileWidget from '@/components/TurnstileWidget';
 
 export default function FullSupportWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,7 @@ export default function FullSupportWidget() {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState(null);
 
   return (
     <>
@@ -90,9 +92,11 @@ export default function FullSupportWidget() {
                       telegram: formData.telegram,
                       message: formData.message,
                       formType: 'callback',
+                      turnstileToken,
                     });
 
                     setSubmitted(true);
+                    setTurnstileToken(null);
                     setFormData({
                       name: '',
                       email: '',
@@ -182,9 +186,13 @@ export default function FullSupportWidget() {
                     required
                   />
                 </div>
+                <TurnstileWidget
+                  onVerify={setTurnstileToken}
+                  onExpire={() => setTurnstileToken(null)}
+                />
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !turnstileToken}
                   className="w-full rounded-full border border-cs-blue/60 bg-cs-blue/90 px-6 py-3 text-sm font-semibold uppercase tracking-[0.4em] text-white shadow-lg transition hover:shadow-[0_20px_40px_-30px_rgba(59,130,246,0.7)] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {loading ? 'Yuborilmoqda...' : 'Yuborish'}

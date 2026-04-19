@@ -3,11 +3,48 @@ import { NextResponse } from 'next/server';
 // Telegram Bot API
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
+
+async function verifyTurnstile(token, ip) {
+  const res = await fetch(
+    'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        secret: TURNSTILE_SECRET_KEY,
+        response: token,
+        ...(ip ? { remoteip: ip } : {}),
+      }),
+    },
+  );
+  const data = await res.json();
+  return data.success === true;
+}
 
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, phone, email, message, formType, service } = body;
+    const { name, phone, email, message, formType, service, turnstileToken } =
+      body;
+
+    // Verify Cloudflare Turnstile token
+    if (!turnstileToken) {
+      return NextResponse.json(
+        { success: false, error: 'Captcha token missing' },
+        { status: 400 },
+      );
+    }
+    const clientIp =
+      request.headers.get('cf-connecting-ip') ||
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+    const isHuman = await verifyTurnstile(turnstileToken, clientIp);
+    if (!isHuman) {
+      return NextResponse.json(
+        { success: false, error: 'Captcha verification failed' },
+        { status: 403 },
+      );
+    }
 
     if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
       console.error('Telegram credentials not configured');

@@ -7,6 +7,7 @@ import ContactMap from '../components/ContactMap';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { sendToTelegram } from '@/lib/telegram';
+import TurnstileWidget from '@/components/TurnstileWidget';
 import Head from 'next/head';
 import { FaInstagram, FaFacebook, FaTelegram } from 'react-icons/fa';
 
@@ -20,6 +21,7 @@ export default function ContactPage() {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState(null);
 
   function handleChange(e) {
     setFormData((prev) => ({
@@ -52,9 +54,11 @@ export default function ContactPage() {
         telegram: formData.telegram,
         message: formData.message,
         formType: 'contact',
+        turnstileToken,
       });
 
       setSubmitted(true);
+      setTurnstileToken(null);
       setFormData({
         name: '',
         email: '',
@@ -209,10 +213,14 @@ export default function ContactPage() {
                   placeholder="Xabaringizni yozing..."
                 />
               </div>
+              <TurnstileWidget
+                onVerify={setTurnstileToken}
+                onExpire={() => setTurnstileToken(null)}
+              />
               <button
                 className="bg-cs-blue hover:bg-cs-blue/80 transition text-white py-3 px-6 rounded-xl font-semibold shadow-md w-full text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 type="submit"
-                disabled={loading}
+                disabled={loading || !turnstileToken}
               >
                 {loading ? 'Yuborilmoqda...' : 'Yuborish'}
               </button>
